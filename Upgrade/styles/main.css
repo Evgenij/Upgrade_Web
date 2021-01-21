@@ -1,0 +1,159 @@
+@import url(../styles/normalize.css);
+* {
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  line-height: 1.4em;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  padding: 30px;
+}
+
+.menu {
+  padding: 35px 0px;
+  grid-area: menu;
+}
+
+.tabs-content {
+  grid-area: content;
+}
+
+.tabs {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 215px 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 55px;
+  grid-template-areas: "menu content";
+}
+
+.tabs-triggers header .logo {
+  margin-right: 20px;
+}
+.tabs-triggers header .name-app {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.tabs-triggers__item {
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.tabs-triggers__item:hover {
+  color: #8A66F0;
+}
+
+.tabs-triggers__item--active {
+  position: relative;
+}
+
+@-webkit-keyframes anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes anim-before {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+@keyframes anim-before {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+@-webkit-keyframes anim-after {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+@keyframes anim-after {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+.tabs-triggers__item--active span {
+  left: 99%;
+  top: 10px;
+  position: absolute;
+  height: 60%;
+  width: 6px;
+  border-radius: 5px;
+  background-color: #8A66F0;
+  -webkit-animation: anim 1s;
+          animation: anim 1s;
+}
+
+.tabs-triggers__item--active span::before,
+.tabs-triggers__item--active span::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  border-radius: 5px;
+  background-color: #8A66F0;
+}
+
+.tabs-triggers__item--active span::before {
+  left: -10px;
+  top: 7px;
+  height: 60%;
+  opacity: 0.7;
+  -webkit-animation-delay: 3s;
+          animation-delay: 3s;
+  -webkit-animation: anim-before 1s;
+          animation: anim-before 1s;
+}
+
+.tabs-triggers__item--active span::after {
+  left: -20px;
+  top: 11px;
+  height: 40%;
+  opacity: 0.5;
+  -webkit-animation-delay: 6s;
+          animation-delay: 6s;
+  -webkit-animation: anim-after 1s;
+          animation: anim-after 1s;
+}
+
+.tabs-content__item {
+  padding: 20px;
+  display: none;
+  background-color: #eee;
+}
+
+.tabs-content__item--active {
+  display: block;
+}

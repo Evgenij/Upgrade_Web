@@ -1,0 +1,52 @@
+
+$background: #F4F6FE;
+$title: #332F2F;
+$text: #A5A7BC;
+$gray: #DBDCE8;
+$border: #E6E8F7;
+$panel: #FFF;
+$panel-add: #F9F2FF;
+
+@mixin shadow() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.05);
+}
+@mixin shadow-avatar() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}
+
+body{
+	background-color: $background;
+	color: $title;
+}
+
+.panel{
+	background-color: $panel;
+	padding: 25px 30px;
+	border-radius: 15px;
+
+	&-add{
+		background-color: $panel-add;
+	}
+
+	&-big{
+		padding: 35px 40px;
+	}
+
+	@include shadow();
+}
+
+.title{
+	color: $title;
+}
+
+.text{
+	color: $text;
+}
+
+.icon{
+	color: $gray;
+}
+
+.avatar{
+	@include shadow-avatar();
+}

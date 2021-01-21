@@ -1,0 +1,31 @@
+body {
+  background-color: #1B1B1D;
+  color: #DBDCE8;
+}
+
+.panel {
+  background-color: #21242A;
+  padding: 25px 30px;
+  border-radius: 15px;
+  -webkit-box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+          box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}
+.panel-add {
+  background-color: #35373F;
+}
+.panel-big {
+  padding: 35px 40px;
+}
+
+.text {
+  color: #676873;
+}
+
+.icon {
+  color: #494951;
+}
+
+.avatar {
+  -webkit-box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
+          box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
+}

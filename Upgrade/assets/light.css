@@ -1,0 +1,35 @@
+body {
+  background-color: #F4F6FE;
+  color: #332F2F;
+}
+
+.panel {
+  background-color: #FFF;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.05);
+}
+
+.panel-add {
+  background-color: #F9F2FF;
+}
+
+.panel-big {
+  padding: 35px 40px;
+}
+
+.title {
+  color: #332F2F;
+}
+
+.text {
+  color: #A5A7BC;
+}
+
+.icon {
+  color: #DBDCE8;
+}
+
+.avatar {
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}

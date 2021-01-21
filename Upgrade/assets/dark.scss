@@ -1,0 +1,48 @@
+
+$background: #1B1B1D;
+$title:#DBDCE8;
+$text: #676873;
+$gray: #494951;
+$border: #2F2F32;
+$panel:#21242A;
+$panel-add: #35373F;
+
+@mixin shadow() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}
+@mixin shadow-avatar() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
+}
+
+body{
+	background-color: $background;
+	color: $title;
+}
+
+.panel{
+	background-color: $panel;
+	padding: 25px 30px;
+	border-radius: 15px;
+
+	&-add{
+		background-color: $panel-add;
+	}
+
+	&-big{
+		padding: 35px 40px;
+	}
+
+	@include shadow();
+}
+
+.text{
+	color: $text;
+}
+
+.icon{
+	color: $gray;
+}
+
+.avatar{
+	@include shadow-avatar();
+}
