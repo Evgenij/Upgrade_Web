@@ -6,7 +6,34 @@ namespace creator_sql_file
 {
     class Program
     {
-        
+
+        public static Random random = new Random();
+
+        public static string GetVariant(int var)
+        {
+            if (var == 1)
+            {
+                if (random.Next(0, 2) == 0)
+                {
+                    return "NULL";
+                }
+                else
+                {
+                    return "\'" + random.Next(1, 57).ToString() + "\'";
+                }
+            }
+            else
+            {
+                if (random.Next(0, 2) == 0)
+                {
+                    return "NULL";
+                }
+                else
+                {
+                    return "\'" + random.Next(1, 841).ToString() + "\'";
+                }
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -91,7 +118,7 @@ namespace creator_sql_file
                     fstream.Write(array, 0, array.Length);
                 }
 
-                for (int i = 0; i < specialization.Length; i++)
+                for (int i = 0; i < specialization.Length; i+=3)
                 {
                     for (int j = 0; j < 2; j++) 
                     {
@@ -111,9 +138,7 @@ namespace creator_sql_file
                     }
                 }
 
-                Random random = new Random();
-
-                for(int i = 1; i <= 80; i++)
+                for(int i = 1; i <= 28; i++)
                 {
                     for (int j = 0; j < 2; j++)
                     {
@@ -122,7 +147,7 @@ namespace creator_sql_file
                             "INSERT INTO `project` (`id_project`, `id_user`, `creator`, `name`, `mark`) VALUES(NULL, " +
                             "\'" + i.ToString() + "\', " +
                             "\'"+random.Next(0,2)+"\', " +
-                            "\'Project№" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
+                            "\'Project№" + (j + 1).ToString() + i.ToString() + "\', " +
                             "'#323232');"
                             );
                         // запись массива байтов в файл
@@ -130,23 +155,23 @@ namespace creator_sql_file
                     }
                 }
 
-
-                for (int i = 1; i <= 30; i++)
+                
+                for (int i = 1; i <= 56; i++)
                 {
                     // преобразуем строку в байты
                     byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
                         "INSERT INTO `attachment` (`id_attach`, `id_project`, `comment`, `date`, `time`) VALUES(NULL, " +
-                        "\'"+random.Next(1,161)+"\', " +
-                        "\'TextComments"+random.Next(0,90000)+"\', " +
-                        "\'"+random.Next(2000,2021)+"-" + random.Next(1,13) + "-" +random.Next(1, 31)+ "\', " +
+                        "\'"+random.Next(1,57)+"\', " +
+                        "\'TextComments - "+random.Next(0,90000)+"\', " +
+                        "\'"+random.Next(2000,2021)+"-" + random.Next(1,13) + "-" +random.Next(1, 29)+ "\', " +
                         "\'"+random.Next(0,25)+":"+random.Next(0,60)+":00\');"
                         );
                     // запись массива байтов в файл
                     fstream.Write(array, 0, array.Length);
                 }
-
                 
-                for (int i = 1; i <= 160; i++)
+                
+                for (int i = 1; i <= 56; i++)
                 {
                     for (int j = 1; j <= 3; j++) 
                     {
@@ -154,7 +179,7 @@ namespace creator_sql_file
                         byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
                             "INSERT INTO `target` (`id_target`, `id_project`, `name`, `mark`) VALUES(NULL, " +
                             "\'" + i.ToString() + "\', " +
-                            "\'NameTarget" + random.Next(0, 90000) + "\', " +
+                            "\'NameTarget - " + random.Next(0, 90000) + "\', " +
                             "'#121212');"
                             );
                         // запись массива байтов в файл
@@ -162,13 +187,94 @@ namespace creator_sql_file
                     }
                 }
 
+                
+                for (int i = 1; i <= 168; i++)
+                {
+                    for (int j = 1; j <= 5; j++)
+                    {
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                            "INSERT INTO `task` (`id_task`, `id_target`, `text`, `descr`, `duration`, `status`, `failed`) VALUES(NULL, " +
+                            "\'" + i.ToString() + "\', " +
+                            "\'Task - " + random.Next(1, 90000) + "\', " +
+                            "\'Description - " + random.Next(1, 90000) + "\', " +
+                            "\'" + random.Next(1, 481) + "\', " +
+                            "\'" + random.Next(0, 2) + "\', " +
+                            "\'" + random.Next(0, 2) + "\');"
+                            );
+                        // запись массива байтов в файл
+                        fstream.Write(array, 0, array.Length);
+                    }
+                }
 
+                for (int i = 1; i <= 50; i++)
+                {
+                    for (int j = 1; j <= 2; j++)
+                    {
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                            "INSERT INTO `subtask` (`id_subtask`, `id_task`, `text`, `status`) VALUES(NULL, " +
+                            "\'" + random.Next(1, 841) + "\', " +
+                            "\'TextSubtask - " + random.Next(1, 90000) + "\', " +
+                            "\'" + random.Next(0, 2) + "\');"
+                            );
+                        // запись массива байтов в файл
+                        fstream.Write(array, 0, array.Length);
+                    }
+                }
+
+
+                for (int i = 1; i <= 75; i++)
+                {
+                    for (int j = 1; j <= 2; j++)
+                    {
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                            "INSERT INTO `team` (`id_team`, `id_target`, `id_act`, `mark`) VALUES(NULL, " +
+                            "\'" + random.Next(1, 169) + "\', " +
+                            "\'" + random.Next(1, 15) + "\', " +
+                            "'#134543');"
+                            );
+                        // запись массива байтов в файл
+                        fstream.Write(array, 0, array.Length);
+                    }
+                }
+
+                for (int i = 1; i <= 75; i++)
+                {
+                    for (int j = 1; j <= 2; j++)
+                    {
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                            "INSERT INTO `file` (`id_file`, `id_attach`, `id_task`, `name`, `path`) VALUES(NULL, " +
+                            "" + GetVariant(1) + ", " +
+                            "" + GetVariant(2) + ", " +
+                            "\'FileName - " + random.Next(1, 90000) + "\', " +
+                            "\'uploads/file" + random.Next(1, 90000) + ".png\');"
+                            );
+                        // запись массива байтов в файл
+                        fstream.Write(array, 0, array.Length);
+                    }
+                }
+
+
+                for (int i = 1; i <= 100; i++)
+                {           
+                    // преобразуем строку в байты
+                    byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                        "INSERT INTO `user_team` (`id_user`, `id_team`) VALUES(" +
+                        "\'" + random.Next(1, 29) + "\', " +
+                        "\'" + random.Next(1, 151) + "\');"
+                        );
+                    // запись массива байтов в файл
+                    fstream.Write(array, 0, array.Length);
+                }
 
 
                 Console.WriteLine("Файл создан!");
             }
 
             Console.ReadKey();
-        }
+        }  
     }
 }
