@@ -1,0 +1,147 @@
+body {
+  padding: 0;
+  overflow: hidden;
+}
+
+.background .background__item {
+  position: absolute;
+  z-index: -100;
+}
+.background .background__item:first-child {
+  left: 150px;
+  top: -190px;
+}
+.background .background__item:nth-child(2) {
+  left: -200px;
+  top: 390px;
+}
+.background .background__item:nth-child(3) {
+  left: 1240px;
+  top: -85px;
+}
+.background .background__item:last-child {
+  left: 1270px;
+  top: 590px;
+}
+
+.content {
+  width: 100%;
+  height: 95%;
+}
+
+.auth {
+  padding: 60px 70px;
+  margin-left: 200px;
+}
+
+.auth-header {
+  margin-bottom: 60px;
+}
+.auth-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  width: 445px;
+  margin-bottom: 25px;
+}
+.auth-header .name-app {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+}
+.auth-header .name-app .logo {
+  height: 50px;
+  width: auto;
+}
+.auth-header .name-app p {
+  font-size: 45px;
+  color: #8A66F0;
+  font-weight: 800;
+}
+.auth-header .name-app img {
+  margin-right: 25px;
+}
+
+form {
+  margin-bottom: 80px;
+}
+form h2 {
+  padding-left: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+form.form-auth .input:last-child {
+  margin-bottom: 20px;
+}
+form.form-auth .remember-pass {
+  width: 100%;
+  text-align: right;
+  cursor: pointer;
+}
+form.form-auth .remember-pass:hover {
+  color: #8A66F0;
+}
+form.form-reg {
+  width: 550px;
+}
+form .row {
+  width: 100%;
+  margin-bottom: 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+form .row:nth-child(2) .row__item:first-child {
+  margin-right: 20px;
+}
+form .row:nth-child(3) .row__item:first-child {
+  margin-right: 20px;
+}
+form .row:nth-child(5) .row__item:first-child {
+  margin-right: 20px;
+}
+form .button {
+  margin-top: 20px;
+}
+
+.message-block {
+  display: block;
+  color: #e06262;
+  margin-bottom: 20px;
+}
+
+.nick-error {
+  margin-top: 10px;
+  display: block;
+  color: #e06262;
+}
+
+.hide {
+  display: none;
+}
+
+.auth-footer {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.auth-footer img {
+  margin-right: 10px;
+}
+.auth-footer a {
+  font-weight: 700;
+  color: #8A66F0;
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+}
+footer a {
+  font-weight: 700;
+  color: #8A66F0;
+  text-decoration: underline;
+}

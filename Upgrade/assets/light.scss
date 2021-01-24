@@ -1,11 +1,4 @@
-
-$background: #F4F6FE;
-$title: #332F2F;
-$text: #A5A7BC;
-$gray: #DBDCE8;
-$border: #E6E8F7;
-$panel: #FFF;
-$panel-add: #F9F2FF;
+@import "vars-light.scss";
 
 @mixin shadow() {
 	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.05);
@@ -49,4 +42,195 @@ body{
 
 .avatar{
 	@include shadow-avatar();
+}
+
+input.input{
+	font-size: 14px;
+	border: 2px solid $border;
+	border-radius: 10px;
+	padding: 18px 24px;
+	width: 100%;
+	background-color: $panel;
+	position: relative;
+	color: $title;
+
+	&:focus{
+		border-color: transparentize($main, 0.4);
+	}
+	
+	&.with-icon{
+		padding-left: 60px;
+	}
+}
+
+input.input,
+.custom-select-trigger{
+	&.error{
+		border-color: #ff9595;
+	}
+}
+
+
+
+.input-icon{
+	position: relative;
+	width: 100%;
+
+	&:before{
+		background-position: center;
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 65px;
+		height: 63px;
+		z-index: 10;
+	}
+
+	&.icon-email:before{
+		content: url(/pictures/icon-email.svg);
+	}
+	&.icon-password:before{
+		content: url(/pictures/icon-password.svg);
+	}
+	&.icon-smile:before{
+		content: url(/pictures/icon-smile.svg);
+	}
+	&.icon-nickname:before{
+		content: url(/pictures/icon-nickname.svg);
+	}
+}
+
+.password{
+	position: relative;
+	width: 100%;
+}
+
+.password-control{
+	position: absolute;
+	top: calc(50% - 9px);
+	right: 20px;
+	width: 21px;
+	height: 21px;
+	background: url(/pictures/view.svg) no-repeat;
+	background-position: 0 50%;
+
+	&.view{
+		background: url(/pictures/no-view.svg) 0 no-repeat;
+	}
+}
+
+
+// select 
+
+/** Custom Select **/
+.custom-select-wrapper {
+	position: relative;
+	display: inline-block;
+	user-select: none;
+	width: 100%;
+}
+.custom-select-wrapper select {
+	display: none;
+}
+.custom-select {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+.custom-select-trigger {
+	position: relative;
+	display: block;
+	width: 100%;
+	padding: 18px 50px 18px 24px;
+	background: $panel;
+	border-radius: 10px;
+	cursor: pointer;
+	border: 2px solid $border;
+	color: $title;
+	white-space: nowrap;
+}
+.custom-select-trigger:after {
+	position: absolute;
+	display: block;
+	content: '';
+	width: 10px; 
+	height: 10px;
+	top: 50%; 
+	right: 25px;
+	margin-top: -3px;
+	border-bottom: 2px solid $gray;
+	border-right: 2px solid $gray;
+	transform: rotate(45deg) translateY(-50%);
+	transition: all .4s ease-in-out;
+	transform-origin: 50% 0;
+}
+.custom-select.opened .custom-select-trigger:after {
+	margin-top: 3px;
+	transform: rotate(-135deg) translateY(-50%);
+}
+.custom-options {
+	z-index: 100;
+	position: absolute;
+	display: block;
+	top: 100%; 
+	left: 0; 
+	right: 0;
+	min-width: 100%;
+	max-height: 300px;
+    overflow-y: auto;
+	margin: 5px 0px 0px 0px;
+	border: 1px solid $border;
+	border-radius: 10px;
+	@include shadow();
+	background: $panel;
+	transition: all .4s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transform: translateY(-15px);
+}
+.custom-select.opened .custom-options {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: all;
+	transform: translateY(0);
+}
+
+.custom-option {
+	position: relative;
+	display: block;
+    padding: 18px 24px;
+	border-bottom: 1px solid $border;
+	color: $title;
+	cursor: pointer;
+	transition: all .2s ease-in-out;
+}
+.custom-option:first-of-type {
+	border-radius: 4px 4px 0 0;
+}
+.custom-option:last-of-type {
+	border-bottom: 0;
+	border-radius: 0 0 4px 4px;
+}
+.custom-option:hover,
+.custom-option.selection {
+	color: $main;
+}
+
+// select 
+
+
+.button{
+	padding: 13px 30px;
+	border-radius: 40px;
+	background: $gradient;
+	color: white;
+	box-shadow: 2px 10px 30px rgba(136, 78, 210, 0.3);
+	transition: 0.3s;
+	position: relative;
+
+	&:hover{
+		background: linear-gradient(93.07deg, #B086FC 0%, #4F5CE6 100%);
+	}
 }

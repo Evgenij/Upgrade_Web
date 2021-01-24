@@ -34,6 +34,7 @@ input,
 button,
 textarea {
   font-family: inherit;
+  outline: none;
 }
 
 input::-ms-clear {
@@ -47,6 +48,11 @@ button {
 button::-moz-focus-inner {
   padding: 0;
   border: 0;
+}
+
+button:active,
+button:focus {
+  outline: none;
 }
 
 a,
@@ -68,7 +74,8 @@ img {
 
 * {
   font-family: 'Manrope', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.4em;
 }
 
@@ -95,7 +102,7 @@ body {
   display: grid;
   grid-template-columns: 215px 1fr;
   grid-template-rows: 1fr;
-  gap: 0px 55px;
+  gap: 0px 45px;
   grid-template-areas: "menu content";
 }
 
@@ -124,7 +131,7 @@ body {
   position: relative;
 }
 
-@keyframes anim {
+@keyframes show-menu-indicator {
   0% {
     opacity: 0;
   }
@@ -133,17 +140,11 @@ body {
   }
 }
 
-@keyframes anim-before {
+@keyframes menu-indicator-before {
   0% {
     opacity: 0;
   }
-  100% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes anim-after {
-  0% {
+  25% {
     opacity: 0;
   }
   100% {
@@ -159,11 +160,11 @@ body {
   width: 6px;
   border-radius: 5px;
   background-color: #8A66F0;
-  animation: anim 1s;
+  animation-delay: 1s;
+  animation: show-menu-indicator 1.5s ease;
 }
 
-.tabs-triggers__item--active span::before,
-.tabs-triggers__item--active span::after {
+li.tabs-triggers__item--active::before {
   content: '';
   position: absolute;
   width: 6px;
@@ -171,22 +172,12 @@ body {
   background-color: #8A66F0;
 }
 
-.tabs-triggers__item--active span::before {
-  left: -10px;
-  top: 7px;
-  height: 60%;
-  opacity: 0.7;
-  animation-delay: 3s;
-  animation: anim-before 1s;
-}
-
-.tabs-triggers__item--active span::after {
-  left: -20px;
-  top: 11px;
+li.tabs-triggers__item--active::before {
+  left: 94%;
+  top: 16px;
   height: 40%;
   opacity: 0.5;
-  animation-delay: 6s;
-  animation: anim-after 1s;
+  animation: menu-indicator-before 1s;
 }
 
 .tabs-content__item {

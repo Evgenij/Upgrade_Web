@@ -34,6 +34,7 @@ input,
 button,
 textarea {
     font-family: inherit;
+    outline: none;
 }
 
 input::-ms-clear {
@@ -47,6 +48,11 @@ button {
 button::-moz-focus-inner {
     padding: 0;
     border: 0;
+}
+
+button:active,
+button:focus {
+    outline: none;
 }
 
 a,

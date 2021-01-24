@@ -1,4 +1,4 @@
-.flex{
+.flex {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,4 +6,5 @@
 
 .f-col {
     flex-direction: column;
+    align-items: flex-start;
 }

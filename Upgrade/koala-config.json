@@ -4,7 +4,7 @@
 	"mappings": [
 		{
 			"src": "assets/",
-			"dest": "./styles/"
+			"dest": "styles/"
 		}
 	],
 
