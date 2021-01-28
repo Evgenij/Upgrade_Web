@@ -77,6 +77,8 @@ img {
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4em;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -89,12 +91,13 @@ body {
 }
 
 .menu {
-  padding: 35px 0px;
+  padding: 35px 30px;
   grid-area: menu;
 }
 
 .tabs-content {
   grid-area: content;
+  min-height: fit-content;
 }
 
 .tabs {
@@ -104,6 +107,10 @@ body {
   grid-template-rows: 1fr;
   gap: 0px 45px;
   grid-template-areas: "menu content";
+}
+
+.tabs-triggers header {
+  margin-bottom: 35px;
 }
 
 .tabs-triggers header .logo {
@@ -116,11 +123,11 @@ body {
 }
 
 .tabs-triggers__item {
-  font-weight: 600;
   text-align: center;
-  padding: 20px;
-  transition: 0.5s;
+  padding: 15px 0px;
+  transition: 0.3s;
   cursor: pointer;
+  font-size: 16px;
 }
 
 .tabs-triggers__item:hover {
@@ -153,7 +160,7 @@ body {
 }
 
 .tabs-triggers__item--active span {
-  left: 99%;
+  left: 117%;
   top: 10px;
   position: absolute;
   height: 60%;
@@ -173,7 +180,7 @@ li.tabs-triggers__item--active::before {
 }
 
 li.tabs-triggers__item--active::before {
-  left: 94%;
+  left: 110%;
   top: 16px;
   height: 40%;
   opacity: 0.5;
@@ -181,11 +188,379 @@ li.tabs-triggers__item--active::before {
 }
 
 .tabs-content__item {
-  padding: 20px;
   display: none;
-  background-color: #eee;
 }
 
-.tabs-content__item--active {
+.tabs-content__item:first-child {
+  grid-template-columns: 1fr 1fr 440px;
+  grid-template-rows: 75px 265px 1fr;
+  gap: 40px 40px;
+  grid-template-areas: "head head head" "welcome welcome projects-progress" "week-statistic general-statistic projects-progress";
+}
+
+.tabs-content .tabs-content__item--active {
+  display: grid;
+  height: 100%;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 75px;
+  gap: 0px 0px;
+  grid-template-areas: "header user-panel";
+  grid-area: head;
+}
+
+.user-panel {
+  grid-area: user-panel;
+  justify-content: flex-end;
+}
+
+.user-panel-wrapper {
+  position: relative;
+  padding-right: 55px;
+  cursor: pointer;
+}
+
+.user-panel-wrapper .user-data {
+  align-items: flex-end;
+}
+
+.user-panel-wrapper .user-data__nickname {
+  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.user-panel-wrapper .user-data__fullname {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.user-panel-wrapper .user-data__spec {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.user-panel-wrapper .user-avatar {
+  height: 75px;
+  width: 75px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 25px;
+}
+
+.user-panel-wrapper .user-avatar__photo {
+  height: auto;
+  width: 100%;
+}
+
+.user-panel-wrapper:before {
+  position: absolute;
   display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  right: 25px;
+  margin-top: -3px;
+  border-bottom: 2px solid #8A66F0;
+  border-right: 2px solid #8A66F0;
+  transform: rotate(45deg) translateY(-50%);
+  transition: all .4s ease-in-out;
+  transform-origin: 50% 0;
+}
+
+.user-panel-wrapper.active:before {
+  margin-top: 3px;
+  transform: rotate(-135deg) translateY(-50%);
+}
+
+.user-menu {
+  z-index: 1;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 130%;
+}
+
+.user-menu .user-menu__item {
+  padding: 10px 0px;
+  transition: 0.3s;
+}
+
+.user-menu .user-menu__item:nth-child(2) {
+  padding-bottom: 15px;
+  justify-content: flex-start;
+}
+
+.user-menu .user-menu__item:nth-child(2) .menu-item__title {
+  margin-right: 13px;
+  font-weight: 600;
+}
+
+.user-menu .user-menu__item:nth-child(3) {
+  padding: 15px 0px;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.user-menu .user-menu__item:nth-child(4) {
+  padding-top: 15px;
+}
+
+.user-menu .user-menu__item:nth-child(4) a {
+  color: #A5A7BC;
+  text-decoration: underline;
+}
+
+.user-menu .user-menu__item:nth-child(4) a:hover {
+  color: #8A66F0;
+}
+
+.user-menu .user-menu__item:hover {
+  color: #8A66F0;
+}
+
+.user-menu .menu-item__icon {
+  margin-right: 13px;
+  width: 22px;
+  height: 22px;
+}
+
+.user-menu.active {
+  display: block;
+  animation: show-user-menu 0.5s;
+}
+
+@keyframes show-user-menu {
+  0% {
+    top: 100%;
+    opacity: 0;
+  }
+  100% {
+    top: 130%;
+    opacity: 1;
+  }
+}
+
+.header {
+  grid-area: header;
+  justify-content: flex-start;
+}
+
+.header .title-section {
+  margin-bottom: 0;
+  grid-area: title;
+}
+
+.welcome {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "peoples welcome-content";
+  grid-area: welcome;
+  position: relative;
+  max-height: 265px;
+  padding-right: 80px;
+  background-image: url(/pictures/icons/welcome-background.svg);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+}
+
+.welcome .peoples {
+  position: absolute;
+  bottom: -40px;
+  left: -10px;
+  grid-area: peoples;
+}
+
+.welcome .welcome-content {
+  grid-area: welcome-content;
+}
+
+.welcome .welcome-content .button {
+  min-width: 75px;
+  min-height: 75px;
+  margin-left: 30px;
+  position: relative;
+}
+
+.welcome .welcome-content .button:before {
+  content: url(/pictures/icons/icon-play.svg);
+  position: absolute;
+  left: 29px;
+  top: 20px;
+}
+
+.projects-progress {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "title" "list";
+  grid-area: projects-progress;
+  max-width: 440px;
+}
+
+.week-statistic {
+  grid-area: week-statistic;
+}
+
+.general-statistic {
+  grid-area: general-statistic;
+  min-width: 440px;
+}
+
+.welcome .welcome__title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.welcome .welcome__title .user-name {
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.welcome .welcome__text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.projects-list {
+  grid-area: list;
+  overflow-y: auto;
+  padding: 0px 30px 0px 10px;
+}
+
+.list-blocks .list-blocks__item {
+  margin-bottom: 20px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.project__small .project-name {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.project__small .progress {
+  position: relative;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.project__small .progress .text {
+  font-weight: 500;
+}
+
+.project__small .progress-labels {
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 7px;
+  font-weight: 500;
+}
+
+.project__small .progress .percent {
+  font-weight: 800;
+  font-size: 18px;
+  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.project__small .progress.arrow {
+  padding-right: 40px;
+}
+
+.project__small .progress.arrow.active::before {
+  margin-top: 3px;
+  transform: rotate(-135deg) translateY(-50%);
+}
+
+.project__small .progress.arrow:before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  right: 5px;
+  margin-top: -3px;
+  border-bottom: 2px solid #8A66F0;
+  border-right: 2px solid #8A66F0;
+  transform: rotate(45deg) translateY(-50%);
+  transition: all .4s ease-in-out;
+  transform-origin: 50% 0;
+}
+
+.project__small .project-targets {
+  margin-right: 10px;
+}
+
+.project__small .project-items {
+  justify-content: flex-start;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.progress-bar__current {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 5px;
+  border-radius: 5px;
+  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
+}
+
+.list-targets {
+  transition: max-height 0.4s;
+  overflow: hidden;
+  padding-left: 10px;
+}
+
+.list-targets[aria-hidden="true"] {
+  max-height: 0;
+}
+
+.list-targets[aria-hidden="false"] {
+  max-height: var(--containerHeight, 1000px);
+  margin-top: 20px;
+}
+
+.target-item {
+  margin-bottom: 20px;
+}
+
+.target-item .target-item__number {
+  font-size: 22px;
+  margin-right: 25px;
+}
+
+.target-item .target-item__content {
+  width: 100%;
+}
+
+.target-item .target-item__content .progress {
+  margin-bottom: 0;
+}
+
+.target-item:last-child {
+  margin-bottom: 10px;
 }

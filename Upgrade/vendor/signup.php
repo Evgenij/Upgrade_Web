@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 require_once "connect.php";
 
 $name = trim($_POST['name']);
@@ -11,22 +10,9 @@ $email = trim($_POST['email']);
 $password = trim($_POST['password']);
 $password_confirm = trim($_POST['password_confirm']);
 
-// $check_login = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login'");
-// if (mysqli_num_rows($check_login) > 0) {
-//     $response = [
-//         "status" => false,
-//         "type" => 1,
-//         "message" => "Такой логин уже существует",
-//         "fields" => ['login']
-//     ];
-
-//     echo json_encode($response);
-//     die();
-// }
-
-$sql = 'SELECT * FROM user WHERE nickname = :userNickname AND email = :userEmail AND password = :userPassword';
+$sql = 'SELECT * FROM user WHERE name = :userName AND surname = :userSurname AND email = :userEmail';
 $tempSql = $db->prepare($sql);
-$params = [':userNickname' => $nickname, ':userEmail' => $email, ':userPassword' => $password];
+$params = [':userName' => $name, ':userSurname' => $surname, ':userEmail' => $email];
 $tempSql->execute($params);
 
 if ($tempSql->rowCount() > 0) {
@@ -79,7 +65,6 @@ if ($tempSql->rowCount() > 0) {
         ];
 
         echo json_encode($response);
-
         die();
     }
     else{
@@ -92,17 +77,22 @@ if ($tempSql->rowCount() > 0) {
                 $params = [
                     ':idSpec' => $id_spec,
                     ':userEmail' => $email,
-                    ':userPassword' => md5($password),
+                    ':userPassword' => password_hash($password, PASSWORD_DEFAULT),
                     ':userNickname' => $nickname,
                     ':userName' => $name,
                     ':userSurname' => $surname
                 ];
                 $tempSql->execute($params);
 
+                //регистрация пользователя выполнена успешно
+                $_SESSION['registered'] = true;
+                $_SESSION['email'] = $email;
+
                 $response = [
                     "status" => true
                 ];
                 echo json_encode($response);
+                die();
             }
             catch(PDOException $ex){
                 $response = [
@@ -111,10 +101,10 @@ if ($tempSql->rowCount() > 0) {
                     "message" => $ex->getMessage()
                 ];
                 echo json_encode($response);
+                die();
             }
         }  
         else{
-
             $error_fields[] = 'password';
             $error_fields[] = 'password_confirm';
 

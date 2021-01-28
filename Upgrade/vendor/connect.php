@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 $driver = 'mysql';
 $host = 'localhost';
 $dbName = 'upgrade_db';
@@ -9,7 +10,6 @@ $charset = 'utf8';
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ];
-
 
 try {
     $db = new PDO(

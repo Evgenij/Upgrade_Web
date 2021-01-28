@@ -7,11 +7,11 @@ body {
   background-color: #21242A;
   padding: 25px 30px;
   border-radius: 15px;
-  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.05);
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
 }
 
 .panel-add {
-  background-color: #35373F;
+  background-color: #292D36;
 }
 
 .panel-big {
@@ -26,32 +26,36 @@ body {
   color: #676873;
 }
 
-.icon {
+.icon, .gray {
   color: #494951;
 }
 
 .avatar {
-  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
 }
 
 input.input {
   font-size: 14px;
-  font-weight: 500;
   border: 2px solid #2F2F32;
   border-radius: 10px;
   padding: 18px 24px;
-  margin-bottom: 15px;
   width: 100%;
   background-color: #21242A;
   position: relative;
+  color: #DBDCE8;
 }
 
 input.input:focus {
-  border-color: #8A66F0;
+  border-color: rgba(138, 102, 240, 0.6);
 }
 
 input.input.with-icon {
   padding-left: 60px;
+}
+
+input.input.error,
+.custom-select-trigger.error {
+  border-color: #ff9595;
 }
 
 .input-icon {
@@ -66,16 +70,24 @@ input.input.with-icon {
   justify-content: center;
   align-items: center;
   width: 65px;
-  height: 59px;
+  height: 63px;
   z-index: 10;
 }
 
 .input-icon.icon-email:before {
-  content: url(/pictures/icon-email.svg);
+  content: url(/pictures/icons/icon-email.svg);
 }
 
 .input-icon.icon-password:before {
-  content: url(/pictures/icon-password.svg);
+  content: url(/pictures/icons/icon-password.svg);
+}
+
+.input-icon.icon-smile:before {
+  content: url(/pictures/icons/icon-smile.svg);
+}
+
+.input-icon.icon-nickname:before {
+  content: url(/pictures/icons/icon-nickname.svg);
 }
 
 .password {
@@ -85,16 +97,121 @@ input.input.with-icon {
 
 .password-control {
   position: absolute;
-  top: calc(50% - 17px);
+  top: calc(50% - 9px);
   right: 20px;
   width: 21px;
   height: 21px;
-  background: url(/pictures/view.svg) no-repeat;
+  background: url(/pictures/icons/view.svg) no-repeat;
   background-position: 0 50%;
 }
 
 .password-control.view {
-  background: url(/pictures/no-view.svg) 0 no-repeat;
+  background: url(/pictures/icons/no-view.svg) 0 no-repeat;
+}
+
+/** Custom Select **/
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  width: 100%;
+}
+
+.custom-select-wrapper select {
+  display: none;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 18px 50px 18px 24px;
+  background: #21242A;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid #2F2F32;
+  color: #DBDCE8;
+  white-space: nowrap;
+}
+
+.custom-select-trigger:after {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  right: 25px;
+  margin-top: -3px;
+  border-bottom: 2px solid #494951;
+  border-right: 2px solid #494951;
+  transform: rotate(45deg) translateY(-50%);
+  transition: all .4s ease-in-out;
+  transform-origin: 50% 0;
+}
+
+.custom-select.opened .custom-select-trigger:after {
+  margin-top: 3px;
+  transform: rotate(-135deg) translateY(-50%);
+}
+
+.custom-options {
+  z-index: 100;
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 5px 0px 0px 0px;
+  border: 1px solid #2F2F32;
+  border-radius: 10px;
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+  background: #21242A;
+  transition: all .4s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-15px);
+}
+
+.custom-select.opened .custom-options {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.custom-option {
+  position: relative;
+  display: block;
+  padding: 18px 24px;
+  border-bottom: 1px solid #2F2F32;
+  color: #DBDCE8;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.custom-option:first-of-type {
+  border-radius: 4px 4px 0 0;
+}
+
+.custom-option:last-of-type {
+  border-bottom: 0;
+  border-radius: 0 0 4px 4px;
+}
+
+.custom-option:hover,
+.custom-option.selection {
+  color: #8A66F0;
 }
 
 .button {
@@ -107,6 +224,152 @@ input.input.with-icon {
   position: relative;
 }
 
+.button.small {
+  padding: 6px 15px;
+  font-size: 22px;
+  border-radius: 100px;
+}
+
 .button:hover {
   background: linear-gradient(93.07deg, #B086FC 0%, #4F5CE6 100%);
+}
+
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.checkbox-theme {
+  position: relative;
+  top: 50%;
+  width: 32px;
+  height: 20px;
+  overflow: hidden;
+  border: 2px solid #494951;
+}
+
+.checkbox-theme.r,
+.checkbox-theme.r .layer {
+  border-radius: 30px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #21242A;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+/* Button 3 */
+#checkbox-theme .knobs:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #8A66F0;
+  border-radius: 50%;
+  transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+}
+
+#checkbox-theme .checkbox:active + .knobs:before {
+  width: 22px;
+  border-radius: 30px;
+}
+
+#checkbox-theme .checkbox:checked:active + .knobs:before {
+  margin-left: -15px;
+}
+
+#checkbox-theme .checkbox:checked + .knobs:before {
+  content: '';
+  left: 14px;
+}
+
+.block-task {
+  padding: 15px 20px;
+  background: #292D36;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.block-task .block-task__text {
+  color: #8A66F0;
+}
+
+.title-section {
+  padding-left: 40px;
+  margin-bottom: 35px;
+}
+
+.title-section__title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+
+.title-section__subtitle {
+  color: #676873;
+  font-size: 16px;
+}
+
+.title-section__subtitle .subtitle__color {
+  font-size: inherit;
+  color: #8A66F0;
+}
+
+*::-webkit-scrollbar-button {
+  background-image: url("");
+  background-repeat: no-repeat;
+  width: 10px;
+  height: 0px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #2F2F32;
+  cursor: pointer;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(138, 102, 240, 0.4);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(138, 102, 240, 0.7);
+}
+
+*::-webkit-resizer {
+  background-image: url("");
+  background-repeat: no-repeat;
+  width: 7px;
+  height: 0px;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+}
+
+.progress-bar {
+  background-color: #2F2F32;
 }
