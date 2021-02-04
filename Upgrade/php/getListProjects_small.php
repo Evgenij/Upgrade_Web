@@ -32,10 +32,10 @@ if ($query->rowCount() > 0) {
 
         echo '<div class="project__small list-blocks__item container panel">';
             echo '<h3 class="project-name name">' . $row['name'] . '</h3>';
-            echo '<div class="progress arrow flex f-col trigger">';
+            echo '<div class="progress arrow empty flex f-col trigger">';
                 echo '<div class="progress-labels flex">';
                     echo '<div class="progress-labels__item text">Прогресс</div>';
-                    echo '<div class="progress-labels__item percent">' . $completionProject . '%</div>';
+                    echo '<div class="progress-labels__item percent text-gradient">' . $completionProject . '%</div>';
                 echo '</div>';
                 echo '<div class="progress-bar">';
                     echo '<div class="progress-bar__current" style="width:' . $completionProject . '%;"></div>';
@@ -69,7 +69,7 @@ if ($query->rowCount() > 0) {
                             echo '<div class="progress flex f-col">';
                                 echo '<div class="progress-labels flex">';
                                 echo '<div class="progress-labels__item text">Прогресс</div>';
-                                    echo '<div class="progress-labels__item percent">'. $completionTarget .'%</div>';
+                                    echo '<div class="progress-labels__item percent text-gradient">'. $completionTarget .'%</div>';
                                 echo '</div>';
                                 echo '<div class="progress-bar">';
                                     echo '<div class="progress-bar__current" style="width:' . $completionTarget . '%;"></div>';
@@ -81,12 +81,22 @@ if ($query->rowCount() > 0) {
                     $num_target += 1;
                 }
                 echo '</div>';
+
+            } else {
+                echo '<div class="list-targets content" style="display:none;"></div>';
             }
         echo '</div>';
     }
 }
 else{
-    echo 'empty';
+    echo '<div class="data-not-found flex f-col">
+            <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon">
+                <path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="data-not-found__text text">Данные не найдены</p>
+        </div>';
 }
 
 

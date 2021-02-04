@@ -1,4 +1,10 @@
 @import url(../styles/normalize.css);
+.text-gradient {
+  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 * {
   font-family: 'Manrope', sans-serif;
   font-size: 14px;
@@ -27,9 +33,7 @@ body {
 
 .tabs-content {
   grid-area: content;
-  min-height: -webkit-fit-content;
-  min-height: -moz-fit-content;
-  min-height: fit-content;
+  min-height: 100%;
 }
 
 .tabs {
@@ -142,7 +146,7 @@ li.tabs-triggers__item--active::before {
   display: none;
 }
 .tabs-content__item:first-child {
-  grid-template-columns: 1fr 1fr 440px;
+  grid-template-columns: 625px 1fr 440px;
   grid-template-rows: 75px 265px 1fr;
   gap: 40px 40px;
   grid-template-areas: "head head head" "welcome welcome projects-progress" "week-statistic general-statistic projects-progress";
@@ -178,11 +182,6 @@ li.tabs-triggers__item--active::before {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-}
-.user-panel-wrapper .user-data__nickname {
-  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 .user-panel-wrapper .user-data__fullname {
   font-weight: 800;
@@ -391,6 +390,12 @@ li.tabs-triggers__item--active::before {
   font-weight: 500;
 }
 
+.color-bold {
+  font-weight: 800;
+  color: #8A66F0;
+  font-size: inherit;
+}
+
 .projects-list {
   grid-area: list;
   overflow-y: auto;
@@ -432,9 +437,6 @@ li.tabs-triggers__item--active::before {
 .project__small .progress .percent {
   font-weight: 800;
   font-size: 18px;
-  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 .project__small .progress.arrow {
   padding-right: 40px;
@@ -515,4 +517,105 @@ li.tabs-triggers__item--active::before {
 }
 .target-item:last-child {
   margin-bottom: 10px;
+}
+
+.data-not-found {
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.data-not-found__icon {
+  margin-bottom: 10px;
+}
+
+.week-statistic {
+  min-height: 100%;
+}
+.week-statistic__header {
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 15px;
+}
+.week-statistic .current-performance__value {
+  font-weight: 800;
+  font-size: 24px;
+}
+.week-statistic .last-performance__value {
+  font-size: 16px;
+}
+.week-statistic__chart {
+  height: 100%;
+  width: 100%;
+}
+.week-statistic #weekly-chart {
+  max-height: 100%;
+}
+
+.general-statistic {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  line-height: 1em;
+}
+.general-statistic .row {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+.general-statistic .row__data {
+  width: 100%;
+  margin-top: 15px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+.general-statistic .row:last-child .row__data {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.general-statistic .row:last-child .block-value:first-child {
+  padding-right: 40px;
+}
+.general-statistic .row:last-child .block-value:last-child {
+  padding-left: 40px;
+}
+.general-statistic .main-value {
+  font-size: 45px;
+  font-weight: 800;
+  line-height: 1em;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.general-statistic .second-value {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1em;
+}
+.general-statistic .block-value {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.general-statistic .block-value .label-value {
+  margin-top: 5px;
+}
+.general-statistic .data__second {
+  width: 60%;
+}
+.general-statistic .data__second .block-value:first-child {
+  padding-right: 30px;
+}
+.general-statistic .data__second .block-value:last-child {
+  padding-left: 30px;
 }

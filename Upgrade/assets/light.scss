@@ -30,6 +30,8 @@ body{
 
 .title{
 	color: $title;
+	font-size: 18px;
+	font-weight: 800;
 }
 
 .text{
@@ -40,10 +42,21 @@ body{
 	color: $gray;
 }
 
+.data-not-found__icon{
+	& path{
+		stroke: $text;
+	}
+}
+
 .avatar{
 	@include shadow-avatar();
 }
 
+.week-statistic{
+	& line{
+		color: text;
+	}
+}
 
 
 
@@ -136,8 +149,6 @@ input.input,
 .custom-select-wrapper {
 	position: relative;
 	display: inline-block;
-	user-select: none;
-	width: 100%;
 }
 .custom-select-wrapper select {
 	display: none;
@@ -151,7 +162,7 @@ input.input,
 	position: relative;
 	display: block;
 	width: 100%;
-	padding: 18px 50px 18px 24px;
+	padding: 18px 55px 18px 24px;
 	background: $panel;
 	border-radius: 10px;
 	cursor: pointer;
@@ -198,6 +209,7 @@ input.input,
 	visibility: hidden;
 	pointer-events: none;
 	transform: translateY(-15px);
+    min-width: max-content;
 }
 .custom-select.opened .custom-options {
 	opacity: 1;
@@ -405,4 +417,30 @@ input.input,
 
 .progress-bar{
     background-color: $border;
+}
+
+svg.weekly-chart{
+	
+	& line{
+		stroke: $gray;
+	}
+}
+
+
+
+.general-statistic{
+	.row:last-child{
+		.block-value{
+			&:first-child{
+				border-right: 1px solid $gray;
+			}
+		}
+	}
+    .data__second{
+        .block-value{
+            &:first-child{
+                border-right: 1px solid $gray;
+            }
+        }
+    }
 }

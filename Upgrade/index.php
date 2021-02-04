@@ -57,7 +57,7 @@ require_once "vendor/connect.php";
                 </div>
                 <div class="row flex f-col">
                     <div class="password input-icon icon-password">
-                        <input type="password" name="password" class="input with-icon password-input" id="password" placeholder="введите пароль" value="D9P2I5Ju">
+                        <input type="password" name="password" class="input with-icon password-input" id="password" placeholder="введите пароль" value="1">
                         <a href="#" class="password-control flex" onmousedown="mouseDown(this)" onmouseup="mouseUp(this)"></a>
                     </div>
                     <a class="remember-pass text" href="recovery_pass.php">забыли пароль?</a>

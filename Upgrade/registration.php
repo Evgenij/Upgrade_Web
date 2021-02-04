@@ -14,7 +14,7 @@
     <title>Upgrade - регистрация</title>
 </head>
 
-<body>
+<body onload="iniSelect('specializations');">
 
     <div class="background">
         <img src="pictures/icons/bg-item1.svg" alt="bg-item1" class="background__item">
@@ -42,7 +42,7 @@
                     </div>
                     <select name="specializations" id="specializations" class="custom-select specializations text" placeholder="Специализация">
                         <?php
-                        include "php/show-spec.php";
+                        include "php/showSpec.php";
                         ?>
                     </select>
                 </div>

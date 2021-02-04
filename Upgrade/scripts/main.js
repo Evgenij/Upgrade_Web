@@ -31,6 +31,81 @@ function mouseUp(target) {
 	return false;
 }
 
+function iniSelect(select) { 
+	$('.' + select).find('.custom-option:first').addClass('selection');
+	$('.custom-select-trigger').text($('.' + select).find('.custom-option:first').text());
+}
+
+var chart;
+
+function setChartValues(labels, valuesDone, valuesFailed) { 
+	
+	$('.weekly-chart').detach();
+
+
+	settings = {
+		animate: {
+			show: true,
+			duration: 0.5,
+		},
+		point: {
+			show: true,
+			radius: 5,
+			strokeWidth: 4,
+			stroke: "#fff", // null or color by hex/rgba
+		},
+		tooltip: {
+			show: true,
+			backgroundColor: "rgba(240, 242, 255, 0.8)",
+			fontColor: "#000000",
+			object: null,
+		},
+	};
+	chart = new liteChart("weekly-chart", settings);
+
+	// Inject chart into DOM object
+	let container = document.getElementById("week-stat__chart");
+	chart.inject(container);
+
+	// Set labels
+	chart.setLabels(labels);
+
+	// Set legends and values
+	chart.addLegend({
+		"name": "Выполнено задач",
+		"stroke": "#5FC569",
+		"fill": "#fff",
+		"values": valuesDone
+	});
+	chart.addLegend({
+		"name": "Не выполнено задач",
+		"stroke": "#F86A6A",
+		"fill": "#fff",
+		"values": valuesFailed
+	});
+
+	// Draw
+	chart.draw();
+	delete chart;
+}
+
+
+
+// функция заполнения данными начальное окно приложения (пункт меню - Основное)
+function iniMainWindow() { 
+	SetThemeCheckbox();
+	iniSelect('periods_stat');
+	setDataForWeeklyChart();
+	getDataTodays();
+}
+
+
+
+
+
+
+
+
 $('#btn-auth').click(function (e) {
 	e.preventDefault();
 
@@ -177,9 +252,76 @@ $('.user-menu').mouseleave(function (e) {
 });
 
 
+$('.periods_stat').click(function (e) {
+	setDataForWeeklyChart();
+})
+
+
+function setDataForWeeklyChart() { 
+	let period = getValueSelect('periods_stat');
+
+	$.ajax({
+        url: 'php/getWeeklyStatistic.php',
+        type: 'POST',
+        dataType: 'json',
+		data: {
+			period: period
+		},
+		success(data) {
+
+			if (data.type == 1) {
+				$('.week-statistic').find('.current-performance').html("Эффективность за неделю <span class=\"current-performance__value text-gradient\"></span>");
+				$('.week-statistic').find('.last-performance').html("Эффективность за прошлую неделю <span class=\"last-performance__value\"></span>");
+			}
+			else if (data.type == 2) { 
+				$('.week-statistic').find('.current-performance').html("Эффективность за месяц <span class=\"current-performance__value text-gradient\"></span>");
+				$('.week-statistic').find('.last-performance').html("Эффективность за прошлый месяц <span class=\"last-performance__value\"></span>");
+			}
+			
+			if (!data.empty) {
+				$('.week-statistic__chart').empty();
+				$('.current-performance__value').text(data.perfCurrPeriod + '%');
+				$('.last-performance__value').text(data.perfLastPeriod + '%');
+				setChartValues(data.labels, data.doneTaskCurrPeriod, data.failTaskCurrPeriod);
+			}
+			else { 
+				$('.week-statistic__chart').html(
+					'<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные для построения графика не найдены</p></div>');
+			}
+        }
+    });
+}
 
 
 
+function getDataTodays() { 
+	$.ajax({
+        url: 'php/getDataTodays.php',
+        type: 'POST',
+        dataType: 'json',
+		success(data) {
+			$('.welcome__text').html('Тебе необходимо завершить сегодня <span class="task-todays color-bold">'+data.countTaskToday+' задач(и).</span> Твоя общая эффективность работы <span class="task-todays color-bold">'+data.currentPerformance+'%.</span>' );
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// реализация раскрывающегося списка целей для проектов
 
 var containers;
 function initDrawers() {

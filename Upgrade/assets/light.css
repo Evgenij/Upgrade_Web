@@ -20,6 +20,8 @@ body {
 
 .title {
   color: #332F2F;
+  font-size: 18px;
+  font-weight: 800;
 }
 
 .text {
@@ -30,8 +32,16 @@ body {
   color: #DBDCE8;
 }
 
+.data-not-found__icon path {
+  stroke: #A5A7BC;
+}
+
 .avatar {
   box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}
+
+.week-statistic line {
+  color: text;
 }
 
 input.input {
@@ -113,8 +123,6 @@ input.input.error,
 .custom-select-wrapper {
   position: relative;
   display: inline-block;
-  user-select: none;
-  width: 100%;
 }
 
 .custom-select-wrapper select {
@@ -131,7 +139,7 @@ input.input.error,
   position: relative;
   display: block;
   width: 100%;
-  padding: 18px 50px 18px 24px;
+  padding: 18px 55px 18px 24px;
   background: #FFF;
   border-radius: 10px;
   cursor: pointer;
@@ -181,6 +189,7 @@ input.input.error,
   visibility: hidden;
   pointer-events: none;
   transform: translateY(-15px);
+  min-width: max-content;
 }
 
 .custom-select.opened .custom-options {
@@ -372,4 +381,16 @@ input.input.error,
 
 .progress-bar {
   background-color: #E6E8F7;
+}
+
+svg.weekly-chart line {
+  stroke: #DBDCE8;
+}
+
+.general-statistic .row:last-child .block-value:first-child {
+  border-right: 1px solid #DBDCE8;
+}
+
+.general-statistic .data__second .block-value:first-child {
+  border-right: 1px solid #DBDCE8;
 }

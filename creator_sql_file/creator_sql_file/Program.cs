@@ -67,6 +67,7 @@ namespace creator_sql_file
                 }
 
                 string[] specialization = {
+                    "Не выбрано",
                     "Web-разработчик",
                     "Web-дизайнер",
                     "Аналитик",
@@ -131,7 +132,7 @@ namespace creator_sql_file
                             "\'nickname" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
                             "\'name" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
                             "\'surname" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
-                            "'data/user_avatar/" + (j + 1).ToString() + (i + 1).ToString() + ".png');"
+                            "'pictures/users_avatar/" + (j + 1).ToString() + (i + 1).ToString() + ".png');"
                             );                       
                         // запись массива байтов в файл
                         fstream.Write(array, 0, array.Length);
@@ -149,21 +150,55 @@ namespace creator_sql_file
                             "\'"+random.Next(0,2)+"\', " +
                             "\'Project№" + (j + 1).ToString() + i.ToString() + "\', " +
                             "'#323232');"
-                            );
+                            );                                                                                 
                         // запись массива байтов в файл
                         fstream.Write(array, 0, array.Length);
                     }
                 }
 
-                
+                int month;
+                int day;
+
                 for (int i = 1; i <= 56; i++)
                 {
+                    month = random.Next(1, 13);
+
+                    if (month == 2)
+                    {
+                        day = random.Next(1, 29);
+                    }
+                    else
+                    {
+                        if (month >= 8)
+                        {
+                            if (month % 2 == 0)
+                            {
+                                day = random.Next(1, 32);
+                            }
+                            else
+                            {
+                                day = random.Next(1, 31);
+                            }
+                        }
+                        else
+                        {
+                            if (month % 2 == 0)
+                            {
+                                day = random.Next(1, 31);
+                            }
+                            else
+                            {
+                                day = random.Next(1, 32);
+                            }
+                        }
+                    }
+
                     // преобразуем строку в байты
                     byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
                         "INSERT INTO `attachment` (`id_attach`, `id_project`, `comment`, `date`, `time`) VALUES(NULL, " +
                         "\'"+random.Next(1,57)+"\', " +
                         "\'TextComments - "+random.Next(0,90000)+"\', " +
-                        "\'"+random.Next(2000,2021)+"-" + random.Next(1,13) + "-" +random.Next(1, 29)+ "\', " +
+                        "\'2021-" + month.ToString() + "-" + day.ToString() + "\', " +
                         "\'"+random.Next(0,25)+":"+random.Next(0,60)+":00\');"
                         );
                     // запись массива байтов в файл
@@ -187,23 +222,56 @@ namespace creator_sql_file
                     }
                 }
 
-                
-                for (int i = 1; i <= 168; i++)
+
+                for (int m = 1; m <= 5; m++)
                 {
-                    for (int j = 1; j <= 5; j++)
+                    for (int t = 1; t <= 168; t++)
                     {
-                        // преобразуем строку в байты
-                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                            "INSERT INTO `task` (`id_task`, `id_target`, `text`, `descr`, `duration`, `status`, `failed`) VALUES(NULL, " +
-                            "\'" + i.ToString() + "\', " +
-                            "\'Task - " + random.Next(1, 90000) + "\', " +
-                            "\'Description - " + random.Next(1, 90000) + "\', " +
-                            "\'" + random.Next(1, 481) + "\', " +
-                            "\'" + random.Next(0, 2) + "\', " +
-                            "\'" + random.Next(0, 2) + "\');"
-                            );
-                        // запись массива байтов в файл
-                        fstream.Write(array, 0, array.Length);
+                        for (int c = 1; c <= 5; c++)
+                        {
+                            if (m == 2)
+                            {
+                                day = random.Next(1, 29);
+                            }
+                            else
+                            {
+                                if (m >= 8)
+                                {
+                                    if (m % 2 == 0)
+                                    {
+                                        day = random.Next(1, 32);
+                                    }
+                                    else
+                                    {
+                                        day = random.Next(1, 31);
+                                    }
+                                }
+                                else
+                                {
+                                    if (m % 2 == 0)
+                                    {
+                                        day = random.Next(1, 31);
+                                    }
+                                    else
+                                    {
+                                        day = random.Next(1, 32);
+                                    }
+                                }
+                            }
+
+                            // преобразуем строку в байты
+                            byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                                "INSERT INTO `task` (`id_task`, `id_target`, `text`, `descr`, `date`, `duration`, `status`) VALUES(NULL, " +
+                                "\'" + t.ToString() + "\', " +
+                                "\'Task - " + random.Next(1, 90000) + "\', " +
+                                "\'Description - " + random.Next(1, 90000) + "\', " +
+                                "\'2021-0" + m.ToString() + "-" + day.ToString() + "\', " +
+                                "\'" + random.Next(1, 481) + "\', " +
+                                "\'" + random.Next(0, 2) + "\');"
+                                );
+                            // запись массива байтов в файл
+                            fstream.Write(array, 0, array.Length);
+                        }
                     }
                 }
 

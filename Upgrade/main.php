@@ -26,7 +26,7 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
     <title>Upgrade - система командной разработки</title>
 </head>
 
-<body onload="SetThemeCheckbox()">
+<body onload="iniMainWindow();">
 
     <div class="tabs">
         <nav class="menu panel tabs-triggers">
@@ -61,18 +61,14 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                     <div class="user-panel flex">
                         <div class="user-panel-wrapper flex">
                             <div class="user-data flex f-col">
-                                <span class="user-data__nickname"><?php echo $_SESSION['user']['nickname']; ?></span>
+                                <span class="user-data__nickname text-gradient"><?php echo $_SESSION['user']['nickname']; ?></span>
                                 <h3 class="user-data__fullname"><?php echo $_SESSION['user']['name'] . " " . $_SESSION['user']['surname']; ?></h3>
                                 <?php
                                 include "php/getSpecName.php";
                                 ?>
                             </div>
                             <div class="user-avatar flex f-col">
-                                <img class="user-avatar__photo" src="<?php if (!empty($_SESSION['user']['avatar'])) {
-                                                                            echo $_SESSION['user']['avatar'];
-                                                                        } else {
-                                                                            echo 'pictures/user-avatar/default-avatar.svg';
-                                                                        } ?>" alt="avatar">
+                                <img class="user-avatar__photo" src="<?php if (!empty($_SESSION['user']['avatar'])) {echo $_SESSION['user']['avatar'];} else {echo 'pictures/users_avatar/default-avatar.svg';} ?>" alt="avatar">
                             </div>
                             <div class="user-menu panel">
                                 <ul>
@@ -108,25 +104,41 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                     <div class="welcome-content flex">
                         <div class="data">
                             <h2 class="welcome__title title">Привет, <span class="user-name">Евгений Ермоленко</span></h2>
-                            <p class="welcome__text text">Тебе необходимо завершить сегодня 5 задач(и). Твоя текущая эффективность работы 82%. </p>
+                            <p class="welcome__text text"></p>
                         </div>
                         <button class="button small"></button>
                     </div>
                 </section>
 
-                <section class="panel week-statistic"></section>
-
-                <section class="panel general-statistic">
-
+                <section class="panel panel-big week-statistic flex f-col">
+                    <div class="week-statistic__header header flex">
+                        <div class="header__text">
+                            <p class="current-performance title">Эффективность за неделю
+                                <span class="current-performance__value text-gradient"></span>
+                            </p>
+                            <p class="last-performance text">Эффективность за прошлую неделю
+                                <span class="last-performance__value"></span>
+                            </p>
+                        </div>
+                        <select name="periods_stat" id="periods_stat" class="custom-select text periods_stat">
+                            <option value="week">Неделя</option>
+                            <option value="month">Месяц</option>
+                        </select>
+                    </div>
+                    <div class="week-statistic__chart" id="week-stat__chart">
+                    </div>
                 </section>
+
+                <section class="panel panel-big general-statistic flex f-col">
+                    <?php include "php/getGeneralStatistic.php"; ?>
+                </section>
+
                 <section class="projects-progress">
                     <div class="title-section flex f-col">
                         <h2 class="title-section__title">Прогресс проектов</h2>
                     </div>
                     <div class="projects-list list-blocks">
-                        <?php
-                        include "php/getListProjects_small.php";
-                        ?>
+                        <?php include "php/getListProjects_small.php"; ?>
                     </div>
                 </section>
 
@@ -142,6 +154,8 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
     <script src="scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="scripts/themes.js"></script>
     <script type="text/javascript" src="scripts/tabs.js"></script>
+    <script type="text/javascript" src="scripts/select.js"></script>
+    <script src="lib/liteChart.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
 </body>
 
