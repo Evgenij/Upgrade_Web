@@ -38,7 +38,7 @@ if ($data['performance'] < 20) {
     $data['colorPerf'] = '#ECC950';
     $data['smile'] = 'pictures/icons/smile-middle.svg';
 } else if ($data['performance'] >= 60 && $data['performance'] < 80) {
-    $data['colorPerf'] = '#92C00E';
+    $data['colorPerf'] = '#70B51A';
     $data['smile'] = 'pictures/icons/smile-good.svg';
 } else if ($data['performance'] >= 80 && $data['performance'] <= 100) {
     $data['colorPerf'] = '#44A715';
@@ -53,7 +53,7 @@ $params = [
     ':idUser' => $_SESSION['user']['id']
 ];
 $query->execute($params);
-$data['currentPerformance'] =$query->fetch()[0];
+$data['currentPerformance'] = $query->fetch()[0];
 
 
 
@@ -116,7 +116,7 @@ echo '<div class="row flex">
                     <span class="label-value text">руководитель в</span>
                 </div>
                 <div class="block-value flex f-col">
-                    <p id="member-project" class="main-value gray">'. $data['countProject'] .'</p>
+                    <p id="member-project" class="main-value gray">' . $data['countProject'] . '</p>
                     <span class="label-value text">участник в</span>
                 </div>
             </div>

@@ -261,8 +261,9 @@ namespace creator_sql_file
 
                             // преобразуем строку в байты
                             byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                                "INSERT INTO `task` (`id_task`, `id_target`, `text`, `descr`, `date`, `duration`, `status`) VALUES(NULL, " +
+                                "INSERT INTO `task` (`id_task`, `id_target`, `executor`, `text`, `descr`, `date`, `duration`, `status`) VALUES(NULL, " +
                                 "\'" + t.ToString() + "\', " +
+                                "\'" + random.Next(1, 29) + "\', " +
                                 "\'Task - " + random.Next(1, 90000) + "\', " +
                                 "\'Description - " + random.Next(1, 90000) + "\', " +
                                 "\'2021-0" + m.ToString() + "-" + day.ToString() + "\', " +

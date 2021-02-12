@@ -42,7 +42,7 @@
                     </div>
                     <select name="specializations" id="specializations" class="custom-select specializations text" placeholder="Специализация">
                         <?php
-                        include "php/showSpec.php";
+                        include "php/getSpec.php";
                         ?>
                     </select>
                 </div>
@@ -62,7 +62,11 @@
                 <button class="button" type="button" id="btn-reg">Зарегистрироваться</button>
             </form>
             <div class="form-footer flex">
-                <img src="pictures/icons/info.svg" alt="info">
+                <svg class="icon-mess info" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
                 <p class="text">У вас уже есть аккаунт? <a href="index.php">Войти</a></p>
             </div>
         </div>

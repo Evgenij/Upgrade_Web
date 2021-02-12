@@ -1,14 +1,29 @@
+// глобальные переменные
+
+var chart, datepicker;
+
+// глобальные переменные
+
+
+
+
+
+
+
+// функции и события общего назначения
 
 // получение данных из выпадающего списка
 function getValueSelect(select) { 
-	return $('.custom-option').parents('.' + select).find(".custom-option.selection").data("value");
+	return $('.' + select).find(".custom-option.selection").data("value");
 }
 
 // вывод всплывающего сообщения
 function showNotification(text) { 
-	$('.notification').addClass('show').text(text);
+	
+	$('.notification').text(text).slideDown(500);
+
 	setTimeout(() => {
-		$('.notification').removeClass('show');
+		$('.notification').fadeOut(500);
 	}, 3000);
 }
 
@@ -33,78 +48,40 @@ function mouseUp(target) {
 
 function iniSelect(select) { 
 	$('.' + select).find('.custom-option:first').addClass('selection');
-	$('.custom-select-trigger').text($('.' + select).find('.custom-option:first').text());
+	$('.' + select).find('.custom-select-trigger').text($('.' + select).find('.custom-option:first').text());
 }
 
-var chart;
-
-function setChartValues(labels, valuesDone, valuesFailed) { 
-	
-	$('.weekly-chart').detach();
-
-
-	settings = {
-		animate: {
-			show: true,
-			duration: 0.5,
-		},
-		point: {
-			show: true,
-			radius: 5,
-			strokeWidth: 4,
-			stroke: "#fff", // null or color by hex/rgba
-		},
-		tooltip: {
-			show: true,
-			backgroundColor: "rgba(240, 242, 255, 0.8)",
-			fontColor: "#000000",
-			object: null,
-		},
-	};
-	chart = new liteChart("weekly-chart", settings);
-
-	// Inject chart into DOM object
-	let container = document.getElementById("week-stat__chart");
-	chart.inject(container);
-
-	// Set labels
-	chart.setLabels(labels);
-
-	// Set legends and values
-	chart.addLegend({
-		"name": "Выполнено задач",
-		"stroke": "#5FC569",
-		"fill": "#fff",
-		"values": valuesDone
-	});
-	chart.addLegend({
-		"name": "Не выполнено задач",
-		"stroke": "#F86A6A",
-		"fill": "#fff",
-		"values": valuesFailed
-	});
-
-	// Draw
-	chart.draw();
-	delete chart;
+function setDatasSelect(select, data) { 
+	$('.' + select).find('.custom-options').html(data);
+	iniSelect(select);
 }
 
+// функции и события общего назначения
 
 
-// функция заполнения данными начальное окно приложения (пункт меню - Основное)
+
+
+
+
+// функции заполнения данными окон пуктовменю
+
 function iniMainWindow() { 
 	SetThemeCheckbox();
 	iniSelect('periods_stat');
 	setDataForWeeklyChart();
 	getDataTodays();
+	datepicker = new Datepicker('#datepicker');
 }
 
+// функции заполнения данными окон пуктовменю
 
 
 
 
 
 
+
+// функции и события для ОПЕРАЦИЙ С ПОЛЬЗОВАТЕЛЯМИ
 
 $('#btn-auth').click(function (e) {
 	e.preventDefault();
@@ -239,6 +216,17 @@ $('#btn-rec_pass').click(function (e) {
     });
 });
 
+// функции и события для ОПЕРАЦИЙ С ПОЛЬЗОВАТЕЛЯМИ
+
+
+
+
+
+
+
+
+// функции и события для ВЫПАДАЮЩЕГО МЕНЮ ПОЛЬЗОВАТЕЛЯ
+
 $('.user-panel-wrapper').click(function (e) {
 	if (!($(e.target).parents('.user-menu').length == 1)) {
 		$(this).toggleClass('active');
@@ -251,15 +239,88 @@ $('.user-menu').mouseleave(function (e) {
 	$('.user-panel-wrapper').toggleClass('active');
 });
 
+// функции и события для ВЫПАДАЮЩЕГО МЕНЮ ПОЛЬЗОВАТЕЛЯ
 
-$('.periods_stat').click(function (e) {
-	setDataForWeeklyChart();
+
+
+
+
+// функции для работы с выпадающими списками
+
+$('.projects').click(function () { 
+	let idProject = getValueSelect('projects');
+		
+	$.ajax({
+        url: 'php/getTargets.php',
+        type: 'POST',
+        dataType: 'html',
+		data: {
+			project: idProject
+		},
+		success(data) {
+			setDatasSelect('targets', data);
+			getExecutors();
+		}
+	});
 })
 
+$('.targets').click(function () { 
+	let idTarget = getValueSelect('targets');
+		
+	$.ajax({
+        url: 'php/getExecutor.php',
+        type: 'POST',
+        dataType: 'json',
+		data: {
+			target: idTarget
+		},
+		success(data) {
+			if (data.status == true) {
+
+				$('.executors').parents('.custom-select-wrapper').removeClass('hide');
+
+				setDatasSelect('executors', data.rows);
+			}
+			else { 
+				$('.executors').parents('.custom-select-wrapper').addClass('hide');
+			}
+		}
+	});
+})
+
+function getExecutors() { 
+	let idTarget = getValueSelect('targets');
+		
+	$.ajax({
+        url: 'php/getExecutor.php',
+        type: 'POST',
+        dataType: 'json',
+		data: {
+			target: idTarget
+		},
+		success(data) {
+			if (data.status == true) {
+
+				$('.executors').parents('.custom-select-wrapper').removeClass('hide');
+
+				setDatasSelect('executors', data.rows);
+			}
+			else { 
+				$('.executors').parents('.custom-select-wrapper').addClass('hide');
+			}
+		}
+	});
+}
+
+// функции для работы с выпадающими списками
+
+
+
+// функции и события для запполнения данными компоненты пункта меню - ОСНОВНОЕ
 
 function setDataForWeeklyChart() { 
 	let period = getValueSelect('periods_stat');
-
+	
 	$.ajax({
         url: 'php/getWeeklyStatistic.php',
         type: 'POST',
@@ -292,8 +353,6 @@ function setDataForWeeklyChart() {
     });
 }
 
-
-
 function getDataTodays() { 
 	$.ajax({
         url: 'php/getDataTodays.php',
@@ -305,6 +364,62 @@ function getDataTodays() {
     });
 }
 
+function setChartValues(labels, valuesDone, valuesFailed) { 
+	
+	$('.weekly-chart').detach();
+
+
+	settings = {
+		animate: {
+			show: true,
+			duration: 0.5,
+		},
+		point: {
+			show: true,
+			radius: 5,
+			strokeWidth: 4,
+			stroke: "#fff", // null or color by hex/rgba
+		},
+		tooltip: {
+			show: true,
+			backgroundColor: "rgba(240, 242, 255, 0.8)",
+			fontColor: "#000000",
+			object: null,
+		},
+	};
+	chart = new liteChart("weekly-chart", settings);
+
+	// Inject chart into DOM object
+	let container = document.getElementById("week-stat__chart");
+	chart.inject(container);
+
+	// Set labels
+	chart.setLabels(labels);
+
+	// Set legends and values
+	chart.addLegend({
+		"name": "Выполнено задач",
+		"stroke": "#5FC569",
+		"fill": "#fff",
+		"values": valuesDone
+	});
+	chart.addLegend({
+		"name": "Не выполнено задач",
+		"stroke": "#F86A6A",
+		"fill": "#fff",
+		"values": valuesFailed
+	});
+
+	// Draw
+	chart.draw();
+	delete chart;
+}
+
+$('.periods_stat').click(function (e) {
+	setDataForWeeklyChart();
+})
+
+// функции и события для запполнения данными компоненты пункта меню - ОСНОВНОЕ
 
 
 
@@ -312,7 +427,91 @@ function getDataTodays() {
 
 
 
+// функции и события для работы с МОДАЛЬНЫМИ ОКНАМИ
 
+function showModal(modal, close) { 
+	!$('.wrapp-modal').toggleClass('hide');
+	//$('.modal-window').fadeIn(500);
+
+	$('.' + $(modal).attr('id')).fadeIn(500);
+	//$('.' + $(modal).attr('id')).toggleClass('show');
+
+	if (close == true) { 
+		$('.modal-window').fadeOut(500);
+	}
+};
+
+$('#add-task').click(function () { 
+	showModal(this);
+
+	iniSelect('projects');
+	
+	let idProject = getValueSelect('projects');
+		
+	$.ajax({
+        url: 'php/getTargets.php',
+        type: 'POST',
+        dataType: 'html',
+		data: {
+			project: idProject
+		},
+		success(data) {
+			setDatasSelect('targets', data);
+			getExecutors();
+		}
+	});
+
+	iniSelect('durations');
+})
+
+$('.head__btn-close').click(function () {
+	showModal(this, true);
+})
+
+$('input.add-task').keyup(function(event){
+	if (event.keyCode == 13) {
+		
+		let text = this.value;
+			date = $('.date-picker__date').val().split('.');
+			idTarget = getValueSelect('targets'),
+			duration = getValueSelect('durations');
+
+		if (!$('.executors').parents('.custom-select-wrapper').hasClass('hide')) {
+			executor = getValueSelect('executors');
+		}
+		else { 
+			executor = 0;
+		}
+		
+		if (date != '') {
+
+			$('.modal-window__message').addClass('hide');
+
+			$.ajax({
+				url: 'php/addTask.php',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					text: text,
+					date: date,
+					target: idTarget,
+					duration: duration,
+					executor: executor
+				},
+				success(data) {
+					if (data.status == true) {
+						showNotification('Задача добавлена!');
+					}
+				}
+			});
+		}
+		else { // если дата не выбрана, то отображается уведомление
+			$('.modal-window__message').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Не выбрана дата');
+		}
+    }
+});
+
+// функции и события для работы с модальными окнами
 
 
 

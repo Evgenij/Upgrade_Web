@@ -5,37 +5,6 @@ body{
     overflow: hidden;
 }
 
-.notification{
-    display: none;
-    position: absolute;
-    text-align: center;
-    max-width: 300px;
-    left: 50%;
-    top: 30px;
-    padding: 30px 40px;
-    background-color: #69A042;
-    color: #e6fdd5;
-    border-radius: 10px;
-    margin-left: -150px;
-
-    &.show{
-        display: block;
-        animation: show-notification 0.8s;
-    }
-}
-
-@keyframes show-notification{
-    0%{
-        top: -100px;
-        opacity: 0;
-    }
-    100%{
-        top: 30px;
-        opacity: 1;
-    }
-}
-
-
 .background{
     & .background__item{
         position: absolute;
@@ -185,9 +154,7 @@ form{
 
 .form-footer{
     justify-content: flex-start;
-    img{
-        margin-right: 10px;
-    }
+
     a{
         font-weight: 700;
         color: $main;

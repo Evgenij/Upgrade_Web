@@ -19,7 +19,7 @@ $responce = [];
 
 if ($period == 'week') {
 
-    $currMonday = date('d', strtotime("last Monday"));
+    $currMonday = date('d', strtotime("Monday this week"));
     $lastMonday = date('d', strtotime("Monday last week"));
     $currWeek = [];
     $lastWeek = [];
@@ -35,7 +35,7 @@ if ($period == 'week') {
     for ($i = 0; $i < 7; $i++) {
 
         // если прошлый понедельник в прошлом месяце
-        if ($lastMonday > $currMonday){
+        if ($lastMonday > $currMonday) {
 
             $sql = "SELECT task.id_task FROM task 
                 INNER JOIN target ON target.id_target = task.id_target 
@@ -44,7 +44,7 @@ if ($period == 'week') {
                 WHERE user.id_user = :idUser AND task.date = :taskDate AND task.status = 1";
             $query = $db->prepare($sql);
             $params = [
-                ':taskDate' => date('Y-m-'.$lastWeek[$i], strtotime("-1 month")),
+                ':taskDate' => date('Y-m-' . $lastWeek[$i], strtotime("-1 month")),
                 ':idUser' => $_SESSION['user']['id']
             ];
             $query->execute($params);
@@ -62,8 +62,7 @@ if ($period == 'week') {
             ];
             $query->execute($params);
             $failTasksLastPeriod[] = $query->rowCount();
-        }
-        else{
+        } else {
 
             $sql = "SELECT task.id_task FROM task 
                 INNER JOIN target ON target.id_target = task.id_target 

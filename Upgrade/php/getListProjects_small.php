@@ -30,7 +30,7 @@ if ($query->rowCount() > 0) {
         $nestedSQL->execute($params);
         $countTaskProjects = $nestedSQL->fetch()[0];
 
-        echo '<div class="project__small list-blocks__item container panel">';
+        echo '<div class="project__small list-ver__item container panel">';
             echo '<h3 class="project-name name">' . $row['name'] . '</h3>';
             echo '<div class="progress arrow empty flex f-col trigger">';
                 echo '<div class="progress-labels flex">';

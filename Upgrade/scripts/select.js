@@ -1,7 +1,8 @@
 $(".custom-select").each(function() {
 	var classes = $(this).attr("class"),
 		id      = $(this).attr("id"),
-		name    = $(this).attr("name");
+		name = $(this).attr("name");
+	
 	var template =  '<div class="' + classes + '">';
 		template += '<span class="custom-select-trigger">' + $(this).attr("placeholder") + '</span>';
 		template += '<div class="custom-options">';
@@ -10,7 +11,12 @@ $(".custom-select").each(function() {
 		});
 		template += '</div></div>';
 
-	$(this).wrap('<div class="custom-select-wrapper"></div>');
+	if ($(this).hasClass('hide')) {
+		$(this).wrap('<div class="custom-select-wrapper hide"></div>');
+	}
+	else { 
+		$(this).wrap('<div class="custom-select-wrapper"></div>');
+	}
 	$(this).hide();
 	$(this).after(template);
 });
@@ -26,7 +32,8 @@ $(".custom-select-trigger").on("click", function() {
 	$(this).parents(".custom-select").toggleClass("opened");
 	event.stopPropagation();
 });
-$(".custom-option").on("click", function() {
+
+$('.custom-options').on("click", ".custom-option", function () {
 	$(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
 	$(this).parents(".custom-options").find(".custom-option").removeClass("selection");
 	$(this).addClass("selection");

@@ -52,7 +52,10 @@ require_once "vendor/connect.php";
                 <h2>Авторизация</h2>
                 <div class="row">
                     <div class="input-icon icon-email">
-                        <input type="email" name="email" class="input with-icon" id="email" placeholder="введите email" value="<?php if (isset($_SESSION['email'])) { echo $_SESSION['email']; unset($_SESSION['email']);} ?>">
+                        <input type="email" name="email" class="input with-icon" id="email" placeholder="введите email" value="<?php if (isset($_SESSION['email'])) {
+                                                                                                                                    echo $_SESSION['email'];
+                                                                                                                                    unset($_SESSION['email']);
+                                                                                                                                } ?>">
                     </div>
                 </div>
                 <div class="row flex f-col">
@@ -66,7 +69,11 @@ require_once "vendor/connect.php";
                 <button class="button" id="btn-auth" type="button">Войти</button>
             </form>
             <div class="form-footer flex">
-                <img src="pictures/icons/info.svg" alt="info">
+                <svg class="icon-mess info" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
                 <p class="text">У вас еще нет аккаунта? <a href="registration.php">Зарегистрируйтесь бесплатно</a></p>
             </div>
         </div>

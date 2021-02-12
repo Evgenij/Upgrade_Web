@@ -3,46 +3,6 @@ body {
   overflow: hidden;
 }
 
-.notification {
-  display: none;
-  position: absolute;
-  text-align: center;
-  max-width: 300px;
-  left: 50%;
-  top: 30px;
-  padding: 30px 40px;
-  background-color: #69A042;
-  color: #e6fdd5;
-  border-radius: 10px;
-  margin-left: -150px;
-}
-.notification.show {
-  display: block;
-  -webkit-animation: show-notification 0.8s;
-          animation: show-notification 0.8s;
-}
-
-@-webkit-keyframes show-notification {
-  0% {
-    top: -100px;
-    opacity: 0;
-  }
-  100% {
-    top: 30px;
-    opacity: 1;
-  }
-}
-
-@keyframes show-notification {
-  0% {
-    top: -100px;
-    opacity: 0;
-  }
-  100% {
-    top: 30px;
-    opacity: 1;
-  }
-}
 .background .background__item {
   position: absolute;
   z-index: -100;
@@ -176,9 +136,6 @@ form .button {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-}
-.form-footer img {
-  margin-right: 10px;
 }
 .form-footer a {
   font-weight: 700;
