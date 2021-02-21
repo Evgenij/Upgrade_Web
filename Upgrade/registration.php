@@ -25,7 +25,7 @@
 
     <main class="flex content">
         <img src="pictures/icons/img-reg.svg" alt="img-auth" class="img-auth">
-        <div class="panel auth">
+        <div class="panel reg">
 
             <form action="#" class="form-reg flex f-col">
                 <h2>Регистрация</h2>

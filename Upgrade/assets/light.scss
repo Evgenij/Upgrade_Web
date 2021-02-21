@@ -14,7 +14,7 @@ body{
 
 .panel{
 	background-color: $panel;
-	padding: 25px 30px;
+	padding: 3.5vh 2.2vw;
 	border-radius: 15px;
 
 	&-add{
@@ -22,24 +22,36 @@ body{
 	}
 
 	&-big{
-		padding: 35px 40px;
+		padding: 3.5vh 2.1vw;
 	}
 
 	@include shadow();
 }
 
 .title{
+	//font-size: 1.1vw;
 	color: $title;
-	font-size: 18px;
 	font-weight: 800;
+	line-height: 1.2em;
 }
 
 .text{
 	color: $text;
+	//font-size: 1.7vh;
 
 	&.regular{
 		font-weight: 400;
 	}
+
+	&-gradient {
+		background: $gradient;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+a{
+	font-size: 0.8vw;
 }
 
 .icon, .gray{
@@ -83,10 +95,11 @@ body{
 
 
 input.input{
-	font-size: 14px;
-	border: 2px solid $border;
+	font-size: 0.75vw;
+	border: 1px solid $border;
 	border-radius: 10px;
-	padding: 18px 23px;
+	//padding: 18px 23px;
+	padding: 1.6vh 2.5vh;
 	width: 100%;
 	background-color: $panel;
 	position: relative;
@@ -97,7 +110,7 @@ input.input{
 	}
 	
 	&.with-icon{
-		padding-left: 60px;
+		padding-left: 6vh;
 	}
 }
 
@@ -184,11 +197,12 @@ input.input,
 	position: relative;
 	display: block;
 	width: 100%;
-	padding: 18px 55px 18px 24px;
+	//padding: 18px 55px 18px 24px;
+	padding: 1.5vh 5.3vh 1.5vh 2.4vh;
 	background: $panel;
 	border-radius: 10px;
 	cursor: pointer;
-	border: 2px solid $border;
+	border: 1px solid $border;
 	color: $title;
 	white-space: nowrap;
 }
@@ -199,7 +213,7 @@ input.input,
 	width: 10px; 
 	height: 10px;
 	top: 50%; 
-	right: 25px;
+	right: 1.15vw;
 	margin-top: -3px;
 	border-bottom: 2px solid $gray;
 	border-right: 2px solid $gray;
@@ -633,13 +647,13 @@ input.input,
 	margin-bottom: 35px;
 
 	&__title{
-		font-size: 24px;
+		font-size: 2.4vh;
 		font-weight: 800;
 		margin-bottom: 3px;
 	}
 	&__subtitle{
 		color: $text;
-		font-size: 16px;
+		font-size: 1.7vh;
 
 		& .subtitle__color{
 			font-size: inherit;
@@ -715,3 +729,5 @@ svg.weekly-chart{
         }
     }
 }
+
+

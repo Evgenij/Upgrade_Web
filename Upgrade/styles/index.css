@@ -30,17 +30,26 @@ body {
 }
 
 .auth {
-  padding: 60px 70px;
-  margin-left: 200px;
+  padding: 5vh 4.5vw;
+  margin-left: 9vw;
+  width: 35vw;
+  max-width: 650px;
+}
+
+.reg {
+  padding: 6vh 3.5vw;
+  margin-left: 9vw;
+  width: 35vw;
+  max-width: 750px;
 }
 
 .auth-header {
   margin-bottom: 60px;
 }
 .auth-header h1 {
-  font-size: 30px;
+  font-size: 1.65vw;
   font-weight: 800;
-  width: 445px;
+  width: 100%;
   margin-bottom: 15px;
 }
 .auth-header .name-app {
@@ -90,9 +99,6 @@ form.form-auth .row:nth-child(3) {
       -ms-flex-align: end;
           align-items: flex-end;
 }
-form.form-reg {
-  width: 550px;
-}
 form.form-rec_pass {
   width: 450px;
 }
@@ -141,6 +147,9 @@ form .button {
   font-weight: 700;
   color: #8A66F0;
   text-decoration: underline;
+}
+.form-footer a:hover {
+  color: #643dd2;
 }
 
 footer {

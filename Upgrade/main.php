@@ -21,6 +21,7 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
     <link rel="stylesheet" href="styles/flex.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/modals.css">
+    <link rel="stylesheet" href="styles/responsive.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="pictures/icons/favicon.svg" type="image/svg">
@@ -136,6 +137,23 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
         </nav>
         <main class="tabs-content">
             <div id="tab-1" class="tabs-content__item">
+                <!-- <section class="panel head">
+                </section>
+
+                <section class="panel welcome flex">
+                </section>
+
+                <section class="panel panel-big week-statistic flex f-col">
+                </section>
+
+                <section class="panel panel-big general-statistic flex f-col">
+                </section>
+
+                <section class="panel projects-progress">
+
+                </section> -->
+
+
 
                 <section class="head">
                     <header class="header flex">
@@ -229,6 +247,9 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                 <section class="projects-progress">
                     <div class="title-section flex f-col">
                         <h2 class="title-section__title">Прогресс проектов</h2>
+                        <h3 class="title-section__subtitle subtitle">
+                            Вы работаете над <span class="subtitle__color">***</span>
+                        </h3>
                     </div>
                     <div class="projects-list list-ver">
                         <?php include "php/getListProjects_small.php"; ?>

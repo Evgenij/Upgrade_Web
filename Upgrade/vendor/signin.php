@@ -26,8 +26,7 @@ if (!empty($error_fields)) {
 
     echo json_encode($response);
     die();
-}
-else{
+} else {
     try {
 
         $sql = "SELECT * FROM user WHERE email = :userEmail";
@@ -51,19 +50,18 @@ else{
                 "surname" => $userData['surname'],
                 "avatar" => $userData['avatar']
             ];
-            
+
             $response = [
                 "status" => true
             ];
             echo json_encode($response);
             die();
-
         } else {
             $error_fields[] = 'password';
             $response = [
                 "status" => false,
                 "type" => 2,
-                "message" => 'пароль не верный',
+                "message" => 'пароль неверный',
                 "fields" => $error_fields
             ];
             echo json_encode($response);

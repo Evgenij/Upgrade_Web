@@ -66,8 +66,11 @@
 
 .modal-window.add-task {
   visibility: hidden;
-  left: 240px;
+  left: 12.5vw;
   top: 0px;
+}
+.modal-window.show {
+  visibility: visible;
 }
 
 .datepicker {

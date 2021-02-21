@@ -72,15 +72,9 @@ img {
   vertical-align: top;
 }
 
-.text-gradient {
-  background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 * {
   font-family: 'Manrope', sans-serif;
-  font-size: 14px;
+  font-size: 1.5vh;
   font-weight: 600;
   line-height: 1.4em;
   user-select: none;
@@ -124,7 +118,7 @@ body {
 }
 
 .menu {
-  padding: 35px 30px;
+  padding: 4vh 1.55vw;
   grid-area: menu;
 }
 
@@ -136,9 +130,9 @@ body {
 .tabs {
   height: 100%;
   display: grid;
-  grid-template-columns: 215px 1fr;
+  grid-template-columns: 11vw 1fr;
   grid-template-rows: 1fr;
-  gap: 0px 45px;
+  gap: 0px 2.8vw;
   grid-template-areas: "menu content";
 }
 
@@ -157,10 +151,10 @@ body {
 
 .tabs-triggers__item {
   text-align: center;
-  padding: 15px 0px;
+  padding: 1.6vh 0px;
   transition: 0.3s;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.85vw;
 }
 
 .tabs-triggers__item:hover {
@@ -225,9 +219,9 @@ li.tabs-triggers__item--active::before {
 }
 
 .tabs-content__item:first-child {
-  grid-template-columns: 625px 1fr 440px;
-  grid-template-rows: 75px 265px 1fr;
-  gap: 40px 40px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) 0.9fr;
+  grid-template-rows: 75px 0.6fr 1fr;
+  gap: 3.4vh 2vw;
   grid-template-areas: "head head head" "welcome welcome projects-progress" "week-statistic general-statistic projects-progress";
 }
 
@@ -262,13 +256,13 @@ li.tabs-triggers__item--active::before {
 
 .user-panel-wrapper .user-data__fullname {
   font-weight: 800;
-  font-size: 20px;
+  font-size: 1.1vw;
   margin-bottom: 5px;
 }
 
 .user-panel-wrapper .user-data__spec {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1.7vh;
 }
 
 .user-panel-wrapper .user-avatar {
@@ -317,7 +311,7 @@ li.tabs-triggers__item--active::before {
 }
 
 .user-menu .user-menu__item {
-  padding: 10px 0px;
+  padding: 1vh 0px;
   transition: 0.3s;
 }
 
@@ -404,9 +398,9 @@ li.tabs-triggers__item--active::before {
 
 .welcome .peoples {
   position: absolute;
-  bottom: -40px;
-  left: -10px;
   grid-area: peoples;
+  left: -4%;
+  width: 95%;
 }
 
 .welcome .welcome-content {
@@ -434,7 +428,6 @@ li.tabs-triggers__item--active::before {
   gap: 0px 0px;
   grid-template-areas: "title" "list";
   grid-area: projects-progress;
-  max-width: 440px;
 }
 
 .week-statistic {
@@ -443,21 +436,20 @@ li.tabs-triggers__item--active::before {
 
 .general-statistic {
   grid-area: general-statistic;
-  min-width: 440px;
 }
 
 .welcome .welcome__title {
-  font-size: 24px;
+  font-size: 1.2vw;
   margin-bottom: 15px;
 }
 
 .welcome .welcome__title .user-name {
   font-weight: 800;
-  font-size: 24px;
+  font-size: 1.2vw;
 }
 
 .welcome .welcome__text {
-  font-size: 16px;
+  font-size: 1.7vh;
   font-weight: 500;
 }
 
@@ -489,14 +481,8 @@ li.tabs-triggers__item--active::before {
   margin-right: 20px;
 }
 
-.name {
-  font-size: 16px;
-  font-weight: 800;
-}
-
 .project__small .project-name {
   margin-bottom: 10px;
-  font-size: 18px;
 }
 
 .project__small .progress {
@@ -515,11 +501,6 @@ li.tabs-triggers__item--active::before {
   width: 100%;
   margin-bottom: 7px;
   font-weight: 500;
-}
-
-.project__small .progress .percent {
-  font-weight: 800;
-  font-size: 18px;
 }
 
 .project__small .progress.arrow {
@@ -555,6 +536,11 @@ li.tabs-triggers__item--active::before {
   justify-content: flex-start;
 }
 
+.progress-percent {
+  font-weight: 800;
+  font-size: 1vw;
+}
+
 .progress-bar {
   width: 100%;
   height: 5px;
@@ -587,7 +573,7 @@ li.tabs-triggers__item--active::before {
 }
 
 .target-item {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .target-item .target-item__number {
@@ -597,6 +583,11 @@ li.tabs-triggers__item--active::before {
 
 .target-item .target-item__content {
   width: 100%;
+}
+
+.target-item .target-item__content .target-name {
+  font-size: 1.7vh;
+  margin-bottom: 3px;
 }
 
 .target-item .target-item__content .progress {
@@ -657,7 +648,7 @@ li.tabs-triggers__item--active::before {
 
 .general-statistic .row__data {
   width: 100%;
-  margin-top: 15px;
+  margin-top: 1.7vh;
   justify-content: space-between;
   align-items: flex-end;
 }
@@ -667,22 +658,22 @@ li.tabs-triggers__item--active::before {
 }
 
 .general-statistic .row:last-child .block-value:first-child {
-  padding-right: 40px;
+  padding-right: 15%;
 }
 
 .general-statistic .row:last-child .block-value:last-child {
-  padding-left: 40px;
+  padding-left: 15%;
 }
 
 .general-statistic .main-value {
-  font-size: 45px;
+  font-size: 2.4vw;
   font-weight: 800;
   line-height: 1em;
   width: fit-content;
 }
 
 .general-statistic .second-value {
-  font-size: 36px;
+  font-size: 2vw;
   font-weight: 800;
   line-height: 1em;
 }
@@ -692,6 +683,7 @@ li.tabs-triggers__item--active::before {
 }
 
 .general-statistic .block-value .label-value {
+  width: max-content;
   margin-top: 5px;
 }
 
@@ -700,9 +692,9 @@ li.tabs-triggers__item--active::before {
 }
 
 .general-statistic .data__second .block-value:first-child {
-  padding-right: 30px;
+  padding-right: 15%;
 }
 
 .general-statistic .data__second .block-value:last-child {
-  padding-left: 30px;
+  padding-left: 15%;
 }

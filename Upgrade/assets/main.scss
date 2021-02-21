@@ -2,15 +2,9 @@
 $main: #8A66F0; 
 $gradient: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
 
-.text-gradient {
-    background: $gradient;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 *{
     font-family: 'Manrope', sans-serif;
-    font-size: 14px;
+    font-size: 1.5vh;
     font-weight: 600;
     line-height: 1.4em;
     user-select: none;
@@ -58,7 +52,7 @@ body{
 }
 
 .menu{
-    padding: 35px 30px;
+    padding: 4vh 1.55vw;
     grid-area: menu;
 }
 
@@ -70,9 +64,9 @@ body{
 .tabs{
     height: 100%;
     display: grid;
-    grid-template-columns: 215px 1fr;
+    grid-template-columns: 11vw 1fr;
     grid-template-rows: 1fr;
-    gap: 0px 45px;
+    gap: 0px 2.8vw;
     grid-template-areas:
         "menu content";
 }
@@ -93,10 +87,10 @@ body{
 
 .tabs-triggers__item{
     text-align: center;
-    padding: 15px 0px;
+    padding: 1.6vh 0px;
     transition: 0.3s;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 0.85vw;
 
     &:hover{
         color: $main;
@@ -160,9 +154,9 @@ li.tabs-triggers__item--active::before {
     display: none;
 
     &:first-child{
-        grid-template-columns: 625px 1fr 440px;
-        grid-template-rows: 75px 265px 1fr;
-        gap: 40px 40px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) 0.9fr;
+        grid-template-rows: 75px 0.6fr 1fr;
+        gap: 3.4vh 2vw;
         grid-template-areas:
             "head head head"
             "welcome welcome projects-progress"
@@ -200,12 +194,12 @@ li.tabs-triggers__item--active::before {
         
         &__fullname{
             font-weight: 800;
-            font-size: 20px;
+            font-size: 1.1vw;
             margin-bottom: 5px;
         }
         &__spec{
             font-weight: 500;
-            font-size: 16px;
+            font-size: 1.7vh;
         }
     }
 
@@ -256,7 +250,7 @@ li.tabs-triggers__item--active::before {
     top: 130%;
 
     & .user-menu__item{
-        padding: 10px 0px;
+        padding: 1vh 0px;
         transition: 0.3s;
 
         &:nth-child(2){
@@ -343,9 +337,9 @@ li.tabs-triggers__item--active::before {
 
     & .peoples{
         position: absolute;
-        bottom: -40px;
-        left: -10px;
         grid-area: peoples;
+        left: -4%; 
+        width: 95%;
     }
 
     & &-content{
@@ -375,14 +369,13 @@ li.tabs-triggers__item--active::before {
         "title"
         "list";
     grid-area: projects-progress;
-    max-width: 440px;
 }
 .week-statistic { 
     grid-area: week-statistic; 
 }
 .general-statistic { 
     grid-area: general-statistic; 
-    min-width: 440px;
+    //min-width: 440px;
 }
 
 
@@ -391,18 +384,18 @@ li.tabs-triggers__item--active::before {
 .welcome
 {
     & &__title{
-        font-size: 24px;
+        font-size: 1.2vw;
         margin-bottom: 15px;
 
         & .user-name{
             font-weight: 800;
-            font-size: 24px;
+            font-size: 1.2vw;
         }
 
     }
 
     & &__text{
-        font-size: 16px;
+        font-size: 1.7vh;
         font-weight: 500;
     }
 }
@@ -443,16 +436,16 @@ li.tabs-triggers__item--active::before {
     }
 }
 
-.name{
-    font-size:  16px;
-    font-weight: 800;
-}
+// .name{
+//     font-size:  16px;
+//     font-weight: 800;
+// }
 
 .project__small{
 
     & .project-name{
         margin-bottom: 10px;
-        font-size: 18px;
+        //font-size: 1.1vw;
     }
 
     & .progress{
@@ -472,10 +465,10 @@ li.tabs-triggers__item--active::before {
             font-weight: 500;
         }
 
-        & .percent{
-            font-weight: 800;
-            font-size: 18px;
-        }
+        // & .percent{
+        //     font-weight: 800;
+        //     font-size: 18px;
+        // }
 
         &.arrow{
             padding-right: 40px;
@@ -514,6 +507,11 @@ li.tabs-triggers__item--active::before {
     }
 }
 
+.progress-percent{
+    font-weight: 800;
+    font-size: 1vw;
+}
+
 .progress-bar{
     width: 100%;
     height: 5px;
@@ -545,7 +543,7 @@ li.tabs-triggers__item--active::before {
 }
 
 .target-item{
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 
     & &__number{
         font-size: 22px;
@@ -554,6 +552,10 @@ li.tabs-triggers__item--active::before {
     & &__content{
         width: 100%;
 
+        & .target-name{
+            font-size: 1.7vh;
+            margin-bottom: 3px;
+        }
         & .progress{
             margin-bottom: 0;
         }
@@ -612,7 +614,7 @@ li.tabs-triggers__item--active::before {
 
         &__data{
             width: 100%;
-            margin-top: 15px;
+            margin-top: 1.7vh;
             justify-content: space-between;
             align-items: flex-end;
         }
@@ -624,23 +626,23 @@ li.tabs-triggers__item--active::before {
 
             .block-value{
                 &:first-child{
-                    padding-right: 40px;
+                    padding-right: 15%;
                 }
                 &:last-child{
-                    padding-left: 40px;
+                    padding-left: 15%;
                 }
             }
         }
     }
     
     .main-value{
-        font-size: 45px;
+        font-size: 2.4vw;
         font-weight: 800;
         line-height: 1em;
         width: fit-content;
     }
     .second-value{
-        font-size: 36px;
+        font-size: 2vw;
         font-weight: 800;
         line-height: 1em;
     }
@@ -649,6 +651,7 @@ li.tabs-triggers__item--active::before {
         align-items: center;
 
         & .label-value{
+            width: max-content;
             margin-top: 5px;
         }
     }
@@ -658,10 +661,10 @@ li.tabs-triggers__item--active::before {
 
         .block-value{
             &:first-child{
-                padding-right: 30px;
+                padding-right: 15%;
             }
             &:last-child{
-                padding-left: 30px;
+                padding-left: 15%;
             }
         }
     }

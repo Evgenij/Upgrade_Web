@@ -86,9 +86,14 @@ $main: #8A66F0;
 
 .modal-window{
     &.add-task{
+        //display: none;
         visibility: hidden;
-        left: 240px;
+        left: 12.5vw;
         top: 0px;
+    }
+
+    &.show{
+        visibility: visible;
     }
 }
 

@@ -430,15 +430,20 @@ $('.periods_stat').click(function (e) {
 // функции и события для работы с МОДАЛЬНЫМИ ОКНАМИ
 
 function showModal(modal, close) { 
-	!$('.wrapp-modal').toggleClass('hide');
-	//$('.modal-window').fadeIn(500);
 
-	$('.' + $(modal).attr('id')).fadeIn(500);
-	//$('.' + $(modal).attr('id')).toggleClass('show');
+	var wrapp = $('.wrapp-modal');
+	var modalWindow = $('.' + $(modal).attr('id'));
 
-	if (close == true) { 
-		$('.modal-window').fadeOut(500);
+	console.log(modalWindow);
+
+	wrapp.toggleClass('hide');
+	modalWindow.toggleClass('show');
+	if (close == true) {
+		modalWindow.toggleClass('show');
 	}
+	// else { 
+	// 	modalWindow.toggleClass('show');
+	// }
 };
 
 $('#add-task').click(function () { 

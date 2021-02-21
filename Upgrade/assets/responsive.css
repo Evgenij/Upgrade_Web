@@ -1,0 +1,59 @@
+@media (min-width: 1920px) {
+  .title {
+    font-size: 2vh;
+  }
+}
+
+@media (max-width: 1680px) {
+  .block-task {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+  }
+  .block-task .block-task__text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1920px) {
+  .week-statistic .current-performance__value {
+    font-size: 1.2vw;
+  }
+}
+
+@media (max-width: 1366px) {
+  * {
+    font-size: 2.2vh;
+  }
+  .title {
+    font-size: 2.5vh;
+  }
+  .general-statistic {
+    flex-direction: inherit;
+  }
+  .tabs-content__item .welcome {
+    display: none;
+  }
+  .tabs-content__item:first-child {
+    grid-template-columns: 1fr 1fr 1.2fr;
+    grid-template-rows: 75px 0.6fr 1fr;
+    grid-template-areas: "head head head" "general-statistic general-statistic projects-progress" "week-statistic week-statistic projects-progress";
+  }
+  .user-panel-wrapper .user-data {
+    align-items: flex-end;
+  }
+  .user-panel-wrapper .user-data__fullname {
+    font-size: 1.2vw;
+    margin-bottom: 5px;
+  }
+  .user-panel-wrapper .user-data__spec {
+    font-size: 1vw;
+  }
+  .title-section__title {
+    font-size: 1.4vw;
+  }
+  .title-section__subtitle {
+    font-size: 2.2vh;
+  }
+}
