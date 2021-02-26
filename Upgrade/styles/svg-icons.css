@@ -1,0 +1,26 @@
+.tabs-triggers__item--active:nth-child(1),
+:nth-child(3) object svg path {
+    transition: 0.3s;
+    stroke: green;
+}
+
+/* &:nth-child(2) {
+    & svg path {
+        transition: 0.3s;
+        stroke: $main;
+    }
+
+    & svg rect {
+        transition: 0.3s;
+        fill: $main;
+    }
+}
+
+&:nth-child(4),
+&:nth-child(5) {
+    & svg path {
+        transition: 0.3s;
+        fill: $main;
+    }
+}
+} */

@@ -5,7 +5,7 @@ var lightTheme = "styles/light.css";
 var darkTheme = "styles/dark.css";
 var currTheme = link.getAttribute("href");
 
-$('#checkbox-theme').click(function () {
+$('.checkbox-theme').click(function () {
 
     let theme = "";
 

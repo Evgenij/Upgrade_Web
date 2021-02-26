@@ -85,40 +85,40 @@ echo '<div class="row flex">
             </div>
         </div>
         <img src="' . $data['smile'] . '" class="header__icon-face"></img>
-    </div>
-    <div class="row flex f-col">
-        <div class="row__title title">Количество задач на сегодня</div>
-        <div class="row__data data flex">
-            <div class="data__main">
-                <div class="block-value flex f-col">
-                    <p id="current-progress" class="main-value" style="color: ' . $data['colorPerf'] . ';">' . $data['performance'] . '%</p>
-                    <span class="label-value text">прогресс</span>
+        </div>
+        <div class="row flex f-col">
+            <div class="row__title title">Количество задач на сегодня</div>
+            <div class="row__data data flex">
+                <div class="data__main">
+                    <div class="block-value flex f-col">
+                        <p id="current-progress" class="main-value" style="color: ' . $data['colorPerf'] . ';">' . $data['performance'] . '%</p>
+                        <span class="label-value text">прогресс</span>
+                    </div>
                 </div>
-            </div>
-            <div class="data__second flex">
-                <div class="block-value flex f-col">
-                    <p id="all-tasks" class="second-value text-gradient">' . $data['allTask'] . '</p>
-                    <span class="label-value text">всего</span>
-                </div>
-                <div class="block-value flex f-col">
-                    <p id="done-tasks" class="second-value gray">' . $data['doneTask'] . '</p>
-                    <span class="label-value text">выполнено</span>
+                <div class="data__second flex">
+                    <div class="block-value flex f-col">
+                        <p id="all-tasks" class="second-value text-gradient">' . $data['allTask'] . '</p>
+                        <span class="label-value text">всего</span>
+                    </div>
+                    <div class="block-value flex f-col">
+                        <p id="done-tasks" class="second-value gray">' . $data['doneTask'] . '</p>
+                        <span class="label-value text">выполнено</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row flex f-col">
-        <div class="row__title title">Количество проектов</div>
-        <div class="row__data data flex">
-            <div class="data__main flex">
-                <div class="block-value flex f-col">
-                    <p id="owner-project" class="main-value text-gradient">' . $data['countProjectOwner'] . '</p>
-                    <span class="label-value text">руководитель в</span>
-                </div>
-                <div class="block-value flex f-col">
-                    <p id="member-project" class="main-value gray">' . $data['countProject'] . '</p>
-                    <span class="label-value text">участник в</span>
+        <div class="row flex f-col">
+            <div class="row__title title">Количество проектов</div>
+            <div class="row__data data flex">
+                <div class="data__main flex">
+                    <div class="block-value flex f-col">
+                        <p id="owner-project" class="main-value text-gradient">' . $data['countProjectOwner'] . '</p>
+                        <span class="label-value text">руководитель в</span>
+                    </div>
+                    <div class="block-value flex f-col">
+                        <p id="member-project" class="main-value gray">' . $data['countProject'] . '</p>
+                        <span class="label-value text">участник в</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>';
+        </div>';

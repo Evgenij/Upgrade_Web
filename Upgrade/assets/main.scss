@@ -1,11 +1,13 @@
+@import "variables.scss";
 @import "../styles/normalize.css";
-$main: #8A66F0; 
-$gradient: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
+@import "task-block.css";
+
 
 *{
     font-family: 'Manrope', sans-serif;
-    font-size: 1.5vh;
-    font-weight: 600;
+    //font-size: 1.5vh;
+    font-size: 0.9vw;
+    font-weight: $main-text;
     line-height: 1.4em;
     user-select: none;
     -webkit-tap-highlight-color:transparent;
@@ -17,7 +19,7 @@ html, body{
 }
 
 body{
-    padding: 30px;
+    padding: 2%;
 }
 
 .notification{
@@ -64,7 +66,7 @@ body{
 .tabs{
     height: 100%;
     display: grid;
-    grid-template-columns: 11vw 1fr;
+    grid-template-columns: 12vw 1fr;
     grid-template-rows: 1fr;
     gap: 0px 2.8vw;
     grid-template-areas:
@@ -86,12 +88,19 @@ body{
 }
 
 .tabs-triggers__item{
-    text-align: center;
-    padding: 1.6vh 0px;
+    justify-content: flex-start;
+    //text-align: center;
+    padding: 0.8vw 0px;
+    padding-left: 0.5vw;
     transition: 0.3s;
     cursor: pointer;
-    font-size: 0.85vw;
-
+    font-size: 1.7vh;
+    line-height: 1.3em;
+    
+    & object{
+        margin-right: 0.9vw;
+    }
+    
     &:hover{
         color: $main;
     }
@@ -99,6 +108,30 @@ body{
 
 .tabs-triggers__item--active {
     position: relative;
+    color: $main;
+
+    // &:nth-child(1), &:nth-child(3){
+    //     & object path{ 
+    //         transition: 0.3s;
+    //         stroke: $main;
+    //     }
+    // }
+    // &:nth-child(2){
+    //     & svg path { 
+    //         transition: 0.3s;
+    //         stroke: $main;
+    //     }
+    //     & svg rect { 
+    //         transition: 0.3s;
+    //         fill: $main;
+    //     }
+    // }
+    // &:nth-child(4), &:nth-child(5){
+    //     & svg path { 
+    //         transition: 0.3s;
+    //         fill: $main;
+    //     }
+    // }
 }
 
 @keyframes show-menu-indicator {
@@ -150,20 +183,6 @@ li.tabs-triggers__item--active::before {
     animation: menu-indicator-before 1s;
 }
 
-.tabs-content__item{
-    display: none;
-
-    &:first-child{
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) 0.9fr;
-        grid-template-rows: 75px 0.6fr 1fr;
-        gap: 3.4vh 2vw;
-        grid-template-areas:
-            "head head head"
-            "welcome welcome projects-progress"
-            "week-statistic general-statistic projects-progress";
-    }
-}
-
 .tabs-content .tabs-content__item--active {
     display: grid;
     height: 100%;
@@ -199,7 +218,7 @@ li.tabs-triggers__item--active::before {
         }
         &__spec{
             font-weight: 500;
-            font-size: 1.7vh;
+            font-size: 0.9vw;
         }
     }
 
@@ -310,6 +329,7 @@ li.tabs-triggers__item--active::before {
     }
 }
 
+
 .header { 
     grid-area: header; 
     justify-content: flex-start;
@@ -317,6 +337,43 @@ li.tabs-triggers__item--active::before {
     & .title-section{
         margin-bottom: 0;
         grid-area: title;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tabs-content__item{
+    display: none;
+
+    &:first-child{
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr) 0.9fr;
+        grid-template-rows: 75px 0.6fr 1fr;
+        gap: 3.4vh 2vw;
+        grid-template-areas:
+            "head head head"
+            "welcome welcome projects-progress"
+            "week-statistic general-statistic projects-progress";
+    }
+    &:nth-child(2){
+        grid-template-columns: 1.4fr 1fr;
+        grid-template-rows: 75px 1fr;
+        gap: 3.4vh 2vw;
+        grid-template-areas:
+            "head head"
+            "tasks task-data";
     }
 }
 
@@ -345,21 +402,28 @@ li.tabs-triggers__item--active::before {
     & &-content{
         grid-area: welcome-content;
 
-        & .button{
-            min-width: 75px;
-            min-height: 75px;
-            margin-left: 30px;
-            position: relative;
-
-            &:before{
-                content: url(/pictures/icons/icon-play.svg);
-                position: absolute;
-                left: 29px;
-                top: 20px;
-            }
-        }
+        // & .button{
+        //     min-width: 75px;
+        //     min-height: 75px;
+        //     margin-left: 30px;
+        //     position: relative;
+        // }
     }
 }
+
+.welcome .button{
+    min-width: 75px;
+    min-height: 75px;
+    margin-left: 30px;
+    position: relative;
+    line-height: 1em;
+
+    & svg{
+        position: relative;
+        left: 3px;
+    }
+}
+
 .projects-progress {
     display: grid;
     grid-template-columns: 1fr;
@@ -431,7 +495,12 @@ li.tabs-triggers__item--active::before {
         }
 
         &__item{
-            margin-right: 20px;
+
+            margin-right: 10px;
+
+            &:last-child{
+                margin: 0;
+            }
         }
     }
 }
@@ -456,19 +525,6 @@ li.tabs-triggers__item--active::before {
         & .text{
             font-weight: 500;
         }
-
-        &-labels{
-            justify-content: space-between;
-            align-items: flex-end;
-            width: 100%;
-            margin-bottom: 7px;
-            font-weight: 500;
-        }
-
-        // & .percent{
-        //     font-weight: 800;
-        //     font-size: 18px;
-        // }
 
         &.arrow{
             padding-right: 40px;
@@ -512,6 +568,16 @@ li.tabs-triggers__item--active::before {
     font-size: 1vw;
 }
 
+.progress{
+    &-labels{
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        margin-bottom: 7px;
+        font-weight: 500;
+    }
+}
+
 .progress-bar{
     width: 100%;
     height: 5px;
@@ -553,7 +619,7 @@ li.tabs-triggers__item--active::before {
         width: 100%;
 
         & .target-name{
-            font-size: 1.7vh;
+            font-size: 1.8vh;
             margin-bottom: 3px;
         }
         & .progress{
@@ -586,11 +652,11 @@ li.tabs-triggers__item--active::before {
 	
 	& .current-performance__value{
 		font-weight: 800;
-		font-size: 24px;
+		font-size: 1.2vw;
     }
 
     & .last-performance__value{
-		font-size: 16px;
+		font-size: 0.9vw;
     }
     
     &__chart{
@@ -657,15 +723,55 @@ li.tabs-triggers__item--active::before {
     }
 
     .data__second{
-        width: 60%;
+        width: 55%;
 
         .block-value{
             &:first-child{
-                padding-right: 15%;
+                padding-right: 10%;
             }
             &:last-child{
-                padding-left: 15%;
+                padding-left: 10%;
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tasks {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0fr 1fr;
+    gap: 30px 0px;
+    grid-template-areas:
+        "task-filters"
+        "task-list";
+    grid-area: tasks;
+}
+.task-filters { grid-area: task-filters; }
+.task-list { grid-area: task-list; }
+.task-data { grid-area: task-data; }
+
+.task-list{
+    padding-right: 10px;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    overflow-y: auto;
+}
+

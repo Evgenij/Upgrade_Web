@@ -14,7 +14,7 @@ var chart, datepicker;
 
 // получение данных из выпадающего списка
 function getValueSelect(select) { 
-	return $('.' + select).find(".custom-option.selection").data("value");
+	return $('.custom-options#' + select).find(".custom-option.selection").data("value");
 }
 
 // вывод всплывающего сообщения
@@ -46,13 +46,20 @@ function mouseUp(target) {
 	return false;
 }
 
-function iniSelect(select) { 
-	$('.' + select).find('.custom-option:first').addClass('selection');
-	$('.' + select).find('.custom-select-trigger').text($('.' + select).find('.custom-option:first').text());
+function iniSelect(select, num) { 
+
+	if (num) {
+		$('.custom-options#' + select).find('.custom-option:nth-child('+num+')').addClass('selection');
+	}
+	else {
+		$('.custom-options#' + select).find('.custom-option:first').addClass('selection');
+	}
+	$('.custom-select-trigger#' + select).text($('.custom-options#' + select).find('.custom-option.selection').text());
 }
 
 function setDatasSelect(select, data) { 
-	$('.' + select).find('.custom-options').html(data);
+	//console.log($('.custom-options#' + select).text('1'));
+	$('.custom-options#' + select).html(data);
 	iniSelect(select);
 }
 
@@ -71,11 +78,25 @@ function iniMainWindow() {
 	setDataForWeeklyChart();
 	getDataTodays();
 	datepicker = new Datepicker('#datepicker');
+	GetGeneralData();
 }
 
 // функции заполнения данными окон пуктовменю
 
 
+
+
+function GetGeneralData() { 
+	$.ajax({
+		url: 'php/getGeneralData.php',
+		type: 'POST',
+		dataType: 'json',
+		success(data) {
+			$('.count-task').text(data.countTask + " задачи");
+			$('.count-project').text(data.countProject + "-мя проектами");
+		}
+	});
+}
 
 
 
@@ -224,17 +245,16 @@ $('#btn-rec_pass').click(function (e) {
 
 
 
-
 // функции и события для ВЫПАДАЮЩЕГО МЕНЮ ПОЛЬЗОВАТЕЛЯ
 
-$('.user-panel-wrapper').click(function (e) {
+$('.user-panel-wrapper').on('click', function (e) {
 	if (!($(e.target).parents('.user-menu').length == 1)) {
 		$(this).toggleClass('active');
 		$('.user-menu').toggleClass('active');
 	}
 });
 
-$('.user-menu').mouseleave(function (e) {
+$('.user-menu').on('mouseleave', function (e) {
 	$('.user-menu').toggleClass('active');
 	$('.user-panel-wrapper').toggleClass('active');
 });
@@ -248,48 +268,94 @@ $('.user-menu').mouseleave(function (e) {
 // функции для работы с выпадающими списками
 
 $('.projects').click(function () { 
-	let idProject = getValueSelect('projects');
-		
-	$.ajax({
-        url: 'php/getTargets.php',
-        type: 'POST',
-        dataType: 'html',
-		data: {
-			project: idProject
-		},
-		success(data) {
-			setDatasSelect('targets', data);
-			getExecutors();
-		}
-	});
+
+	var idProject;
+
+	if ($(this).hasClass('projects-task')) {
+		idProject = getValueSelect('projects-task');
+		console.log(1);
+		SetSelectTargets(idProject, 'targets-task', 'executors-task');
+
+		// $.ajax({
+		// 	url: 'php/getTargets.php',
+		// 	type: 'POST',
+		// 	dataType: 'html',
+		// 	data: {
+		// 		project: idProject
+		// 	},
+		// 	success(data) {
+		// 		setDatasSelect('targets-task', data);
+		// 		getExecutors('targets-task', 'executors-task');
+		// 	}
+		// });
+	}
+	else if ($(this).hasClass('projects-filter'))
+	{ 
+		idProject = getValueSelect('projects-filter');
+
+		SetSelectTargets(idProject, 'targets-filter', 'executors-filter');
+
+		// $.ajax({
+		// 	url: 'php/getTargets.php',
+		// 	type: 'POST',
+		// 	dataType: 'html',
+		// 	data: {
+		// 		project: idProject
+		// 	},
+		// 	success(data) {
+		// 		setDatasSelect('targets-filter', data);
+		// 		getExecutors('targets-filter', 'executors-filter');
+		// 	}
+		// });
+	}
 })
+
+function SetSelectTargets(idProject, selectTargets, selectExecutors) { 
+	if (idProject != 0) {
+		$.ajax({
+			url: 'php/getTargets.php',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				project: idProject
+			},
+			success(data) {
+				setDatasSelect(selectTargets, data);
+			}
+		});
+
+		// if (selectExecutors == 'executors-task') {
+		// 	getExecutors(selectTargets, 'executors-task');
+		// }
+		// else { 
+		// 	getExecutors(selectTargets, 'executors-filter');
+		// }
+
+	}
+	else { 
+		let data = '<span class="custom-option undefined" data-value="0">Все цели</span>';
+		setDatasSelect(selectTargets, data);
+	}
+
+	if (selectExecutors == 'executors-task') {
+		getExecutors(selectTargets, 'executors-task');
+	}
+	else { 
+		getExecutors(selectTargets, 'executors-filter');
+	}
+}
 
 $('.targets').click(function () { 
-	let idTarget = getValueSelect('targets');
-		
-	$.ajax({
-        url: 'php/getExecutor.php',
-        type: 'POST',
-        dataType: 'json',
-		data: {
-			target: idTarget
-		},
-		success(data) {
-			if (data.status == true) {
-
-				$('.executors').parents('.custom-select-wrapper').removeClass('hide');
-
-				setDatasSelect('executors', data.rows);
-			}
-			else { 
-				$('.executors').parents('.custom-select-wrapper').addClass('hide');
-			}
-		}
-	});
+	if ($(this).hasClass('targets-task')) {
+		getExecutors('targets-task', 'executors-task');
+	}
+	else if ($(this).hasClass('targets-filter')) { 
+		getExecutors('targets-filter', 'executors-filter');
+	}
 })
 
-function getExecutors() { 
-	let idTarget = getValueSelect('targets');
+function getExecutors(selectTargets, selectExecutors) { 
+	idTarget = getValueSelect(selectTargets);
 		
 	$.ajax({
         url: 'php/getExecutor.php',
@@ -301,18 +367,26 @@ function getExecutors() {
 		success(data) {
 			if (data.status == true) {
 
-				$('.executors').parents('.custom-select-wrapper').removeClass('hide');
+				$('.' + selectExecutors).parents('.custom-select-wrapper').removeClass('hide');
 
-				setDatasSelect('executors', data.rows);
+				setDatasSelect(selectExecutors, data.rows);
 			}
 			else { 
-				$('.executors').parents('.custom-select-wrapper').addClass('hide');
+				$('.' + selectExecutors).parents('.custom-select-wrapper').addClass('hide');
 			}
 		}
 	});
 }
 
 // функции для работы с выпадающими списками
+
+
+
+
+
+
+
+
 
 
 
@@ -415,11 +489,39 @@ function setChartValues(labels, valuesDone, valuesFailed) {
 	delete chart;
 }
 
-$('.periods_stat').click(function (e) {
+$('#periods_stat.custom-options').click(function (e) {
 	setDataForWeeklyChart();
 })
 
 // функции и события для запполнения данными компоненты пункта меню - ОСНОВНОЕ
+
+
+
+
+
+
+
+
+
+
+
+
+$('li[value=\"tab-2\"]').click(function () { 
+	iniSelect('date-filter', 3);
+	iniSelect('status-filter');
+	iniSelect('projects-filter');
+
+	let idProject = getValueSelect('projects-filter');
+
+	SetSelectTargets(idProject, 'targets-filter');
+	iniSelect('targets-filter');
+})
+
+
+
+
+
+
 
 
 
@@ -434,24 +536,22 @@ function showModal(modal, close) {
 	var wrapp = $('.wrapp-modal');
 	var modalWindow = $('.' + $(modal).attr('id'));
 
-	console.log(modalWindow);
-
 	wrapp.toggleClass('hide');
-	modalWindow.toggleClass('show');
 	if (close == true) {
+		$('.modal-window').toggleClass('show');
+	}
+	else { 
 		modalWindow.toggleClass('show');
 	}
-	// else { 
-	// 	modalWindow.toggleClass('show');
-	// }
 };
 
 $('#add-task').click(function () { 
 	showModal(this);
 
-	iniSelect('projects');
+	iniSelect('projects-task');
 	
-	let idProject = getValueSelect('projects');
+	let idProject = getValueSelect('projects-task');
+	//console.log(idProject);
 		
 	$.ajax({
         url: 'php/getTargets.php',
@@ -461,12 +561,12 @@ $('#add-task').click(function () {
 			project: idProject
 		},
 		success(data) {
-			setDatasSelect('targets', data);
-			getExecutors();
+			setDatasSelect('targets-task', data);
+			getExecutors('targets-task', 'executors-filter');
 		}
 	});
 
-	iniSelect('durations');
+	iniSelect('durations-task');
 })
 
 $('.head__btn-close').click(function () {

@@ -84,7 +84,7 @@ function liteChart(id, settings) {
 			list: null,
 			map: null,
 			table: {
-				show: true,
+				show: false,
 				position: {
 					x: "center",
 					y: 370,
@@ -548,8 +548,8 @@ liteChart.prototype.inject = function(obj) {
 	window.addEventListener("resize", function() {
 		panel.style.width = obj.clientWidth;
 		panel.style.height = obj.clientHeight;
-		chart.tooltip.object = null;
-		chart.draw(false);
+		//chart.tooltip.object = null;
+		chart.draw(true);
 	});
 }
 

@@ -12,10 +12,9 @@ body{
 	color: $title;
 }
 
-
 .panel{
 	background-color: $panel;
-	padding: 25px 30px;
+	padding: 3vh 1.8vw;
 	border-radius: 15px;
 
 	&-add{
@@ -23,16 +22,21 @@ body{
 	}
 
 	&-big{
-		padding: 35px 40px;
+		padding: 3.5vh 2.1vw;
 	}
 
 	@include shadow();
 }
 
 .title{
+	font-size: 1vw;
 	color: $title;
-	font-size: 18px;
-	font-weight: 800;
+	font-weight: $bold-text;
+	line-height: 1.2em;
+
+	&-block{
+		font-size: 1.7vh;
+	}
 }
 
 .text{
@@ -41,6 +45,16 @@ body{
 	&.regular{
 		font-weight: 400;
 	}
+
+	&-gradient {
+		background: $gradient;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+}
+
+a{
+	font-size: 1.5vh;
 }
 
 .icon, .gray{
@@ -84,10 +98,9 @@ body{
 
 
 input.input{
-	font-size: 14px;
-	border: 2px solid $border;
-	border-radius: 10px;
-	padding: 18px 24px;
+	border: 1px solid $border;
+	border-radius: 8px;
+	padding: 1.9vh 2.9vh;
 	width: 100%;
 	background-color: $panel;
 	position: relative;
@@ -98,7 +111,7 @@ input.input{
 	}
 	
 	&.with-icon{
-		padding-left: 60px;
+		padding-left: 6vh;
 	}
 }
 
@@ -106,6 +119,11 @@ input.input,
 .custom-select-trigger{
 	&.error{
 		border-color: #ff9595;
+	}
+
+	&.with-shadow{
+		border: none;
+		@include shadow();
 	}
 }
 
@@ -164,10 +182,78 @@ input.input,
 
 
 
+.tabs-triggers__item{
+	& object #document svg path{ 
+		transition: 0.3s;
+		stroke: $title;
+	}
+}
+
+
+
+
+
+
+
+// custom checkbox
+
+.task-block__status
+{
+	& .checkbox_status{
+		display: none;
+
+		&:checked + .rect::before{
+			opacity: 1;
+		}
+		&:checked + .rect{
+			border-color: #76c240;
+		}
+	}
+	& .rect{
+		display: block;
+		width: 25px;
+		height: 25px;
+		border: 2px solid $gray;
+		border-radius: 5px;
+		transition: 0.2s;
+		cursor: pointer;
+		position: relative;
+
+		&:hover{
+			border-color: #76c240;
+		}
+
+		&::before{
+			content: '';
+			position: absolute;
+			height: 17px;
+			width: 9px;
+			border-bottom: 3px solid #76c240;
+			border-right: 3px solid #76c240;
+			border-radius: 3px;
+			-webkit-transform: rotate(45deg) translateY(-50%);
+			transform: rotate(40deg) translateY(-50%);
+			left: 1px;
+			top: 6px;
+			transition: 0.2s;
+			opacity: 0;
+		}
+	}	
+}
+// custom checkbox
+
+
+
+
+
+
+
+
+
 /** Custom Select **/
 .custom-select-wrapper {
 	position: relative;
-	display: inline-block;
+	display: inline-flex;
 
 	&.hide{
 		display: none;
@@ -182,16 +268,20 @@ input.input,
 	width: 100%;
 }
 .custom-select-trigger {
+	max-width: 170px;
 	position: relative;
 	display: block;
-	width: 100%;
-	padding: 18px 55px 18px 24px;
+	min-width: 100%;
+	//padding: 18px 55px 18px 24px;
+	padding: 1.9vh 6vh 1.9vh 2.9vh;
 	background: $panel;
-	border-radius: 10px;
+	border-radius: 8px;
 	cursor: pointer;
-	border: 2px solid $border;
+	border: 1px solid $border;
 	color: $title;
 	white-space: nowrap;
+	overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 .custom-select-trigger:after {
 	position: absolute;
@@ -200,7 +290,7 @@ input.input,
 	width: 10px; 
 	height: 10px;
 	top: 50%; 
-	right: 25px;
+	right: 1.3vw;
 	margin-top: -3px;
 	border-bottom: 2px solid $gray;
 	border-right: 2px solid $gray;
@@ -508,7 +598,6 @@ input.input,
   z-index: 2;
 }
 
-
 // datepicker
 
 
@@ -539,7 +628,7 @@ input.input,
 
 
 
-
+// theme checkbox
 
 .knobs,
 .layer {
@@ -613,7 +702,7 @@ input.input,
     left: 14px;
 }
 
-
+// theme checkbox
 
 
 
@@ -631,16 +720,16 @@ input.input,
 
 .title-section{
 	padding-left: 40px;
-	margin-bottom: 35px;
+	margin-bottom: 4.5vh;
 
 	&__title{
-		font-size: 24px;
+		font-size: 2.4vh;
 		font-weight: 800;
 		margin-bottom: 3px;
 	}
 	&__subtitle{
 		color: $text;
-		font-size: 16px;
+		font-size: 1.7vh;
 
 		& .subtitle__color{
 			font-size: inherit;
@@ -648,6 +737,33 @@ input.input,
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+.tag{
+	padding: 0.7vh 0.8vw;;
+	margin-right: 10px;
+	background-color: #6318c531;
+	color: #805edd;
+	border-radius: 20px;
+	font-size: 1.3vh;
+}
+
+
+
+
+
+
+
+
+
 
 
 

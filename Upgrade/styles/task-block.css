@@ -1,0 +1,37 @@
+.task-block {
+  max-width: 47%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin-bottom: 25px;
+  margin-right: 25px;
+}
+
+.task-block__head {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 1.1vw;
+}
+
+.task-block__date .date {
+  font-weight: 700;
+  margin-left: 0.7vw;
+  color: #8A66F0;
+}
+
+.task-block__content .progress {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.task-block__description {
+  margin-top: 10px;
+}
+
+.task-block__footer {
+  margin-top: 25px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
