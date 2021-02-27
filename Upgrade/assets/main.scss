@@ -766,6 +766,7 @@ li.tabs-triggers__item--active::before {
 .task-data { grid-area: task-data; }
 
 .task-list{
+    padding: 6px;
     padding-right: 10px;
     height: 100%;
     flex-wrap: wrap;

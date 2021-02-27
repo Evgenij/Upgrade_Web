@@ -3,6 +3,15 @@
 @mixin shadow() {
 	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
 }
+
+@mixin shadow-hover() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.17);
+}
+
+@mixin shadow-select() {
+	box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.23);
+}
+
 @mixin shadow-avatar() {
 	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
 }
@@ -758,6 +767,25 @@ input.input,
 
 
 
+
+
+
+
+
+
+.task-block{
+
+    &:hover{
+        transform: translateX(-2px) translateY(-2px);
+        @include shadow-hover();
+    }
+
+    &.selection{
+        //border: 1px solid $main;
+        transform: translateX(-6px) translateY(-6px);
+        @include shadow-select();
+    }
+}
 
 
 

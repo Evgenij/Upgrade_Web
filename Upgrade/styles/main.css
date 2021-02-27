@@ -690,6 +690,7 @@ li.tabs-triggers__item--active::before {
 }
 
 .task-list {
+  padding: 6px;
   padding-right: 10px;
   height: 100%;
   -ms-flex-wrap: wrap;

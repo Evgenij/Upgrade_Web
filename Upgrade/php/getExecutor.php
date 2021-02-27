@@ -1,7 +1,7 @@
 <?php
 require_once "../vendor/connect.php";
 
-$idTarget = $_POST['target'];
+$idProject = $_POST['project'];
 $responce = [];
 
 // SELECT user.id_user, user.name, user.surname FROM user 
@@ -20,11 +20,11 @@ $sql = "SELECT user.id_user, user.name, user.surname FROM user
         (SELECT team.id_team FROM team 
         INNER JOIN target ON target.id_target = team.id_target 
         INNER JOIN project ON project.id_project = target.id_project
-        WHERE target.id_target = :idTarget AND project.creator = 1)";
+        WHERE project.id_project = :idProject AND project.creator = 1)";
 
 $query = $db->prepare($sql);
 $params = [
-    ':idTarget' => $idTarget
+    ':idProject' => $idProject
 ];
 $query->execute($params);
 

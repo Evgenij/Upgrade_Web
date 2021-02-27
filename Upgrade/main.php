@@ -357,11 +357,11 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                     <div class="task-filters">
                         <div class="list-hor">
                             <select id="date-filter" class="custom-select date-filter date text with-shadow">
-                                <option value="last_week">Прошлая неделя</option>
-                                <option value="yesterday">Вчера</option>
-                                <option value="today">Сегодня</option>
-                                <option value="tommorrow">Завтра</option>
-                                <option value="curr_week">Текущая неделя</option>
+                                <option value="-2">Прошлая неделя</option>
+                                <option value="-1">Вчера</option>
+                                <option value="0">Сегодня</option>
+                                <option value="1">Завтра</option>
+                                <option value="2">Текущая неделя</option>
                             </select>
                             <select id="projects-filter" class="custom-select projects-filter projects text with-shadow">
                                 <option value="0">Все проекты</option>
@@ -370,11 +370,12 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                             <select id="targets-filter" class="custom-select targets-filter targets text with-shadow">
                             </select>
                             <select id="status-filter" class="custom-select status-filter status text with-shadow">
-                                <option value="all">Все задачи</option>
-                                <option value="done">Выполненные</option>
-                                <option value="in_progress">В работе</option>
+                                <option value="0">Все задачи</option>
+                                <option value="1">Выполненные</option>
+                                <option value="2">В работе</option>
                             </select>
-                            <select id="executors-filter" class="custom-select executors-filter text with-shadow hide">
+                            <select id="executors-filter" class="custom-select executors-filter executors text with-shadow hide">
+                                <option value="0">Все исполнители</option>
                             </select>
                         </div>
                     </div>
@@ -420,6 +421,84 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                                     <div class="progress-labels flex">
                                         <div class="progress-labels__item text">Прогресс</div>
                                         <div class="progress-labels__item progress-percent text-gradient">1 <span class="count-subtask">/3</span></div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar__current" style="width:39%;"></div>
+                                    </div>
+                                </div>
+                            </main>
+                            <footer class="task-block__footer flex list-hor">
+                                <div class="list-hor__item tag">Project #1</div>
+                                <div class="tag list-hor__item">Target #4</div>
+                            </footer>
+                        </div>
+                        <div class="task-block panel">
+                            <header class="task-block__head flex">
+                                <label class="task-block__status">
+                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                    <span class="rect"></span>
+                                </label>
+                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
+                            </header>
+                            <main class="task-block__content">
+                                <div class="task-block__name title title-block">Название задачи</div>
+                                <div class="task-block__description text regular">описание задачи...</div>
+                                <div class="progress arrow empty flex f-col trigger">
+                                    <div class="progress-labels flex">
+                                        <div class="progress-labels__item text">Прогресс</div>
+                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar__current" style="width:39%;"></div>
+                                    </div>
+                                </div>
+                            </main>
+                            <footer class="task-block__footer flex list-hor">
+                                <div class="list-hor__item tag">Project #1</div>
+                                <div class="tag list-hor__item">Target #4</div>
+                            </footer>
+                        </div>
+                        <div class="task-block panel">
+                            <header class="task-block__head flex">
+                                <label class="task-block__status">
+                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                    <span class="rect"></span>
+                                </label>
+                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
+                            </header>
+                            <main class="task-block__content">
+                                <div class="task-block__name title title-block">Название задачи</div>
+                                <div class="task-block__description text regular">описание задачи...</div>
+                                <div class="progress arrow empty flex f-col trigger">
+                                    <div class="progress-labels flex">
+                                        <div class="progress-labels__item text">Прогресс</div>
+                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar__current" style="width:39%;"></div>
+                                    </div>
+                                </div>
+                            </main>
+                            <footer class="task-block__footer flex list-hor">
+                                <div class="list-hor__item tag">Project #1</div>
+                                <div class="tag list-hor__item">Target #4</div>
+                            </footer>
+                        </div>
+                        <div class="task-block panel">
+                            <header class="task-block__head flex">
+                                <label class="task-block__status">
+                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                    <span class="rect"></span>
+                                </label>
+                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
+                            </header>
+                            <main class="task-block__content">
+                                <div class="task-block__name title title-block">Название задачи</div>
+                                <div class="task-block__description text regular">описание задачи...</div>
+                                <div class="progress arrow empty flex f-col trigger">
+                                    <div class="progress-labels flex">
+                                        <div class="progress-labels__item text">Прогресс</div>
+                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
                                     </div>
                                     <div class="progress-bar">
                                         <div class="progress-bar__current" style="width:39%;"></div>

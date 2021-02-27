@@ -73,7 +73,22 @@ img {
 }
 
 .task-block {
-  max-width: 48%;
+  max-width: 47%;
+  flex-grow: 1;
+  margin-bottom: 25px;
+  margin-right: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.task-block:hover {
+  transform: translateX(-2px) translateY(-2px);
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
+}
+
+.task-block.selection {
+  transform: translateX(-6px) translateY(-6px);
+  box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.15);
 }
 
 .task-block__head {
@@ -94,10 +109,6 @@ img {
 
 .task-block__description {
   margin-top: 10px;
-}
-
-.progress-label {
-  margin-left: 10px;
 }
 
 .task-block__footer {
@@ -772,6 +783,7 @@ li.tabs-triggers__item--active::before {
 }
 
 .task-list {
+  padding: 6px;
   padding-right: 10px;
   height: 100%;
   flex-wrap: wrap;

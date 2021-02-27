@@ -5,6 +5,17 @@
     flex-grow: 1;
     margin-bottom: 25px;
     margin-right: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    // &:hover{
+    //     transform: translateX(-2px) translateY(-2px);
+    //     box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
+    // }
+
+    &.selection{
+        //border: 1px solid $main;
+    }
 }
 
 .task-block__head{

@@ -674,6 +674,16 @@ input.input.with-shadow,
   font-size: 1.3vh;
 }
 
+.task-block:hover {
+  transform: translateX(-2px) translateY(-2px);
+  box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
+}
+
+.task-block.selection {
+  transform: translateX(-6px) translateY(-6px);
+  box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.13);
+}
+
 *::-webkit-scrollbar-button {
   background-image: url("");
   background-repeat: no-repeat;

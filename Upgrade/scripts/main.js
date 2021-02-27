@@ -55,12 +55,16 @@ function iniSelect(select, num) {
 		$('.custom-options#' + select).find('.custom-option:first').addClass('selection');
 	}
 	$('.custom-select-trigger#' + select).text($('.custom-options#' + select).find('.custom-option.selection').text());
+
+	console.log('iniSelect');
 }
 
 function setDatasSelect(select, data) { 
-	//console.log($('.custom-options#' + select).text('1'));
+
 	$('.custom-options#' + select).html(data);
 	iniSelect(select);
+	
+	console.log('setDatasSelect');
 }
 
 // функции и события общего назначения
@@ -265,50 +269,106 @@ $('.user-menu').on('mouseleave', function (e) {
 
 
 
+
+
 // функции для работы с выпадающими списками
 
-$('.projects').click(function () { 
 
-	var idProject;
 
-	if ($(this).hasClass('projects-task')) {
-		idProject = getValueSelect('projects-task');
-		console.log(1);
+
+
+$('.custom-options.projects').click(function () { 
+
+	let id_select_projects = $(this).attr('id');
+	idProject = getValueSelect(id_select_projects);
+
+	if (id_select_projects == 'projects-task') {
 		SetSelectTargets(idProject, 'targets-task', 'executors-task');
-
-		// $.ajax({
-		// 	url: 'php/getTargets.php',
-		// 	type: 'POST',
-		// 	dataType: 'html',
-		// 	data: {
-		// 		project: idProject
-		// 	},
-		// 	success(data) {
-		// 		setDatasSelect('targets-task', data);
-		// 		getExecutors('targets-task', 'executors-task');
-		// 	}
-		// });
+		getExecutors(idProject, 'executors-task');
 	}
-	else if ($(this).hasClass('projects-filter'))
-	{ 
-		idProject = getValueSelect('projects-filter');
-
+	else if (id_select_projects == 'projects-filter') { 
 		SetSelectTargets(idProject, 'targets-filter', 'executors-filter');
+		getExecutors(idProject, 'executors-filter');
+	}
+	//SetSelectProjects($(this).attr('id'));
 
-		// $.ajax({
-		// 	url: 'php/getTargets.php',
-		// 	type: 'POST',
-		// 	dataType: 'html',
-		// 	data: {
-		// 		project: idProject
-		// 	},
-		// 	success(data) {
-		// 		setDatasSelect('targets-filter', data);
-		// 		getExecutors('targets-filter', 'executors-filter');
-		// 	}
-		// });
+	// var idProject;
+
+	// if ($(this).hasClass('projects-task')) {
+	// 	idProject = getValueSelect('projects-task');
+	// 	console.log(1);
+	// 	SetSelectTargets(idProject, 'targets-task', 'executors-task');
+
+	// 	// $.ajax({
+	// 	// 	url: 'php/getTargets.php',
+	// 	// 	type: 'POST',
+	// 	// 	dataType: 'html',
+	// 	// 	data: {
+	// 	// 		project: idProject
+	// 	// 	},
+	// 	// 	success(data) {
+	// 	// 		setDatasSelect('targets-task', data);
+	// 	// 		getExecutors('targets-task', 'executors-task');
+	// 	// 	}
+	// 	// });
+	// }
+	// else if ($(this).hasClass('projects-filter'))
+	// { 
+	// 	idProject = getValueSelect('projects-filter');
+
+	// 	SetSelectTargets(idProject, 'targets-filter', 'executors-filter');
+
+	// 	// $.ajax({
+	// 	// 	url: 'php/getTargets.php',
+	// 	// 	type: 'POST',
+	// 	// 	dataType: 'html',
+	// 	// 	data: {
+	// 	// 		project: idProject
+	// 	// 	},
+	// 	// 	success(data) {
+	// 	// 		setDatasSelect('targets-filter', data);
+	// 	// 		getExecutors('targets-filter', 'executors-filter');
+	// 	// 	}
+	// 	// });
+	// }
+})
+
+$('.custom-options.targets').click(function () { 
+	// let idProject = getValueSelect();
+	// let id_select_targets = $(this).attr('id');	
+
+	// if (id_select_targets == 'targets-task') {
+	// 	getExecutors(idProject, 'executors-task');
+	// }
+	// else if (id_select_targets == 'targets-filter') { 
+	// 	getExecutors(idProject, 'executors-filter');
+	// }
+	let id_select_targets = $(this).attr('id');
+
+	if (id_select_targets == 'targets-filter') {
+		GetTasks();
 	}
 })
+
+$('.custom-options.date').click(function () { 
+	GetTasks();
+})
+
+$('.custom-options.status').click(function () { 
+	GetTasks();
+})
+
+function SetSelectProjects(selectProjects) { 
+	var idProject = getValueSelect(selectProjects);
+
+	if ($(this).hasClass(selectProjects)) {
+		SetSelectTargets(idProject, 'targets-task', 'executors-task');
+	}
+	else if ($(this).hasClass(selectProjects))
+	{
+		SetSelectTargets(idProject, 'targets-filter', 'executors-filter');
+	}
+}
 
 function SetSelectTargets(idProject, selectTargets, selectExecutors) { 
 	if (idProject != 0) {
@@ -324,62 +384,48 @@ function SetSelectTargets(idProject, selectTargets, selectExecutors) {
 			}
 		});
 
-		// if (selectExecutors == 'executors-task') {
-		// 	getExecutors(selectTargets, 'executors-task');
-		// }
-		// else { 
-		// 	getExecutors(selectTargets, 'executors-filter');
-		// }
-
 	}
 	else { 
-		let data = '<span class="custom-option undefined" data-value="0">Все цели</span>';
-		setDatasSelect(selectTargets, data);
+		setDatasSelect(selectTargets, GetDefaultValueSelect('Все цели'));
 	}
 
-	if (selectExecutors == 'executors-task') {
-		getExecutors(selectTargets, 'executors-task');
-	}
-	else { 
-		getExecutors(selectTargets, 'executors-filter');
-	}
+	getExecutors(idProject, 'executors-filter');
 }
 
-$('.targets').click(function () { 
-	if ($(this).hasClass('targets-task')) {
-		getExecutors('targets-task', 'executors-task');
-	}
-	else if ($(this).hasClass('targets-filter')) { 
-		getExecutors('targets-filter', 'executors-filter');
-	}
-})
+function getExecutors(idProject, selectExecutors) { 
 
-function getExecutors(selectTargets, selectExecutors) { 
-	idTarget = getValueSelect(selectTargets);
+	console.log(1);
 		
 	$.ajax({
         url: 'php/getExecutor.php',
         type: 'POST',
         dataType: 'json',
 		data: {
-			target: idTarget
+			project: idProject
 		},
 		success(data) {
 			if (data.status == true) {
-
-				$('.' + selectExecutors).parents('.custom-select-wrapper').removeClass('hide');
-
 				setDatasSelect(selectExecutors, data.rows);
+				$('.' + selectExecutors).parents('.custom-select-wrapper').removeClass('hide');
 			}
 			else { 
+				setDatasSelect(selectExecutors, GetDefaultValueSelect('Все исполнители'));
 				$('.' + selectExecutors).parents('.custom-select-wrapper').addClass('hide');
 			}
 		}
 	});
+
+	//console.log($('.custom-options#' + selectExecutors).find(".custom-option.selection").data("value"));
+	
+	GetTasks();
 }
 
 // функции для работы с выпадающими списками
 
+
+function GetDefaultValueSelect(string) { 
+	return '<span class="custom-option undefined" data-value="0">'+string+'</span>';
+}
 
 
 
@@ -506,16 +552,38 @@ $('#periods_stat.custom-options').click(function (e) {
 
 
 
+
+
+
+
+
+
 $('li[value=\"tab-2\"]').click(function () { 
 	iniSelect('date-filter', 3);
 	iniSelect('status-filter');
 	iniSelect('projects-filter');
 
+	//SetSelectProjects('projects-filter');
 	let idProject = getValueSelect('projects-filter');
 
-	SetSelectTargets(idProject, 'targets-filter');
-	iniSelect('targets-filter');
+	iniSelect('executors-filter');
+	SetSelectTargets(idProject, 'targets-filter', 'executors-filter');
+	
+	GetTasks();
 })
+
+
+function GetTasks(){ 
+	let period = getValueSelect('date-filter'),
+		idProject = getValueSelect('projects-filter'),
+		idTarget = getValueSelect('targets-filter'),
+		status = getValueSelect('status-filter'),
+		executor = getValueSelect('executors-filter');
+
+	console.log(period, idProject, idTarget, status, executor);
+}
+
+
 
 
 
@@ -562,7 +630,7 @@ $('#add-task').click(function () {
 		},
 		success(data) {
 			setDatasSelect('targets-task', data);
-			getExecutors('targets-task', 'executors-filter');
+			getExecutors(idProject, 'executors-filter');
 		}
 	});
 
@@ -617,6 +685,17 @@ $('input.add-task').keyup(function(event){
 });
 
 // функции и события для работы с модальными окнами
+
+
+
+
+
+
+
+
+
+
+
 
 
 
