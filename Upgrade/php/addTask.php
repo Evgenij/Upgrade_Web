@@ -14,7 +14,8 @@ if ($executor == 0) {
 
 
 try {
-    $sql = "INSERT INTO `task` (`id_task`, `id_target`, `executor`, `text`, `descr`, `date`, `duration`, `status`) VALUES (NULL, :idTarget, :executor, :text, '', :date , :duration, '0');";
+    $sql = "INSERT INTO `task` (`id_task`, `id_target`, `executor`, `text`, `descr`, `date`, `duration`, `status`) 
+    VALUES (NULL, :idTarget, :executor, :text, '', :date , :duration, '0');";
     $tempSql = $db->prepare($sql);
     $params = [
         ':idTarget' => $idTarget,
@@ -28,9 +29,10 @@ try {
     $responce = [
         'status' => true
     ];
-} catch (PDOException $e) {
+} catch (PDOException $ex) {
     $responce = [
-        'status' => false
+        'status' => false,
+        'message' => $ex->getMessage()
     ];
 }
 

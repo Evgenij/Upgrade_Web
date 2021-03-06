@@ -12,7 +12,7 @@ if ($query->rowCount() > 0) {
 
         $id_project = $row['id_project'];
 
-        $sql = 'SELECT getProjectPercent(:idProject)';
+        $sql = 'SELECT getProjectPercentComplete(:idProject)';
         $nestedSQL = $db->prepare($sql);
         $params = [':idProject' => $id_project];
         $nestedSQL->execute($params);
@@ -56,7 +56,7 @@ if ($query->rowCount() > 0) {
             $num_target = 1;
             while ($row = $nestedQuery->fetch(PDO::FETCH_BOTH)) {
 
-                $sql = 'SELECT getTargetPercent(:idTarget)';
+                $sql = 'SELECT getTargetPercentComplete(:idTarget)';
                 $nestedSQL = $db->prepare($sql);
                 $params = [':idTarget' => $row['id_target']];
                 $nestedSQL->execute($params);
