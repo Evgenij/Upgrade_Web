@@ -5,7 +5,8 @@ drop function if exists getCountTaskProjects;
 drop function if exists getTargetPercentComplete;
 drop function if exists getCountSubtask;
 drop function if exists getDoneSubtask;
-
+drop function if exists getExecutorTask;
+drop function if exists getSpecExecutor;
 
 DELIMITER //
 
@@ -117,6 +118,27 @@ BEGIN
   	WHERE task.id_task = idTask AND task.status = 1;
     
    	RETURN done_subtasks;
+END //
+
+CREATE FUNCTION getExecutorTask(idTask INT) RETURNS VARCHAR(100) DETERMINISTIC
+BEGIN
+	DECLARE name VARCHAR(50);
+	DECLARE surname VARCHAR(50);
+    DECLARE user_id INT;
+	DECLARE specialization VARCHAR(100);
+
+	SELECT user.id_user, user.name, user.surname INTO user_id, name, surname FROM user 
+	INNER JOIN project ON project.id_user = user.id_user
+	INNER JOIN target ON target.id_project = project.id_project
+    INNER JOIN task ON task.id_target = target.id_target
+	WHERE task.id_task = idTask; 
+
+	SELECT specialization.name INTO specialization FROM specialization 
+	INNER JOIN user ON user.id_spec = specialization.id_spec
+	WHERE user.id_user = user_id;	
+
+	RETURN CONCAT_WS('|', name, surname, specialization);
+    /*RETURN specialization;*/
 END //
 
 

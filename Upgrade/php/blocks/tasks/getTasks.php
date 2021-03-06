@@ -17,12 +17,13 @@ AND target.id_target = 24 -->
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/connect.php';
 
 $period = $_POST['period'];
-$project = $_POST['idProject'];
-$target = $_POST['idTarget'];
+$project = $_POST['project'];
+$target = $_POST['target'];
 $status = $_POST['status'];
 $executor = $_POST['executor'];
 
 $sql = 'SELECT task.id_task, task.status, task.date, task.duration, task.text, task.descr,
+getCountSubtask(task.id_task), getDoneSubtask(task.id_task),
 project.name, project.mark, project.id_project,
 target.name, target.mark, target.id_target
 FROM task 
@@ -45,19 +46,6 @@ if($period == -2){ // прошлая неделя
 
 // --------------------------
 
-$sql = "SELECT COUNT(id_task) FROM task 
-INNER JOIN target ON target.id_target = task.id_target 
-INNER JOIN project ON project.id_project = target.id_project
-INNER JOIN user ON user.id_user = project.id_user
-WHERE user.id_user = :idUser AND task.date = :dateTask";
-$query = $db->prepare($sql);
-$params = [
-    ':idUser' => $_SESSION['user']['id'],
-    ':dateTask' => date('Y-m-d')
-];
-$query->execute($params);
-$responce['countTaskToday'] = $query->fetch()[0];
-
 //getCountSubtask(task.id_task), getDoneSubtask(task.id_task),
 
 // --------------------------
@@ -65,6 +53,11 @@ $responce['countTaskToday'] = $query->fetch()[0];
 if($project != 0){ // если был выбран проект
     $sql .= 'AND project.id_project = :idProject 
     AND target.id_target = :idTarget ';
+
+
+    if($executor != 0){
+        $sql .= 'AND getExerutorTask(task.id_task) ';
+    }
 
     // $nestedSQL = $db->prepare($sql);
     // $params = [':idUser' => $_SESSION['user']['id']];
@@ -78,6 +71,17 @@ else {
     // $nestedSQL->execute($params);
 }
 
+if($status == 1){
+    $sql .= 'AND task.status = 1';
+}
+else if($status == 2){
+    $sql .= 'AND task.status = 0';
+}
+else{
+    // $nestedSQL = $db->prepare($sql);
+    // $params = [':idUser' => $idTask];
+    // $nestedSQL->execute($params);
+}
 
 $response['sql'] = $sql;
 
