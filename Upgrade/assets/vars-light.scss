@@ -7,3 +7,19 @@ $gray: #DBDCE8;
 $border: #E6E8F7;
 $panel: #FFF;
 $panel-add: #F9F2FF;
+
+@mixin shadow() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.05);
+}
+
+@mixin shadow-hover() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
+}
+
+@mixin shadow-select() {
+	box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.13);
+}
+
+@mixin shadow-avatar() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}

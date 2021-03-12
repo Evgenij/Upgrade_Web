@@ -2,7 +2,7 @@
 require_once "../vendor/connect.php";
 
 $idProject = $_POST['project'];
-$responce = [];
+$response = [];
 
 // SELECT user.id_user, user.name, user.surname FROM user 
 // INNER JOIN user_team ON user_team.id_user = user.id_user 
@@ -31,16 +31,16 @@ $query->execute($params);
 if ($query->rowCount() > 0) {
 
     $rows = '';
-    $responce['status'] = true;
+    $response['status'] = true;
 
     while ($row = $query->fetch(PDO::FETCH_BOTH)) {
         $rows .= '<span class="custom-option undefined" data-value="' . $row[0] . '">' . $row[1] . ' ' . $row[2] . '</span>';
     }
 
-    $responce['rows'] = $rows;
+    $response['rows'] = $rows;
 } else {
-    $responce['status'] = false;
+    $response['status'] = false;
 }
 
 
-echo json_encode($responce);
+echo json_encode($response);

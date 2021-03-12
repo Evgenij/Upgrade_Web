@@ -112,7 +112,7 @@ function GetGeneralData() {
 		type: 'POST',
 		dataType: 'json',
 		success(data) {
-			$('.count-task').text(data.countTask + " задачи");
+			$('.count-task').text(data.countTask + " задач(и)");
 			$('.count-project').text(data.countProject + "-мя проектами");
 		}
 	});
@@ -261,7 +261,13 @@ function GetTasks() {
 			executor: executor
 		},
 		success(data) {
-			alert(data.mess);
+			if (data.status == true) {
+				//$('.task-data').text(data.sql);
+				$('.task-list').html(data.tasks);
+			} else {
+				$('.task-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
+				//$('.task-data').text(data.message + '   -------------   ' + data.sql);
+			}
 		}
 	});
 }
@@ -329,7 +335,7 @@ $('input.add-task').keyup(function (event) {
 			idTarget = getValueSelect('targets-task'),
 			duration = getValueSelect('durations-task');
 
-		if (!$('.executors').parents('.custom-select-wrapper').hasClass('hide')) {
+		if (!$('.executors-task').parents('.custom-select-wrapper').hasClass('hide')) {
 			executor = getValueSelect('executors-task');
 		}
 		else {
@@ -342,7 +348,7 @@ $('input.add-task').keyup(function (event) {
 				$('.modal-window__message').addClass('hide');
 
 				$.ajax({
-					url: 'php/addTask.php',
+					url: 'php/blocks/tasks/addTask.php',
 					type: 'POST',
 					dataType: 'json',
 					data: {

@@ -1,20 +1,20 @@
-
-<!-- SELECT task.id_task, task.status, task.date, task.duration, task.text, task.descr,
-project.name, project.mark, project.id_project,
-target.name, target.mark, target.id_target
-FROM task 
-INNER JOIN target ON target.id_target = task.id_target
-INNER JOIN project ON project.id_project = target.id_project
-INNER JOIN user ON user.id_user = project.id_user
-WHERE user.id_user = 29 
-AND task.date = '2021-03-06' 
-AND task.status = 0 
-AND project.id_project = 8 
-AND target.id_target = 24 -->
-
 <?php
 
-//require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/connect.php';
+// SELECT task.id_task, task.status, task.date, task.duration, task.text, task.descr,
+// project.name, project.mark, project.id_project,
+// target.name, target.mark, target.id_target
+// FROM task 
+// INNER JOIN target ON target.id_target = task.id_target
+// INNER JOIN project ON project.id_project = target.id_project
+// INNER JOIN user ON user.id_user = project.id_user
+// WHERE user.id_user = 29 
+// AND task.date = '2021-03-06' 
+// AND task.status = 0 
+// AND project.id_project = 8 
+// AND target.id_target = 24 
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/connect.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/functions.php';
 
 $period = $_POST['period'];
 $project = $_POST['project'];
@@ -22,8 +22,10 @@ $target = $_POST['target'];
 $status = $_POST['status'];
 $executor = $_POST['executor'];
 
+$block = '';
+
 $sql = 'SELECT task.id_task, task.status, task.date, task.duration, task.text, task.descr,
-getCountSubtask(task.id_task), getDoneSubtask(task.id_task),
+getDoneSubtask(task.id_task), getCountSubtask(task.id_task), 
 project.name, project.mark, project.id_project,
 target.name, target.mark, target.id_target
 FROM task 
@@ -33,15 +35,15 @@ INNER JOIN user ON user.id_user = project.id_user
 WHERE ';
 
 if($period == -2){ // прошлая неделя
-
+    $sql .= 'task.date BETWEEN \'' . date('Y-m-') . $lastWeek[0] . '\' AND \'' . date('Y-m-') . $lastWeek[6] . '\'';
 } else if($period == -1) { // вчера
-
+    $sql .= 'task.date = \'' . date('Y-m-d', strtotime('yesterday')) . '\' ';
 } else if($period == 0) { // сегодня
     $sql .= 'task.date = \'' . date('Y-m-d') . '\' ';
 } else if($period == 1) { // завтра
-
+    $sql .= 'task.date = \'' . date('Y-m-d', strtotime('tomorrow')) . '\' ';
 } else if($period == 2) { // след. неделя
-
+    $sql .= 'task.date BETWEEN \'' . date('Y-m-') . $currWeek[0] . '\' AND \'' . date('Y-m-') . $currWeek[6] . '\'';
 }
 
 // --------------------------
@@ -50,43 +52,215 @@ if($period == -2){ // прошлая неделя
 
 // --------------------------
 
+if($status == 1 || $status == 0){ // status = 0 or status = 1
+    $sql .= 'AND task.status = :taskStatus '; 
+}
+else { // status = -1
+    $sql .= 'AND (task.status BETWEEN :taskStatus AND 1) '; //task.status BETWEEN -1 AND 1
+}
+
+// --------------------------
+
 if($project != 0){ // если был выбран проект
     $sql .= 'AND project.id_project = :idProject 
     AND target.id_target = :idTarget ';
 
+   
 
     if($executor != 0){
-        $sql .= 'AND getExerutorTask(task.id_task) ';
-    }
 
-    // $nestedSQL = $db->prepare($sql);
-    // $params = [':idUser' => $_SESSION['user']['id']];
-    // $nestedSQL->execute($params);
+        try{
+            $sql .= 'AND task.executor = :Executor ORDER BY task.status ';
+            if($period == -2 || $period == 2){
+                $sql .= ', task.date';
+            }
+
+            $nestedSQL = $db->prepare($sql);
+            $params = [':Executor' => $executor,
+                        ':idProject' => $project,
+                        ':idTarget' => $target,
+                        ':taskStatus' => $status];
+            $nestedSQL->execute($params);
+        }
+        catch(PDOException $ex){
+            $response = [
+                "sql" => $sql,
+                "status" => false,
+                "message" => $ex->getMessage()
+            ];
+            echo json_encode($response);
+            die();
+        }
+    }
+    else{
+        try{
+            $sql .= 'AND user.id_user = :idUser ORDER BY task.status '; 
+            if($period == -2 || $period == 2){
+                $sql .= ', task.date';
+            }
+
+            $nestedSQL = $db->prepare($sql);
+            $params = [':idUser' => $_SESSION['user']['id'],
+                        ':idProject' => $project,
+                        ':idTarget' => $target,
+                        ':taskStatus' => $status];
+            $nestedSQL->execute($params);
+
+            // $response = [
+            //     "sql" => $sql,
+            //     "status" => true
+            // ];
+            //echo json_encode($response);
+            
+        }
+        catch(PDOException $ex){
+            $response = [
+                "sql" => $sql,
+                "status" => false,
+                "message" => $ex->getMessage()
+            ];
+            echo json_encode($response);
+            die();
+        }
+    }
+    SetBlocks($nestedSQL, $sql);
+    // $response['status'] = $sql;
+    // echo json_encode($response);
+    
 }
 else {
-    $sql .= 'AND user.id_user = :idUser ';
+    try{
+        $sql .= 'AND user.id_user = :idUser ORDER BY task.status ';
+        if($period == -2 || $period == 2){
+            $sql .= ', task.date';
+        }
+    
+        $nestedSQL = $db->prepare($sql);
+        $params = [
+            ':idUser' => $_SESSION['user']['id'],
+             ':taskStatus' => $status];
+        $nestedSQL->execute($params);
 
-    // $nestedSQL = $db->prepare($sql);
-    // $params = [':idUser' => $_SESSION['user']['id']];
-    // $nestedSQL->execute($params);
+        SetBlocks($nestedSQL, $sql);
+    }
+    catch(PDOException $ex){
+        $response = [
+            "sql" => $sql,
+            "status" => false,
+            "message" => $ex->getMessage()
+        ];
+        echo json_encode($response);
+        die();
+    }
 }
 
-if($status == 1){
-    $sql .= 'AND task.status = 1';
-}
-else if($status == 2){
-    $sql .= 'AND task.status = 0';
-}
-else{
-    // $nestedSQL = $db->prepare($sql);
-    // $params = [':idUser' => $idTask];
-    // $nestedSQL->execute($params);
+
+
+
+
+function SetBlocks($nestedSQL, $sql){
+    if ($nestedSQL->rowCount() > 0) {
+        while ($task = $nestedSQL->fetch(PDO::FETCH_BOTH)) {
+
+            $status = '';
+            if($task[1] == 0){
+                $status = '<label class="task-status">
+                                <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                <span class="rect"></span>
+                            </label>';
+            }
+            else{
+                $status = '<label class="task-status">
+                                <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status" checked>
+                                <span class="rect"></span>
+                            </label>';
+            }
+
+            $progress = '';
+            if($task[7] != 0){
+                $progress = '<div class="progress arrow empty flex f-col trigger">
+                                <div class="progress-labels flex">
+                                    <div class="progress-labels__item text">Прогресс</div>
+                                    <div class="progress-label progress-percent text-gradient">'.$task[6].'<span class="count-subtask text regular">/'.$task[7].'</span></div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-bar__current" style="width:'.($task[6]*100)/$task[7].'%;"></div>
+                                </div>
+                            </div>';
+            }
+
+
+            $block .= '<div class="task-block panel" id="'.$task[0].'">
+                            <header class="task-block__head flex">
+                                '.$status.'
+                                <div class="task-block__date text">'.GetDayOfWeek($task[2]).'<span class="date">'.FormattingDate($task[2]).'</span></div>
+                            </header>
+                            <main class="task-block__content">
+                                <div class="task-block__name title title-block">'.$task[4].'</div>
+                                <div class="task-block__description text regular">'.$task[5].'</div>
+                                '.$progress.'
+                            </main>
+                            <footer class="task-block__footer flex list-hor">
+                                <div class="task-block__tags flex list-hor">
+                                    <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[9]).'; color:'.ColoringTagText($task[9]).';">'.$task[8].'</div>
+                                    <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[12]).'; color:'.ColoringTagText($task[12]).';">'.$task[11].'</div>
+                                </div>
+                                <div class="task-block__duration text">
+                                ' . FormattingTime($task[3]) . '
+                                </div>     
+                            </footer>
+                        </div>';
+        }
+
+        $response = [
+            "sql" => $sql,
+            "status" => true,
+            "tasks" => $block
+        ];
+        echo json_encode($response);
+    }
+    else{
+        $response = [
+            "sql" => $sql,
+            "status" => false,
+            "tasks" => null
+        ];
+        echo json_encode($response);
+    }
 }
 
-$response['sql'] = $sql;
+function ColoringTagBackground($color){
+    if($_SESSION['theme'] == "light"){
+        return adjustBrightness($color, 0.75);
+    } else {
+        return adjustBrightness($color, -0.75);   
+    }
+}
 
-echo json_encode($response);
+function ColoringTagText($color){
+    if($_SESSION['theme'] == "light"){
+        return adjustBrightness($color, 0);
+    } else {
+        return adjustBrightness($color, 0.2);   
+    }
+}
 
-// $nestedSQL = $db->prepare($sql);
-// $params = [':idUser' => $idTask];
-// $nestedSQL->execute($params);
+
+function adjustBrightness($hexCode, $adjustPercent) {
+    $hexCode = ltrim($hexCode, '#');
+
+    if (strlen($hexCode) == 3) {
+        $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+    }
+
+    $hexCode = array_map('hexdec', str_split($hexCode, 2));
+
+    foreach ($hexCode as & $color) {
+        $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
+        $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+
+        $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
+    }
+
+    return '#' . implode($hexCode);
+}

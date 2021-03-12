@@ -151,16 +151,22 @@ input.input.with-shadow,
   stroke: #332F2F;
 }
 
-.task-block__status .checkbox_status {
-  display: none;
+.task-status {
+  cursor: pointer;
 }
-.task-block__status .checkbox_status:checked + .rect::before {
-  opacity: 1;
-}
-.task-block__status .checkbox_status:checked + .rect {
+.task-status:hover .rect {
   border-color: #76c240;
 }
-.task-block__status .rect {
+.task-status .checkbox_status {
+  display: none;
+}
+.task-status .checkbox_status:checked + .rect::before {
+  opacity: 1;
+}
+.task-status .checkbox_status:checked + .rect {
+  border-color: #76c240;
+}
+.task-status .rect {
   display: block;
   width: 25px;
   height: 25px;
@@ -171,10 +177,10 @@ input.input.with-shadow,
   cursor: pointer;
   position: relative;
 }
-.task-block__status .rect:hover {
+.task-status .rect:hover {
   border-color: #76c240;
 }
-.task-block__status .rect::before {
+.task-status .rect::before {
   content: '';
   position: absolute;
   height: 17px;
@@ -189,6 +195,20 @@ input.input.with-shadow,
   -webkit-transition: 0.2s;
   transition: 0.2s;
   opacity: 0;
+}
+
+.subtask {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.subtask .rect {
+  margin-right: 0.5vw;
+}
+.subtask .task-status {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 /** Custom Select **/
@@ -217,7 +237,7 @@ input.input.with-shadow,
   position: relative;
   display: block;
   min-width: 100%;
-  padding: 1.9vh 5vh 1.9vh 2.9vh;
+  padding: 1.75vh 5.4vh 1.75vh 2.4vh;
   background: #FFF;
   border-radius: 8px;
   cursor: pointer;
@@ -232,11 +252,11 @@ input.input.with-shadow,
   position: absolute;
   display: block;
   content: '';
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   top: 50%;
   right: 1.3vw;
-  margin-top: -3px;
+  margin-top: -1px;
   border-bottom: 2px solid #DBDCE8;
   border-right: 2px solid #DBDCE8;
   -webkit-transform: rotate(45deg) translateY(-50%);
@@ -248,7 +268,7 @@ input.input.with-shadow,
 }
 
 .custom-select.opened .custom-select-trigger:after {
-  margin-top: 3px;
+  margin-top: 1px;
   -webkit-transform: rotate(-135deg) translateY(-50%);
           transform: rotate(-135deg) translateY(-50%);
 }
@@ -292,7 +312,7 @@ input.input.with-shadow,
 .custom-option {
   position: relative;
   display: block;
-  padding: 18px 24px;
+  padding: 1.8vh 1.1vw;
   border-bottom: 1px solid #E6E8F7;
   color: #332F2F;
   cursor: pointer;
@@ -565,8 +585,17 @@ input.input.with-shadow,
   font-size: 22px;
   border-radius: 100px;
 }
+.button.additional {
+  background: #E6E8F7;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #A5A7BC;
+}
 .button:hover {
   background: linear-gradient(93.07deg, #B086FC 0%, #4F5CE6 100%);
+}
+.button.additional:hover {
+  background: #DBDCE8;
 }
 
 .knobs,
@@ -678,6 +707,10 @@ input.input.with-shadow,
   color: #a78feb;
   border-radius: 20px;
   font-size: 1.3vh;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .task-block:hover {
@@ -691,6 +724,67 @@ input.input.with-shadow,
           transform: translateX(-6px) translateY(-6px);
   -webkit-box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.13);
           box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.13);
+}
+
+.task-content__attachments {
+  margin-top: 35px;
+}
+.task-content__attachments .area {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  border: 2px dashed #E6E8F7;
+}
+.task-content__attachments .file {
+  background-color: whitesmoke;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  position: relative;
+}
+.task-content__attachments .file__icon {
+  width: 25px;
+  height: auto;
+  margin: auto;
+}
+.task-content__attachments .file__name {
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #707070;
+}
+.task-content__attachments .file .btn-close {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #d14646;
+  padding: 5px;
+  line-height: 1em;
+  border-radius: 50%;
+  background-color: #e77272;
+  position: absolute;
+  left: 80%;
+  top: -10%;
+  cursor: pointer;
+}
+.task-content__attachments .file .btn-close::after {
+  content: 'x';
+  color: #862828;
+  font-weight: bold;
+  top: 2px;
+  left: 5px;
+  position: absolute;
 }
 
 *::-webkit-scrollbar-button {
@@ -733,4 +827,8 @@ svg.weekly-chart line {
 }
 .general-statistic .data__second .block-value:first-child {
   border-right: 1px solid #DBDCE8;
+}
+
+.task-data__header {
+  border-bottom: 2px solid #E6E8F7;
 }

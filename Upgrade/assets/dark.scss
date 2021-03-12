@@ -1,21 +1,5 @@
 @import "vars-dark.scss";
 
-@mixin shadow() {
-	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
-}
-
-@mixin shadow-hover() {
-	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.17);
-}
-
-@mixin shadow-select() {
-	box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.23);
-}
-
-@mixin shadow-avatar() {
-	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
-}
-
 body{
 	background-color: $background;
 	color: $title;
@@ -630,8 +614,16 @@ input.input,
 		border-radius: 100px;
 	}
 
+	&.additional{
+		background: $panel-add;
+		box-shadow: none;
+	}
+
 	&:hover{
 		background: linear-gradient(93.07deg, #B086FC 0%, #4F5CE6 100%);
+	}
+	&.additional:hover{
+		background: $gray;
 	}
 }
 
@@ -760,9 +752,13 @@ input.input,
 	padding: 0.7vh 0.8vw;;
 	margin-right: 10px;
 	background-color: #6318c531;
-	color: #805edd;
+	color: #a78feb;
 	border-radius: 20px;
 	font-size: 1.3vh;
+	max-width: 120px;
+	white-space: nowrap;
+	overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 

@@ -8,13 +8,23 @@
     cursor: pointer;
     transition: 0.3s;
 
-    // &:hover{
-    //     transform: translateX(-2px) translateY(-2px);
-    //     box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
-    // }
+    & &__description{
+        margin-top: 10px;
+    }
 
-    &.selection{
-        //border: 1px solid $main;
+    & &__footer{
+        margin-top: 25px;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    & &__tags{
+        justify-content: flex-start;
+    }
+
+    & &__duration{
+        color: $main;
+        text-align: right;
     }
 }
 
@@ -38,11 +48,20 @@
     }
 }
 
-.task-block__description{
-    margin-top: 10px;
+.task-data__message{
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    & .task-data__title{
+        margin-bottom: 5px;
+    }
 }
 
-.task-block__footer{
-    margin-top: 25px;
-    justify-content: flex-start;
-}
+
+
+
+
+
+
+

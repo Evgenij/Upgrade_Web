@@ -5,9 +5,7 @@ if (!isset($_SESSION["theme"])) {
     $_SESSION["theme"] = "light";
 }
 
-$days = array(1 => "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье");
-$monthes = array(1 => "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря");
-
+require_once 'vendor/functions.php';
 
 ?>
 
@@ -167,7 +165,7 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                         <div class="title-section flex f-col">
                             <h2 class="title-section__title">Основная информация</h2>
                             <h3 class="title-section__subtitle subtitle">
-                                <span class="subtitle__color"><?php echo $days[date("N")]; ?>,</span>
+                                <span class="subtitle__color"><?php echo GetDayOfWeek(date('Y-m-d')); ?>,</span>
                                 <?php echo date("d") . " " . $monthes[date("n")] . " " . date("Y"); ?>
                             </h3>
                         </div>
@@ -334,16 +332,16 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                             <select id="targets-filter" class="custom-select targets-filter targets text with-shadow">
                             </select>
                             <select id="status-filter" class="custom-select status-filter status text with-shadow">
-                                <option value="0">Все задачи</option>
+                                <option value="-1">Все задачи</option>
                                 <option value="1">Выполненные</option>
-                                <option value="2">В работе</option>
+                                <option value="0">В работе</option>
                             </select>
                             <select id="executors-filter" class="custom-select executors-filter executors text with-shadow hide">
                                 <option value="0">Все исполнители</option>
                             </select>
                         </div>
                     </div>
-                    <div class="task-list flex">
+                    <div class="task-list flex">                                     
                         <div class="task-block panel" id="1">
                             <header class="task-block__head flex">
                                 <label class="task-block__status">
@@ -366,143 +364,134 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
                                 </div>
                             </main>
                             <footer class="task-block__footer flex list-hor">
-                                <div class="list-hor__item tag">Project #1</div>
-                                <div class="tag list-hor__item">Target #4</div>
-                            </footer>
-                        </div>
-                        <div class="task-block panel">
-                            <header class="task-block__head flex">
-                                <label class="task-block__status">
-                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                    <span class="rect"></span>
-                                </label>
-                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
-                            </header>
-                            <main class="task-block__content">
-                                <div class="task-block__name title title-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam</div>
-                                <div class="task-block__description text regular">описание задачи...</div>
-                                <div class="progress arrow empty flex f-col trigger">
-                                    <div class="progress-labels flex">
-                                        <div class="progress-labels__item text">Прогресс</div>
-                                        <div class="progress-labels__item progress-percent text-gradient">1 <span class="count-subtask">/3</span></div>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar__current" style="width:39%;"></div>
-                                    </div>
+                                <div class="task-block__tags flex list-hor">
+                                    <div class="list-hor__item tag">Project #1</div>
+                                    <div class="tag list-hor__item">Target #4</div>
                                 </div>
-                            </main>
-                            <footer class="task-block__footer flex list-hor">
-                                <div class="list-hor__item tag">Project #1</div>
-                                <div class="tag list-hor__item">Target #4</div>
-                            </footer>
-                        </div>
-                        <div class="task-block panel">
-                            <header class="task-block__head flex">
-                                <label class="task-block__status">
-                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                    <span class="rect"></span>
-                                </label>
-                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
-                            </header>
-                            <main class="task-block__content">
-                                <div class="task-block__name title title-block">Название задачи</div>
-                                <div class="task-block__description text regular">описание задачи...</div>
-                                <div class="progress arrow empty flex f-col trigger">
-                                    <div class="progress-labels flex">
-                                        <div class="progress-labels__item text">Прогресс</div>
-                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar__current" style="width:39%;"></div>
-                                    </div>
-                                </div>
-                            </main>
-                            <footer class="task-block__footer flex list-hor">
-                                <div class="list-hor__item tag">Project #1</div>
-                                <div class="tag list-hor__item">Target #4</div>
-                            </footer>
-                        </div>
-                        <div class="task-block panel">
-                            <header class="task-block__head flex">
-                                <label class="task-block__status">
-                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                    <span class="rect"></span>
-                                </label>
-                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
-                            </header>
-                            <main class="task-block__content">
-                                <div class="task-block__name title title-block">Название задачи</div>
-                                <div class="task-block__description text regular">описание задачи...</div>
-                                <div class="progress arrow empty flex f-col trigger">
-                                    <div class="progress-labels flex">
-                                        <div class="progress-labels__item text">Прогресс</div>
-                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar__current" style="width:39%;"></div>
-                                    </div>
-                                </div>
-                            </main>
-                            <footer class="task-block__footer flex list-hor">
-                                <div class="list-hor__item tag">Project #1</div>
-                                <div class="tag list-hor__item">Target #4</div>
-                            </footer>
-                        </div>
-                        <div class="task-block panel">
-                            <header class="task-block__head flex">
-                                <label class="task-block__status">
-                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                    <span class="rect"></span>
-                                </label>
-                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
-                            </header>
-                            <main class="task-block__content">
-                                <div class="task-block__name title title-block">Название задачи</div>
-                                <div class="task-block__description text regular">описание задачи...</div>
-                                <div class="progress arrow empty flex f-col trigger">
-                                    <div class="progress-labels flex">
-                                        <div class="progress-labels__item text">Прогресс</div>
-                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar__current" style="width:39%;"></div>
-                                    </div>
-                                </div>
-                            </main>
-                            <footer class="task-block__footer flex list-hor">
-                                <div class="list-hor__item tag">Project #1</div>
-                                <div class="tag list-hor__item">Target #4</div>
-                            </footer>
-                        </div>
-                        <div class="task-block panel">
-                            <header class="task-block__head flex">
-                                <label class="task-block__status">
-                                    <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                    <span class="rect"></span>
-                                </label>
-                                <div class="task-block__date text">Воскресенье<span class="date">18.09.2021</span></div>
-                            </header>
-                            <main class="task-block__content">
-                                <div class="task-block__name title title-block">Название задачи</div>
-                                <div class="task-block__description text regular">описание задачи...</div>
-                                <div class="progress arrow empty flex f-col trigger">
-                                    <div class="progress-labels flex">
-                                        <div class="progress-labels__item text">Прогресс</div>
-                                        <div class="progress-label progress-percent text-gradient">1 <span class="count-subtask text regular">/3</span></div>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar__current" style="width:39%;"></div>
-                                    </div>
-                                </div>
-                            </main>
-                            <footer class="task-block__footer flex list-hor">
-                                <div class="list-hor__item tag">Project #1</div>
-                                <div class="tag list-hor__item">Target #4</div>
+                                <div class="task-block__duration text">
+                                35 мин
+                                </div>     
                             </footer>
                         </div>
                     </div>
                 </div>
-                <div class="task-data panel"></div>
+                <div class="task-data flex f-col panel">
+                    <!-- <div class="task-data__message">
+                        <h3 class="task-data_title text">Информационная панель задачи</h3>
+                        <h2 class="task-data_subtitle text">выберите задачу для просмотра детальной информации о ней</h2>
+                    </div>-->
+                    <header class="task-data__header flex">
+                        <div class="header-buttons flex list-hor">
+                            <button class="button list-hor__item">Выполнено</button>  
+                            <button class="button additional list-hor__item">Изменить</button>                                                
+                        </div>    
+                        <div class="header-actions flex list-hor">
+                            <svg class="list-hor__item" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.3298 10.876L11.412 19.7938C10.3195 20.8862 8.8378 21.5 7.29278 21.5C5.74776 21.5 4.26603 20.8862 3.17353 19.7938C2.08104 18.7013 1.46729 17.2195 1.46729 15.6745C1.46729 14.1295 2.08104 12.6477 3.17353 11.5553L12.0913 2.6375C12.8196 1.90917 13.8074 1.5 14.8375 1.5C15.8675 1.5 16.8553 1.90917 17.5836 2.6375C18.3119 3.36583 18.7211 4.35365 18.7211 5.38366C18.7211 6.41367 18.3119 7.4015 17.5836 8.12983L8.65616 17.0476C8.292 17.4118 7.79808 17.6163 7.28308 17.6163C6.76807 17.6163 6.27416 17.4118 5.90999 17.0476C5.54583 16.6834 5.34124 16.1895 5.34124 15.6745C5.34124 15.1595 5.54583 14.6656 5.90999 14.3014L14.1485 6.07263" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg class="list-hor__item" width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.90234 6.64307H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M1.32959 1.5H6.47243" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3.90234 1.5V15.6428C3.90234 15.9838 4.0378 16.3108 4.27892 16.552C4.52004 16.7931 4.84706 16.9285 5.18805 16.9285H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.6142 4.07104H12.9C12.1899 4.07104 11.6143 4.64668 11.6143 5.35676V7.92818C11.6143 8.63826 12.1899 9.21389 12.9 9.21389H20.6142C21.3243 9.21389 21.8999 8.63826 21.8999 7.92818V5.35676C21.8999 4.64668 21.3243 4.07104 20.6142 4.07104Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.6142 14.3572H12.9C12.1899 14.3572 11.6143 14.9328 11.6143 15.6429V18.2143C11.6143 18.9244 12.1899 19.5 12.9 19.5H20.6142C21.3243 19.5 21.8999 18.9244 21.8999 18.2143V15.6429C21.8999 14.9328 21.3243 14.3572 20.6142 14.3572Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg class="list-hor__item" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.8999 4.80005H3.7999H18.9999" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6.6498 4.8V2.9C6.6498 2.39609 6.84998 1.91282 7.2063 1.5565C7.56262 1.20018 8.04589 1 8.5498 1H12.3498C12.8537 1 13.337 1.20018 13.6933 1.5565C14.0496 1.91282 14.2498 2.39609 14.2498 2.9V4.8M17.0998 4.8V18.1C17.0998 18.6039 16.8996 19.0872 16.5433 19.4435C16.187 19.7998 15.7037 20 15.1998 20H5.6998C5.19589 20 4.71262 19.7998 4.3563 19.4435C3.99998 19.0872 3.7998 18.6039 3.7998 18.1V4.8H17.0998Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.5498 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12.3501 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                                
+                        </div>                                              
+                    </header>
+                    
+                    <main class="task-data__main">
+                        <div class="list-hor">
+                            <select id="projects-task-data" class="custom-select projects-task-data projects text">
+                                <option value="0">Все проекты</option>
+                                <?php include "php/getProjects.php"; ?>
+                            </select>
+                            <select id="targets-task-data" class="custom-select targets-task-data targets text">
+                            </select>
+                            <select id="durations-task-data" class="custom-select durations-task-data text">
+                                <option value="15">15 минут</option>
+                                <option value="30">30 минут</option>
+                                <option value="45">45 минут</option>
+                                <option value="60">1 час</option>
+                                <option value="75">1 час 15 минут</option>
+                                <option value="90">1 час 30 минут</option>
+                                <option value="105">1 час 45 минут</option>
+                                <option value="120">2 часа</option>
+                                <option value="135">2 часа 15 минут</option>
+                                <option value="150">2 часа 30 минут</option>
+                                <option value="165">2 часа 45 минут</option>
+                                <option value="180">3 часа</option>
+                                <option value="195">3 часа 15 минут</option>
+                                <option value="210">3 часа 30 минут</option>
+                                <option value="225">3 часа 45 минут</option>
+                                <option value="240">4 часа</option>
+                                <option value="255">4 часа 15 минут</option>
+                                <option value="270">4 часа 30 минут</option>
+                                <option value="285">4 часа 45 минут</option>
+                                <option value="300">5 часов</option>
+                                <option value="315">5 часов 15 минут</option>
+                                <option value="330">5 часов 30 минут</option>
+                                <option value="345">5 часов 45 минут</option>
+                                <option value="360">6 часов</option>
+                            </select>
+                        </div>
+                        <div class="task-data__content task-content">
+                            <div class="task-content__text title">Lorem, ipsum dollor sit ames minor slor sit ames minit ames minima. etur rvoluptatibus!</div>
+                            <div class="task-content__description text regular">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio vitae atque nobis dignissimos expedita libero natus, </div>
+                            <div class="task-content__progress">
+                                <div class="progress arrow empty flex">
+                                    <!-- <div class="progress-labels flex">
+                                        <div class="progress-labels__item text">Прогресс</div>
+                                        <div class="progress-label progress-percent text-gradient">2<span class="count-subtask text regular">/3</span></div>
+                                    </div> -->
+                                    <div class="progress-label progress-percent text-gradient">2<span class="count-subtask text regular">/3</span></div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar__current" style="width:66%;"></div>
+                                    </div>
+                                </div>   
+                                <div class="list-ver">
+                                    <div class="subtask list-ver__item" id="1">
+                                        <label class="task-status flex text">
+                                            <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                            <span class="rect"></span>
+                                            Понедельник
+                                        </label>
+                                    </div>
+                                    <div class="subtask list-ver__item" id="1">
+                                        <label class="task-status flex text">
+                                            <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                            <span class="rect"></span>
+                                            Понедельник
+                                        </label>
+                                    </div>
+                                    <div class="subtask list-ver__item" id="1">
+                                        <label class="task-status flex text">
+                                            <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
+                                            <span class="rect"></span>
+                                            Понедельник
+                                        </label>
+                                    </div>
+                                </div>                                         
+                            </div>
+                            <div class="task-content__attachments">
+                                <div class="area flex text">Для загрузки файла нажмите или перетащите файл</div>
+                                <div class="list-hor flex">
+                                    <div class="file list-hor__item">1</div>
+                                    <div class="file list-hor__item">2</div>
+                                    <div class="file list-hor__item">3</div>
+                                </div>                                            
+                            </div>                        
+                        </div>
+                    </main>
+                    <footer class="task-data__footer">
+                        footer
+                    </footer>
+                </div>
             </div>
         </main>
     </div>

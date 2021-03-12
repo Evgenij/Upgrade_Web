@@ -565,8 +565,16 @@ input.input.with-shadow,
   font-size: 22px;
   border-radius: 100px;
 }
+.button.additional {
+  background: #292D36;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
 .button:hover {
   background: linear-gradient(93.07deg, #B086FC 0%, #4F5CE6 100%);
+}
+.button.additional:hover {
+  background: #494951;
 }
 
 .knobs,
@@ -675,9 +683,13 @@ input.input.with-shadow,
   padding: 0.7vh 0.8vw;
   margin-right: 10px;
   background-color: #6318c531;
-  color: #805edd;
+  color: #a78feb;
   border-radius: 20px;
   font-size: 1.3vh;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .task-block:hover {

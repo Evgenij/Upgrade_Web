@@ -1,7 +1,7 @@
 <?php
 
 require_once "../vendor/connect.php";
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/functions.php';
 
 $period = $_POST['period'];
 
@@ -18,16 +18,6 @@ $labels = [];
 $responce = [];
 
 if ($period == 'week') {
-
-    $currMonday = date('d', strtotime("Monday this week"));
-    $lastMonday = date('d', strtotime("Monday last week"));
-    $currWeek = [];
-    $lastWeek = [];
-
-    for ($i = 0; $i < 7; $i++) {
-        $currWeek[] = $currMonday + $i;
-        $lastWeek[] = $lastMonday + $i;
-    }
 
     $responce['currWeek'] = $currWeek;
     $responce['lastWeek'] = $lastWeek;

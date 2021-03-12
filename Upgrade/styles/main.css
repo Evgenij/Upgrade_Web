@@ -18,7 +18,7 @@ html, body {
 }
 
 body {
-  padding: 2%;
+  padding: 1.5%;
 }
 
 .notification {
@@ -565,6 +565,7 @@ li.tabs-triggers__item--active::before {
 
 .data-not-found {
   height: 100%;
+  width: 100%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -704,4 +705,62 @@ li.tabs-triggers__item--active::before {
   -ms-flex-line-pack: start;
       align-content: flex-start;
   overflow-y: auto;
+}
+
+.task-data {
+  min-height: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.task-data__header {
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-bottom: 3.5vh;
+  margin-bottom: 3.5vh;
+}
+.task-data__main {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.task-data__main .list-hor {
+  margin-bottom: 3vh;
+}
+.task-data .task-content {
+  overflow-y: auto;
+  height: 85%;
+  padding-right: 25px;
+}
+.task-data .task-content__text {
+  margin-bottom: 1.5vh;
+}
+.task-data .task-content__description {
+  margin-bottom: 2vh;
+}
+.task-data .task-content__progress, .task-data .task-content__progress .progress {
+  margin-bottom: 15px;
+}
+.task-data .task-content .progress-percent {
+  margin-right: 0.9vw;
+  font-size: 26px;
+}
+.task-data .task-content .progress-percent span {
+  font-size: 16px;
+}
+.task-data .task-content .list-ver {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.task-data .task-content .list-ver__item {
+  margin-bottom: 15px;
+}
+.task-data__footer {
+  width: 100%;
+  height: 45px;
+  margin-top: 3vh;
+  background-color: #a39494;
 }
