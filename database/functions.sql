@@ -6,6 +6,7 @@ drop function if exists getTargetPercentComplete;
 drop function if exists getCountSubtask;
 drop function if exists getDoneSubtask;
 drop function if exists getExecutorTask;
+drop function if exists getExecutorsProject;
 drop function if exists getSpecExecutor;
 
 DELIMITER //
@@ -115,29 +116,33 @@ BEGIN
     
     SELECT COUNT(id_subtask) INTO done_subtasks FROM subtask 
   	INNER JOIN task ON task.id_task = subtask.id_task
-  	WHERE task.id_task = idTask AND task.status = 1;
+  	WHERE task.id_task = idTask AND subtask.status = 1;
     
    	RETURN done_subtasks;
 END //
 
-CREATE FUNCTION getExecutorTask(idTask INT) RETURNS VARCHAR(100) DETERMINISTIC
+CREATE FUNCTION getExecutorsProject(idProject INT) RETURNS VARCHAR(100) DETERMINISTIC
 BEGIN
 	DECLARE name VARCHAR(50);
 	DECLARE surname VARCHAR(50);
     DECLARE user_id INT;
 	DECLARE specialization VARCHAR(100);
 
-	SELECT user.id_user, user.name, user.surname INTO user_id, name, surname FROM user 
-	INNER JOIN project ON project.id_user = user.id_user
-	INNER JOIN target ON target.id_project = project.id_project
-    INNER JOIN task ON task.id_target = target.id_target
-	WHERE task.id_task = idTask; 
+	SELECT user.id_user, user.name, user.surname, specialization.name INTO user_id, name, surname, specialization FROM user 
+	INNER JOIN user_team ON user_team.id_user = user.id_user 
+	INNER JOIN team ON team.id_team = user_team.id_team
+	INNER JOIN specialization ON specialization.id_spec = user.id_spec
+	WHERE team.id_team IN 
+        (SELECT team.id_team FROM team 
+        INNER JOIN target ON target.id_target = team.id_target 
+        INNER JOIN project ON project.id_project = target.id_project
+        WHERE project.id_project = idProject);
 
-	SELECT specialization.name INTO specialization FROM specialization 
+	/*SELECT specialization.name INTO specialization FROM specialization 
 	INNER JOIN user ON user.id_spec = specialization.id_spec
-	WHERE user.id_user = user_id;	
+	WHERE user.id_user = user_id;	*/
 
-	RETURN CONCAT_WS('|', name, surname, specialization);
+	RETURN CONCAT_WS('|', user_id, name, surname, specialization);
     /*RETURN specialization;*/
 END //
 

@@ -1,0 +1,182 @@
+@import "vars-light.scss";
+
+body{
+    padding: 0;
+    overflow: hidden;
+}
+
+.background{
+    & .background__item{
+        position: absolute;
+        z-index: -100;
+
+        &:first-child{
+            left: 150px;
+            top: -190px;
+        }
+
+        &:nth-child(2){
+            left: -200px;
+            top: 390px;
+        }
+
+        &:nth-child(3){
+            left: 1240px;
+            top: -85px;
+        }
+
+        &:last-child{
+            left: 1270px;
+            top: 590px;
+        }
+    }
+}
+
+.content{
+    width: 100%;
+    height: 95%;
+}
+
+.auth{
+    padding: 5vh 4.5vw;
+    margin-left: 9vw;
+    width: 35vw;
+    max-width: 650px;
+}
+
+.reg{
+    padding: 6vh 3.5vw;
+    margin-left: 9vw;
+    width: 35vw;
+    max-width: 750px;
+}
+
+.auth-header{
+    margin-bottom: 60px;
+
+    h1{
+        font-size: 1.65vw;
+        font-weight: 800;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .name-app{
+        justify-content: start;
+
+        .logo{
+            height: 50px;
+            width: auto;
+        }
+
+        p{
+            font-size: 45px;
+            color: $main;
+            font-weight: 800;
+        }
+
+        img{
+            margin-right: 25px;
+        }
+    }
+}
+
+form{
+    margin-bottom: 80px;
+
+    h2{
+        padding-left: 20px;
+        width: fit-content;
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    &.form-auth{
+
+        .remember-pass{
+            margin-top: 7px;
+            width: fit-content;
+            text-align: right;
+            cursor: pointer;
+            &:hover{
+                color: $main;
+            }
+        }
+
+        & .row:nth-child(3){
+            margin-bottom: 0;
+            align-items: flex-end;
+        }
+    }
+
+    &.form-rec_pass{
+        width: 450px;
+    }
+
+    .row{
+        width: 100%;
+        margin-bottom: 20px;
+        align-items: flex-start;
+
+        &:nth-child(2){
+            & .row__item:first-child{
+                margin-right: 20px;
+            }
+        }
+        &:nth-child(3){
+            & .row__item:first-child{
+                margin-right: 20px;
+            }
+        }
+        &:nth-child(5){
+            & .row__item:first-child{
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .button{
+        margin-top: 20px;
+    }
+}
+
+.message-block{
+    display: block;
+    color:#e06262;
+    margin-bottom: 20px;
+}
+
+.nick-error{
+    margin-top: 10px;
+    display: block;
+    color:#e06262;
+}
+
+.hide{
+    display: none;
+}
+
+.form-footer{
+    justify-content: flex-start;
+
+    a{
+        font-weight: 700;
+        color: $main;
+        text-decoration: underline;
+
+        &:hover{
+            color: #643dd2;
+        }
+    }
+}
+
+footer{
+    height: 5%;
+    text-align: center;
+    a{
+        font-weight: 700;
+        color: $main;
+        text-decoration: underline;
+    }
+}

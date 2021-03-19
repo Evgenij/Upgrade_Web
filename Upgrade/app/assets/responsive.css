@@ -1,0 +1,195 @@
+.tabs-triggers__item object {
+  width: 17%;
+}
+
+@media (min-width: 1920px) {
+  * {
+    font-size: 1.5vh;
+  }
+
+  .title {
+    font-size: 2vh;
+  }
+  .title-block {
+    font-size: 1.7vh;
+  }
+
+  .tabs {
+    grid-template-columns: 11vw 1fr;
+  }
+
+  .modal-window.add-task {
+    left: 12.5vw;
+  }
+}
+@media (max-width: 1680px) {
+  .tabs-triggers__item {
+    font-size: 0.9vw;
+  }
+
+  .block-task {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 15px 20px;
+  }
+  .block-task .block-task__text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+@media (max-width: 1440px) {
+  .menu header .logo {
+    margin-right: 15px;
+    width: 16%;
+    height: auto;
+  }
+
+  .menu header .name-app {
+    font-size: 16px;
+  }
+
+  .button.small {
+    padding: 6px 6px;
+    font-size: 18px;
+    width: 35px;
+    height: 35px;
+    line-height: 1em;
+  }
+
+  .welcome .button {
+    min-width: 55px;
+    min-height: 55px;
+    margin-left: 30px;
+    position: relative;
+  }
+  .welcome .button svg {
+    width: 33%;
+    left: 2px;
+  }
+}
+@media (max-width: 1366px) {
+  * {
+    font-size: 1.9vh;
+  }
+
+  .tabs-triggers__item {
+    font-size: 2.1vh;
+  }
+
+  .title {
+    font-size: 1.1vw;
+  }
+
+  .general-statistic {
+    -webkit-box-orient: inherit;
+    -webkit-box-direction: inherit;
+        -ms-flex-direction: inherit;
+            flex-direction: inherit;
+  }
+  .general-statistic .row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-preferred-size: 25%;
+        flex-basis: 25%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    height: 100%;
+  }
+  .general-statistic .row__data {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .general-statistic .row:last-child .block-value:first-child {
+    padding-right: 0px;
+    border: none;
+    margin-bottom: 12px;
+  }
+  .general-statistic .row:last-child .block-value:last-child {
+    padding-left: 0px;
+  }
+  .general-statistic .main-value {
+    font-size: 25px;
+  }
+  .general-statistic .second-value {
+    font-size: 20px;
+  }
+  .general-statistic .block-value {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .general-statistic .block-value .label-value {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    margin-top: 5px;
+  }
+  .general-statistic .data__main {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .general-statistic .data__second {
+    margin-top: 20px;
+    width: inherit;
+  }
+  .general-statistic .data__second .block-value:first-child {
+    padding-right: 10%;
+  }
+  .general-statistic .data__second .block-value:last-child {
+    padding-left: 10%;
+  }
+
+  .tabs-content__item .welcome {
+    display: none;
+  }
+  .tabs-content__item:first-child {
+    grid-template-columns: 1fr 1fr 1.2fr;
+    grid-template-rows: 75px 0.6fr 1fr;
+    grid-template-areas: "head head head" "general-statistic general-statistic projects-progress" "week-statistic week-statistic projects-progress";
+  }
+
+  .user-panel-wrapper .user-data__fullname {
+    font-size: 16px;
+  }
+  .user-panel-wrapper .user-data__spec {
+    font-size: 14px;
+  }
+
+  .title-section__title {
+    font-size: 1.3vw;
+  }
+  .title-section__subtitle {
+    font-size: 2.2vh;
+  }
+
+  .progress-percent {
+    font-size: 1.1vw;
+  }
+
+  .target-item {
+    margin-bottom: 25px;
+  }
+  .target-item .target-item__content .target-name {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .week-statistic__header {
+    margin-bottom: 10px;
+  }
+}

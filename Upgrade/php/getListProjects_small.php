@@ -65,7 +65,7 @@ if ($query->rowCount() > 0) {
                 echo '<div class="list-targets__item target-item flex">';
                 echo '<div class="target-item__number gray">' . $num_target . '</div>';
                 echo '<div class="target-item__content">';
-                echo '<h2 class="target-name title">' . $row['name'] . '</h2>';
+                echo '<h2 class="target-name title title-block">' . $row['name'] . '</h2>';
                 echo '<div class="progress flex f-col">';
                 echo '<div class="progress-labels flex">';
                 echo '<div class="progress-labels__item text">Прогресс</div>';

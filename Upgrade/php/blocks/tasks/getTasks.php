@@ -14,7 +14,6 @@
 // AND target.id_target = 24 
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/connect.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/functions.php';
 
 $period = $_POST['period'];
 $project = $_POST['project'];

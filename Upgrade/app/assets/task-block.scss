@@ -1,0 +1,67 @@
+@import "variables.scss";
+
+.task-block{
+    max-width: 47%;
+    flex-grow: 1;
+    margin-bottom: 25px;
+    margin-right: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    & &__description{
+        margin-top: 10px;
+    }
+
+    & &__footer{
+        margin-top: 25px;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    & &__tags{
+        justify-content: flex-start;
+    }
+
+    & &__duration{
+        color: $main;
+        text-align: right;
+    }
+}
+
+.task-block__head{
+    justify-content: space-between;
+    margin-bottom: 1.1vw;
+}
+
+.task-block__date{
+    & .date{
+        font-weight: 700;
+        margin-left: 0.7vw;
+        color: $main;
+    }
+}
+
+.task-block__content{
+    .progress{
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+}
+
+.task-data__message{
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    & .task-data__title{
+        margin-bottom: 5px;
+    }
+}
+
+
+
+
+
+
+
+

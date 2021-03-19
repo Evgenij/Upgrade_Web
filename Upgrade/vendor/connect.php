@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/functions.php';
+
 $driver = 'mysql';
 $host = 'localhost';
 $dbName = 'upgrade_db';

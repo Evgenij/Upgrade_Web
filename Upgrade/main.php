@@ -5,8 +5,6 @@ if (!isset($_SESSION["theme"])) {
     $_SESSION["theme"] = "light";
 }
 
-require_once 'vendor/functions.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +14,11 @@ require_once 'vendor/functions.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/<?php echo $_SESSION["theme"]; ?>.css" id="theme-link">
-    <link rel="stylesheet" href="styles/flex.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/modals.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" type="text/css" href="styles/flex.css">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/modals.css">
+    <link rel="stylesheet" type="text/css"  href="styles/responsive.css">
+    <link rel="preconnect" type="text/css" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="pictures/icons/favicon.svg" type="image/svg">
     <title>Upgrade - система командной разработки</title>
@@ -28,7 +26,8 @@ require_once 'vendor/functions.php';
 
 <body onload="iniMainWindow();">
 
-    <div class="notification"></div>
+    <div class="notification error">
+    </div>
 
      <div class="wrapp-modal hide">
         <div class="modal-window add-task panel">
@@ -70,7 +69,7 @@ require_once 'vendor/functions.php';
                     <select id="projects-task" class="custom-select projects-task projects text">
                          <?php include "php/getProjects.php"; ?>
                     </select>
-                    <select id="targets-task" class="custom-select targets-task targets text list-hor__item">
+                    <select id="targets-task" class="custom-select targets-task targets text">
                     </select>
                     <select id="durations-task" class="custom-select durations-task text">
                         <option value="15">15 минут</option>
@@ -334,7 +333,7 @@ require_once 'vendor/functions.php';
                             <select id="status-filter" class="custom-select status-filter status text with-shadow">
                                 <option value="-1">Все задачи</option>
                                 <option value="1">Выполненные</option>
-                                <option value="0">В работе</option>
+                                <option value="0">В процессе</option>
                             </select>
                             <select id="executors-filter" class="custom-select executors-filter executors text with-shadow hide">
                                 <option value="0">Все исполнители</option>
@@ -382,21 +381,23 @@ require_once 'vendor/functions.php';
                     </div>-->
                     <header class="task-data__header flex">
                         <div class="header-buttons flex list-hor">
-                            <button class="button list-hor__item">Выполнено</button>  
-                            <button class="button additional list-hor__item">Изменить</button>                                                
+                            <button id="btn-task-done" class="button list-hor__item">Выполнить</button>  
+                            <button id="btn-task-change" class="button additional list-hor__item">Изменить</button>                                                
                         </div>    
                         <div class="header-actions flex list-hor">
-                            <svg class="list-hor__item" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.3298 10.876L11.412 19.7938C10.3195 20.8862 8.8378 21.5 7.29278 21.5C5.74776 21.5 4.26603 20.8862 3.17353 19.7938C2.08104 18.7013 1.46729 17.2195 1.46729 15.6745C1.46729 14.1295 2.08104 12.6477 3.17353 11.5553L12.0913 2.6375C12.8196 1.90917 13.8074 1.5 14.8375 1.5C15.8675 1.5 16.8553 1.90917 17.5836 2.6375C18.3119 3.36583 18.7211 4.35365 18.7211 5.38366C18.7211 6.41367 18.3119 7.4015 17.5836 8.12983L8.65616 17.0476C8.292 17.4118 7.79808 17.6163 7.28308 17.6163C6.76807 17.6163 6.27416 17.4118 5.90999 17.0476C5.54583 16.6834 5.34124 16.1895 5.34124 15.6745C5.34124 15.1595 5.54583 14.6656 5.90999 14.3014L14.1485 6.07263" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <svg class="list-hor__item" width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <label for="area-files__input" class="flex list-hor__item">
+                                <svg class="add-attach" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.3298 10.876L11.412 19.7938C10.3195 20.8862 8.8378 21.5 7.29278 21.5C5.74776 21.5 4.26603 20.8862 3.17353 19.7938C2.08104 18.7013 1.46729 17.2195 1.46729 15.6745C1.46729 14.1295 2.08104 12.6477 3.17353 11.5553L12.0913 2.6375C12.8196 1.90917 13.8074 1.5 14.8375 1.5C15.8675 1.5 16.8553 1.90917 17.5836 2.6375C18.3119 3.36583 18.7211 4.35365 18.7211 5.38366C18.7211 6.41367 18.3119 7.4015 17.5836 8.12983L8.65616 17.0476C8.292 17.4118 7.79808 17.6163 7.28308 17.6163C6.76807 17.6163 6.27416 17.4118 5.90999 17.0476C5.54583 16.6834 5.34124 16.1895 5.34124 15.6745C5.34124 15.1595 5.54583 14.6656 5.90999 14.3014L14.1485 6.07263" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </label>
+                            <svg class="add-subtasks list-hor__item" width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3.90234 6.64307H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M1.32959 1.5H6.47243" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M3.90234 1.5V15.6428C3.90234 15.9838 4.0378 16.3108 4.27892 16.552C4.52004 16.7931 4.84706 16.9285 5.18805 16.9285H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M20.6142 4.07104H12.9C12.1899 4.07104 11.6143 4.64668 11.6143 5.35676V7.92818C11.6143 8.63826 12.1899 9.21389 12.9 9.21389H20.6142C21.3243 9.21389 21.8999 8.63826 21.8999 7.92818V5.35676C21.8999 4.64668 21.3243 4.07104 20.6142 4.07104Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M20.6142 14.3572H12.9C12.1899 14.3572 11.6143 14.9328 11.6143 15.6429V18.2143C11.6143 18.9244 12.1899 19.5 12.9 19.5H20.6142C21.3243 19.5 21.8999 18.9244 21.8999 18.2143V15.6429C21.8999 14.9328 21.3243 14.3572 20.6142 14.3572Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <svg class="list-hor__item" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="delete-task list-hor__item" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.8999 4.80005H3.7999H18.9999" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M6.6498 4.8V2.9C6.6498 2.39609 6.84998 1.91282 7.2063 1.5565C7.56262 1.20018 8.04589 1 8.5498 1H12.3498C12.8537 1 13.337 1.20018 13.6933 1.5565C14.0496 1.91282 14.2498 2.39609 14.2498 2.9V4.8M17.0998 4.8V18.1C17.0998 18.6039 16.8996 19.0872 16.5433 19.4435C16.187 19.7998 15.7037 20 15.1998 20H5.6998C5.19589 20 4.71262 19.7998 4.3563 19.4435C3.99998 19.0872 3.7998 18.6039 3.7998 18.1V4.8H17.0998Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M8.5498 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -408,7 +409,6 @@ require_once 'vendor/functions.php';
                     <main class="task-data__main">
                         <div class="list-hor">
                             <select id="projects-task-data" class="custom-select projects-task-data projects text">
-                                <option value="0">Все проекты</option>
                                 <?php include "php/getProjects.php"; ?>
                             </select>
                             <select id="targets-task-data" class="custom-select targets-task-data targets text">
@@ -441,68 +441,63 @@ require_once 'vendor/functions.php';
                             </select>
                         </div>
                         <div class="task-data__content task-content">
-                            <div class="task-content__text title">Lorem, ipsum dollor sit ames minor slor sit ames minit ames minima. etur rvoluptatibus!</div>
-                            <div class="task-content__description text regular">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio vitae atque nobis dignissimos expedita libero natus, </div>
-                            <div class="task-content__progress">
+                            <textarea type="text" class="task-content__text input title" spellcheck="false" wrap="soft" placeholder="текст">Lorem, ipsum dollor sit ames minor slor sit ames minit ames minima. etur rvoluptatibus!</textarea>
+                            <!-- <input class="task-content__text title"></input> -->
+                            <textarea class="task-content__description text regular" spellcheck="false" wrap="soft" placeholder="описание">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio vitae atque nobis dignissimos expedita libero natus, </textarea>
+                            <div class="task-content__progress hide">
                                 <div class="progress arrow empty flex">
-                                    <!-- <div class="progress-labels flex">
-                                        <div class="progress-labels__item text">Прогресс</div>
-                                        <div class="progress-label progress-percent text-gradient">2<span class="count-subtask text regular">/3</span></div>
-                                    </div> -->
-                                    <div class="progress-label progress-percent text-gradient">2<span class="count-subtask text regular">/3</span></div>
+                                    <div class="progress-label progress-percent text-gradient">0<span class="count-subtask text regular">/0</span></div>
                                     <div class="progress-bar">
-                                        <div class="progress-bar__current" style="width:66%;"></div>
+                                        <div class="progress-bar__current"></div>
                                     </div>
-                                </div>   
-                                <div class="list-ver">
-                                    <div class="subtask list-ver__item" id="1">
-                                        <label class="task-status flex text">
-                                            <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                            <span class="rect"></span>
-                                            Понедельник
-                                        </label>
+                                </div>
+                                <div class="subtasks list-ver flex f-col">
+                                    <div class="subtask subtask-block-add flex" id="1">
+                                        <div class="btn-subtask-add"></div>
+                                        <input type="text" class="add-task input" placeholder="текст подзадачи">
                                     </div>
-                                    <div class="subtask list-ver__item" id="1">
-                                        <label class="task-status flex text">
-                                            <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                            <span class="rect"></span>
-                                            Понедельник
-                                        </label>
-                                    </div>
-                                    <div class="subtask list-ver__item" id="1">
-                                        <label class="task-status flex text">
-                                            <input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status">
-                                            <span class="rect"></span>
-                                            Понедельник
-                                        </label>
-                                    </div>
+                                    <span class="subtasks__remove text regular">удалить подзадачи</span>
                                 </div>                                         
                             </div>
                             <div class="task-content__attachments">
-                                <div class="area flex text">Для загрузки файла нажмите или перетащите файл</div>
-                                <div class="list-hor flex">
-                                    <div class="file list-hor__item">1</div>
-                                    <div class="file list-hor__item">2</div>
-                                    <div class="file list-hor__item">3</div>
-                                </div>                                            
+                                <div class="area-files flex text">
+                                    Перетащите сюда файл или
+                                    <div class="area-files__button-file">
+                                        <input type="file" name="file" id="area-files__input" class="button-file hide" multiple>
+                                        <label for="area-files__input">нажмите для загрузки</label>
+                                    </div>
+                                </div>
+                                <div class="uploaded-files list-hor flex">
+                                    <div class="file list-hor__item" file-path="'.$output.'">
+                                        <div class="btn-close"></div>
+                                        <img src="/pictures/icons/file-icons/bak.svg" alt="" title = "" class="file__icon">
+                                        <p class="file__name text" title = "">filename.jpg</p>
+                                        <p class="file__download text">скачать</p>
+                                    </div>
+                                </div>                                    
                             </div>                        
                         </div>
                     </main>
                     <footer class="task-data__footer">
-                        footer
+                        <select id="user-select" class="custom-select user-select user-select text to-up">
+                            <option value="-1" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="wed-designer">Евгений Ермоленко</option>
+                            <option value="1" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="ui-designer">Афанасьев Алексей</option>
+                            <option value="0" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="ux-designer">Геша Игорь</option>
+                        </select>
                     </footer>
                 </div>
             </div>
         </main>
     </div>
 
-    <script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script>
+    <!-- <script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="scripts/themes.js"></script>
     <script type="text/javascript" src="scripts/tabs.js"></script>
     <script type="text/javascript" src="scripts/select.js"></script>
-    <script type="text/javascript" src="scripts/task-block.js"></script>
-    <script type="text/javascript" src="lib/liteChart.js"></script>
-    <script type="text/javascript" src="lib/datepicker.js"></script>
+    <script type="text/javascript" src="scripts/upload-files.js"></script>
+    <script type="text/javascript" src="app/lib/liteChart.js"></script>
+    <script type="text/javascript" src="app/lib/datepicker.js"></script>
     
     <script type="text/javascript" src="scripts/main.js"></script>
 </body>

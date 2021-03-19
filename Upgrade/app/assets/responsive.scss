@@ -1,0 +1,213 @@
+.tabs-triggers__item {
+	object{ 
+		width: 17%;
+	}
+}
+
+@media (min-width: 1920px){
+	*{
+		font-size: 1.5vh;
+	}
+	.title{
+		font-size: 1.9vh;
+
+		&-block{
+			font-size: 1.7vh;
+		}
+	}
+	.tabs{
+		grid-template-columns: 11vw 1fr;
+	}
+	.modal-window.add-task {
+		left: 12.5vw;
+	}
+}
+
+@media (max-width: 1680px){
+
+	.tabs-triggers__item{
+		font-size: 0.9vw;
+	}
+
+	.block-task{
+		flex-direction: column;
+		align-items: center;
+		padding: 15px 20px;
+
+		& .block-task__text{
+			text-align: center;
+			margin-bottom: 15px;
+		}
+	}
+
+	
+}
+
+@media (max-width: 1440px){
+	.menu header .logo {
+		margin-right: 15px;
+		width: 16%;
+		height: auto;
+	}
+
+	.menu header .name-app {
+		font-size: 16px;
+	}
+
+	.button.small {
+		padding: 6px 6px;
+		font-size: 18px;
+		width: 35px;
+		height: 35px;
+		line-height: 1em;
+	}
+
+	.welcome .button{
+		min-width: 55px;
+		min-height: 55px;
+		margin-left: 30px;
+		position: relative;
+
+		& svg{
+			width: 33%;
+			left: 2px;
+		}
+	}
+}
+
+@media (max-width: 1366px){
+
+	*{
+		font-size: 1.9vh;
+	}
+
+	.tabs-triggers__item {
+		font-size: 2.1vh;
+	}
+
+	.title{
+		font-size: 1.1vw;
+	}
+
+	.general-statistic{
+		flex-direction: inherit;
+
+		.row{
+			flex-direction: column;
+			flex-basis: 25%;
+			justify-content: space-between;
+			height: 100%;
+
+			&__data{
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			&:last-child{
+
+				.block-value{
+					&:first-child{
+						padding-right: 0px;
+						border: none;
+						margin-bottom: 12px;
+					}
+					&:last-child{
+						padding-left: 0px;
+					}
+				}
+			}
+		}
+		
+		.main-value{
+			font-size: 25px;
+		}
+		.second-value{
+			font-size: 20px;
+		}
+
+		.block-value{
+			align-items: center;
+
+			& .label-value{
+				width: max-content;
+				margin-top: 5px;
+			}
+		}
+
+		.data__main{
+			flex-direction: column;
+		}
+
+		.data__second{
+			margin-top: 20px;
+			width: inherit;
+
+			.block-value{
+				&:first-child{
+					padding-right: 10%;
+				}
+				&:last-child{
+					padding-left: 10%;
+				}
+			}
+		}
+	}
+
+	.tabs-content__item{
+		.welcome{
+			display: none;
+		}
+    	&:first-child{
+			grid-template-columns: 1fr 1fr 1.2fr;
+			grid-template-rows: 75px 0.6fr 1fr;
+			grid-template-areas: "head head head"
+			"general-statistic general-statistic projects-progress"
+			"week-statistic week-statistic projects-progress";
+    	}
+	}
+
+	.user-panel-wrapper{
+		& .user-data{
+			&__fullname{
+				font-size: 16px;
+			}
+			&__spec{
+				font-size: 14px;
+			}
+		}
+	}
+
+	.title-section{
+		&__title{
+			font-size: 1.3vw;
+		}
+		&__subtitle{
+			font-size: 2.2vh;
+		}
+	}
+
+	// .custom-select-trigger {
+	// 	padding: 14px 40px 14px 20px;
+	// }
+
+	.progress-percent {
+		font-size: 1.1vw;
+	}
+
+	.target-item{
+		margin-bottom: 25px;
+
+		& &__content{
+
+			& .target-name{
+				font-size: 14px;
+				margin-bottom: 6px;
+			}
+		}
+	}
+
+	.week-statistic__header {
+		margin-bottom: 10px;
+	}
+}
+

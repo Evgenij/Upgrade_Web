@@ -1,0 +1,104 @@
+$margin: 25px;
+$inner-margin: 20px;
+$main: #8A66F0;
+
+.wrapp-modal{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+
+    &.hide{
+        display: none;
+    }
+}
+
+.modal-window{
+    position: absolute;
+
+    &__head{
+        margin-bottom: $margin;
+        justify-content: space-between;
+
+        & .head__btn-close{
+            cursor: pointer;
+
+            &:hover path{
+                stroke: $main;
+            }
+        }
+    }
+
+    &__content{
+        
+        & .date-picker, .list-hor {
+            margin-bottom: $inner-margin;
+        }
+
+        
+        .date-picker{
+
+            &:hover svg path{
+                fill: $main;
+            }   
+
+            & .wrapp{
+                justify-content: flex-start;
+            }
+
+            svg{
+                margin-right: 15px;
+            }
+
+            &__sublabel{
+                margin-bottom: -1px;
+            }
+
+            &__date{
+                cursor: pointer;
+                width: 100%;
+                padding: 0;
+                border: none;
+
+                span{
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+
+    &__message{
+        justify-content: flex-start;
+        margin-bottom: 15px;
+        color:#e06262;
+
+        &.hide{
+            display: none;
+        }
+    }
+
+    &__footer{
+        margin-top: $margin;
+
+        & .icon-enter{
+            margin: 0px 5px;
+        }
+    } 
+}
+
+.modal-window{
+    &.add-task{
+        //display: none;
+        visibility: hidden;
+        left: 13.5vw;
+        top: 0px;
+    }
+
+    &.show{
+        visibility: visible;
+    }
+}
+
+.datepicker{
+    width: 65%;
+}

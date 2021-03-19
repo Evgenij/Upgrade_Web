@@ -3,7 +3,7 @@
 	// The mappings of source directory and output directory
 	"mappings": [
 		{
-			"src": "assets/",
+			"src": "app/assets/",
 			"dest": "styles/"
 		}
 	],

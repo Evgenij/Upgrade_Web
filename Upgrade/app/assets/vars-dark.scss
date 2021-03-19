@@ -1,0 +1,25 @@
+@import "variables.scss";
+
+$background: #1B1B1D;
+$title:#DBDCE8;
+$text: #676873;
+$gray: #494951;
+$border: #2F2F32;
+$panel:#21242A;
+$panel-add: #292D36;
+
+@mixin shadow() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.15);
+}
+
+@mixin shadow-hover() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.17);
+}
+
+@mixin shadow-select() {
+	box-shadow: 25px 30px 35px rgba(0, 0, 0, 0.2);
+}
+
+@mixin shadow-avatar() {
+	box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.5);
+}

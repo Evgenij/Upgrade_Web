@@ -38,3 +38,16 @@ function FormattingTime($time){
         return date('i мин', mktime(0, $time ));
     }
 }
+
+function getExtension($filename)
+{
+    return substr(strrchr($filename, '.'), 1);
+}
+
+function getSmallFileName($fileName){
+    if (strlen($fileName) >= 15) {
+        return substr($fileName, 0, 4).'...'.substr($fileName, strlen($fileName) - strlen(getExtension($fileName))*2, strlen(getExtension($fileName))).getExtension($fileName);
+    } else {
+        return $fileName;
+    }
+}

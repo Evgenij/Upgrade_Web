@@ -26,14 +26,24 @@ body {
   display: none;
   position: absolute;
   text-align: center;
+  min-width: 300px;
   max-width: 300px;
   left: 50%;
   top: 30px;
   padding: 30px 40px;
-  background-color: #69A042;
   color: #e6fdd5;
   border-radius: 10px;
   margin-left: -150px;
+}
+.notification.success {
+  background-color: #69A042;
+}
+.notification.error {
+  background-color: #e06262;
+}
+
+.hide {
+  display: none;
 }
 
 .icon-mess {
@@ -72,7 +82,7 @@ body {
   margin-right: 20px;
 }
 .tabs-triggers header .name-app {
-  font-size: 18px;
+  font-size: 2.2vh;
   font-weight: 800;
 }
 
@@ -349,7 +359,7 @@ li.tabs-triggers__item--active::before {
   grid-template-areas: "head head head" "welcome welcome projects-progress" "week-statistic general-statistic projects-progress";
 }
 .tabs-content__item:nth-child(2) {
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1.4fr minmax(0, 1fr);
   grid-template-rows: 75px 1fr;
   gap: 3.4vh 2vw;
   grid-template-areas: "head head" "tasks task-data";
@@ -444,10 +454,10 @@ li.tabs-triggers__item--active::before {
   margin: 0;
 }
 .list-hor__item {
-  margin-right: 10px;
+  margin-left: 10px;
 }
-.list-hor__item:last-child {
-  margin: 0;
+.list-hor__item:first-child {
+  margin-left: 0;
 }
 
 .project__small .project-name {
@@ -526,6 +536,8 @@ li.tabs-triggers__item--active::before {
   height: 5px;
   border-radius: 5px;
   background: linear-gradient(93.07deg, #BD95FF 1.04%, #5B68DE 100%);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .list-targets {
@@ -553,7 +565,6 @@ li.tabs-triggers__item--active::before {
   width: 100%;
 }
 .target-item .target-item__content .target-name {
-  font-size: 1.8vh;
   margin-bottom: 3px;
 }
 .target-item .target-item__content .progress {
@@ -721,18 +732,39 @@ li.tabs-triggers__item--active::before {
   padding-bottom: 3.5vh;
   margin-bottom: 3.5vh;
 }
+.task-data .header-actions .list-hor__item {
+  cursor: pointer;
+  margin-left: 15px;
+}
+.task-data .header-actions .list-hor__item:hover path {
+  stroke: #8A66F0;
+}
+.task-data .header-actions .list-hor__item svg {
+  cursor: pointer;
+}
+.task-data .header-actions .list-hor__item:last-child:hover path {
+  stroke: #e06262;
+}
 .task-data__main {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 .task-data__main .list-hor {
-  margin-bottom: 3vh;
+  margin-bottom: 3.5vh;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 .task-data .task-content {
   overflow-y: auto;
   height: 85%;
-  padding-right: 25px;
+  padding-right: 30px;
 }
 .task-data .task-content__text {
   margin-bottom: 1.5vh;
@@ -740,7 +772,10 @@ li.tabs-triggers__item--active::before {
 .task-data .task-content__description {
   margin-bottom: 2vh;
 }
-.task-data .task-content__progress, .task-data .task-content__progress .progress {
+.task-data .task-content__progress {
+  margin-bottom: 4vh;
+}
+.task-data .task-content__progress .progress {
   margin-bottom: 15px;
 }
 .task-data .task-content .progress-percent {
@@ -758,9 +793,26 @@ li.tabs-triggers__item--active::before {
 .task-data .task-content .list-ver__item {
   margin-bottom: 15px;
 }
+.task-data .task-content .subtasks {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+.task-data .task-content .subtasks__remove {
+  margin-top: 10px;
+  cursor: pointer;
+}
+.task-data .task-content .subtasks__remove:hover {
+  color: #e06262;
+}
 .task-data__footer {
   width: 100%;
-  height: 45px;
+  height: auto;
   margin-top: 3vh;
-  background-color: #a39494;
+}
+
+.user-select-data {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
