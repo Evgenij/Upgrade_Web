@@ -1,5 +1,6 @@
 @import "variables.scss";
 @import "../styles/normalize.css";
+@import "data-block.css";
 @import "task-block.css";
 
 
@@ -35,11 +36,8 @@ body{
     color: #e6fdd5;
     border-radius: 10px;
     margin-left: -150px;
-
-    &.success{
-        background-color: $green;
-    }
-
+    background-color: $green;
+    
     &.error{
         background-color: $red;
     }
@@ -387,6 +385,14 @@ li.tabs-triggers__item--active::before {
             "head head"
             "tasks task-data";
     }
+    &:nth-child(3){
+        grid-template-columns: 510px 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 3.4vh 2vw;
+        grid-template-areas:
+            "projects-area targets-area"
+            "projects-area attachments-area";
+    }
 }
 
 .welcome {
@@ -442,8 +448,8 @@ li.tabs-triggers__item--active::before {
     grid-template-rows: 0fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        "title"
-        "list";
+        "projects-progress-title"
+        "projects-progress-list";
     grid-area: projects-progress;
 }
 .week-statistic { 
@@ -485,7 +491,7 @@ li.tabs-triggers__item--active::before {
 
 
 .projects-list{
-    grid-area: list;
+    grid-area: projects-progress-list;
     overflow-y: auto;
     padding: 0px 30px 0px 10px;
 }
@@ -788,11 +794,23 @@ li.tabs-triggers__item--active::before {
     min-height: 100%;
     justify-content: space-between;
 
+    &__information{
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        justify-content: space-between;
+    }
+
     &__header{
         width: 100%;
         justify-content: space-between;
         padding-bottom: 3.5vh;
         margin-bottom: 3.5vh;  
+    }
+
+    .wrapp-content{
+        overflow-y: auto;
+        height: 85%;
     }
 
     & .header-actions{
@@ -820,7 +838,6 @@ li.tabs-triggers__item--active::before {
 
     &__main{
         width: 100%;
-        height: 100%;
         overflow: hidden;
 
         & .list-hor{
@@ -833,7 +850,7 @@ li.tabs-triggers__item--active::before {
 
     .task-content{
         overflow-y: auto;
-        height: 85%;
+        height: 100%;
         padding-right: 30px;
 
         &__text{
@@ -893,3 +910,62 @@ li.tabs-triggers__item--active::before {
 .user-select-data{
 	justify-content: flex-start;
 }
+
+
+
+
+
+
+
+
+
+
+
+.grid-area{
+    &__header{
+        justify-content: flex-start;
+    }
+    button{
+        margin-left: 6vw;
+    }
+}
+
+.targets-area {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 65px 1fr;
+	gap: 20px 0px;
+	grid-template-areas:
+		"targets-head user-panel"
+		"targets-list targets-list";
+	grid-area: targets-area;
+}
+.targets-head { 
+    grid-area: targets-head; 
+}
+.targets-list { grid-area: targets-list; }
+.user-panel { grid-area: user-panel; }
+.projects-area {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 65px 1fr;
+    gap: 20px 0px;
+    grid-template-areas:
+        "projects-head"
+        "projects-list";
+    grid-area: projects-area;
+}
+.projects-head { grid-area: projects-head; }
+.projects-list { grid-area: projects-list; }
+.attachments-area {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 65px 1fr;
+	gap: 20px 0px;
+	grid-template-areas:
+	"attachments-head"
+	"attachments-list";
+	grid-area: attachments-area;
+}
+.attachments-head { grid-area: attachments-head; }
+.attachments-list { grid-area: attachments-list; }

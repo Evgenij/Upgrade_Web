@@ -1,13 +1,12 @@
 @import "variables.scss";
 
 .task-block{
+    min-width: 47%;
     max-width: 47%;
     flex-grow: 1;
     margin-bottom: 25px;
     margin-right: 25px;
-    cursor: pointer;
-    transition: 0.3s;
-
+    
     & &__description{
         margin-top: 10px;
     }

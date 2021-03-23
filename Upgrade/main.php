@@ -26,7 +26,7 @@ if (!isset($_SESSION["theme"])) {
 
 <body onload="iniMainWindow();">
 
-    <div class="notification error">
+    <div class="notification ">
     </div>
 
      <div class="wrapp-modal hide">
@@ -71,7 +71,7 @@ if (!isset($_SESSION["theme"])) {
                     </select>
                     <select id="targets-task" class="custom-select targets-task targets text">
                     </select>
-                    <select id="durations-task" class="custom-select durations-task text">
+                    <select id="durations-task" class="custom-select durations durations-task text">
                         <option value="15">15 минут</option>
                         <option value="30">30 минут</option>
                         <option value="45">45 минут</option>
@@ -254,7 +254,7 @@ if (!isset($_SESSION["theme"])) {
                             Вы работаете над <span class="subtitle__color count-project">***</span>
                         </h3>
                     </div>
-                    <div class="projects-list list-ver">
+                    <div class="projects-progress-list list-ver">
                         <?php include "php/getListProjects_small.php"; ?>
                     </div>
                 </section>
@@ -375,118 +375,223 @@ if (!isset($_SESSION["theme"])) {
                     </div>
                 </div>
                 <div class="task-data flex f-col panel">
-                    <!-- <div class="task-data__message">
-                        <h3 class="task-data_title text">Информационная панель задачи</h3>
+                    <div class="task-data__message flex f-col">
+                        <h3 class="task-data_title title text">Информационная панель задачи</h3>
                         <h2 class="task-data_subtitle text">выберите задачу для просмотра детальной информации о ней</h2>
-                    </div>-->
-                    <header class="task-data__header flex">
-                        <div class="header-buttons flex list-hor">
-                            <button id="btn-task-done" class="button list-hor__item">Выполнить</button>  
-                            <button id="btn-task-change" class="button additional list-hor__item">Изменить</button>                                                
-                        </div>    
-                        <div class="header-actions flex list-hor">
-                            <label for="area-files__input" class="flex list-hor__item">
-                                <svg class="add-attach" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20.3298 10.876L11.412 19.7938C10.3195 20.8862 8.8378 21.5 7.29278 21.5C5.74776 21.5 4.26603 20.8862 3.17353 19.7938C2.08104 18.7013 1.46729 17.2195 1.46729 15.6745C1.46729 14.1295 2.08104 12.6477 3.17353 11.5553L12.0913 2.6375C12.8196 1.90917 13.8074 1.5 14.8375 1.5C15.8675 1.5 16.8553 1.90917 17.5836 2.6375C18.3119 3.36583 18.7211 4.35365 18.7211 5.38366C18.7211 6.41367 18.3119 7.4015 17.5836 8.12983L8.65616 17.0476C8.292 17.4118 7.79808 17.6163 7.28308 17.6163C6.76807 17.6163 6.27416 17.4118 5.90999 17.0476C5.54583 16.6834 5.34124 16.1895 5.34124 15.6745C5.34124 15.1595 5.54583 14.6656 5.90999 14.3014L14.1485 6.07263" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </div>
+                    <div class="task-data__information flex f-col hide">
+                        <header class="task-data__header flex">
+                            <div class="header-buttons flex list-hor">
+                                <button id="btn-task-done" class="button list-hor__item">Выполнить</button>  
+                            </div>    
+                            <div class="header-actions flex list-hor">
+                                <label for="area-files__input" class="flex list-hor__item">
+                                    <svg class="add-attach" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20.3298 10.876L11.412 19.7938C10.3195 20.8862 8.8378 21.5 7.29278 21.5C5.74776 21.5 4.26603 20.8862 3.17353 19.7938C2.08104 18.7013 1.46729 17.2195 1.46729 15.6745C1.46729 14.1295 2.08104 12.6477 3.17353 11.5553L12.0913 2.6375C12.8196 1.90917 13.8074 1.5 14.8375 1.5C15.8675 1.5 16.8553 1.90917 17.5836 2.6375C18.3119 3.36583 18.7211 4.35365 18.7211 5.38366C18.7211 6.41367 18.3119 7.4015 17.5836 8.12983L8.65616 17.0476C8.292 17.4118 7.79808 17.6163 7.28308 17.6163C6.76807 17.6163 6.27416 17.4118 5.90999 17.0476C5.54583 16.6834 5.34124 16.1895 5.34124 15.6745C5.34124 15.1595 5.54583 14.6656 5.90999 14.3014L14.1485 6.07263" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </label>
+                                <svg class="add-subtasks list-hor__item" width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.90234 6.64307H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M1.32959 1.5H6.47243" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M3.90234 1.5V15.6428C3.90234 15.9838 4.0378 16.3108 4.27892 16.552C4.52004 16.7931 4.84706 16.9285 5.18805 16.9285H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.6142 4.07104H12.9C12.1899 4.07104 11.6143 4.64668 11.6143 5.35676V7.92818C11.6143 8.63826 12.1899 9.21389 12.9 9.21389H20.6142C21.3243 9.21389 21.8999 8.63826 21.8999 7.92818V5.35676C21.8999 4.64668 21.3243 4.07104 20.6142 4.07104Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20.6142 14.3572H12.9C12.1899 14.3572 11.6143 14.9328 11.6143 15.6429V18.2143C11.6143 18.9244 12.1899 19.5 12.9 19.5H20.6142C21.3243 19.5 21.8999 18.9244 21.8999 18.2143V15.6429C21.8999 14.9328 21.3243 14.3572 20.6142 14.3572Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                            </label>
-                            <svg class="add-subtasks list-hor__item" width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3.90234 6.64307H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M1.32959 1.5H6.47243" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M3.90234 1.5V15.6428C3.90234 15.9838 4.0378 16.3108 4.27892 16.552C4.52004 16.7931 4.84706 16.9285 5.18805 16.9285H11.6166" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M20.6142 4.07104H12.9C12.1899 4.07104 11.6143 4.64668 11.6143 5.35676V7.92818C11.6143 8.63826 12.1899 9.21389 12.9 9.21389H20.6142C21.3243 9.21389 21.8999 8.63826 21.8999 7.92818V5.35676C21.8999 4.64668 21.3243 4.07104 20.6142 4.07104Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M20.6142 14.3572H12.9C12.1899 14.3572 11.6143 14.9328 11.6143 15.6429V18.2143C11.6143 18.9244 12.1899 19.5 12.9 19.5H20.6142C21.3243 19.5 21.8999 18.9244 21.8999 18.2143V15.6429C21.8999 14.9328 21.3243 14.3572 20.6142 14.3572Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <svg class="delete-task list-hor__item" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.8999 4.80005H3.7999H18.9999" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6.6498 4.8V2.9C6.6498 2.39609 6.84998 1.91282 7.2063 1.5565C7.56262 1.20018 8.04589 1 8.5498 1H12.3498C12.8537 1 13.337 1.20018 13.6933 1.5565C14.0496 1.91282 14.2498 2.39609 14.2498 2.9V4.8M17.0998 4.8V18.1C17.0998 18.6039 16.8996 19.0872 16.5433 19.4435C16.187 19.7998 15.7037 20 15.1998 20H5.6998C5.19589 20 4.71262 19.7998 4.3563 19.4435C3.99998 19.0872 3.7998 18.6039 3.7998 18.1V4.8H17.0998Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8.5498 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12.3501 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>                                
-                        </div>                                              
-                    </header>
-                    
-                    <main class="task-data__main">
-                        <div class="list-hor">
-                            <select id="projects-task-data" class="custom-select projects-task-data projects text">
-                                <?php include "php/getProjects.php"; ?>
-                            </select>
-                            <select id="targets-task-data" class="custom-select targets-task-data targets text">
-                            </select>
-                            <select id="durations-task-data" class="custom-select durations-task-data text">
-                                <option value="15">15 минут</option>
-                                <option value="30">30 минут</option>
-                                <option value="45">45 минут</option>
-                                <option value="60">1 час</option>
-                                <option value="75">1 час 15 минут</option>
-                                <option value="90">1 час 30 минут</option>
-                                <option value="105">1 час 45 минут</option>
-                                <option value="120">2 часа</option>
-                                <option value="135">2 часа 15 минут</option>
-                                <option value="150">2 часа 30 минут</option>
-                                <option value="165">2 часа 45 минут</option>
-                                <option value="180">3 часа</option>
-                                <option value="195">3 часа 15 минут</option>
-                                <option value="210">3 часа 30 минут</option>
-                                <option value="225">3 часа 45 минут</option>
-                                <option value="240">4 часа</option>
-                                <option value="255">4 часа 15 минут</option>
-                                <option value="270">4 часа 30 минут</option>
-                                <option value="285">4 часа 45 минут</option>
-                                <option value="300">5 часов</option>
-                                <option value="315">5 часов 15 минут</option>
-                                <option value="330">5 часов 30 минут</option>
-                                <option value="345">5 часов 45 минут</option>
-                                <option value="360">6 часов</option>
-                            </select>
-                        </div>
-                        <div class="task-data__content task-content">
-                            <textarea type="text" class="task-content__text input title" spellcheck="false" wrap="soft" placeholder="текст">Lorem, ipsum dollor sit ames minor slor sit ames minit ames minima. etur rvoluptatibus!</textarea>
-                            <!-- <input class="task-content__text title"></input> -->
-                            <textarea class="task-content__description text regular" spellcheck="false" wrap="soft" placeholder="описание">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio vitae atque nobis dignissimos expedita libero natus, </textarea>
-                            <div class="task-content__progress hide">
-                                <div class="progress arrow empty flex">
-                                    <div class="progress-label progress-percent text-gradient">0<span class="count-subtask text regular">/0</span></div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar__current"></div>
-                                    </div>
+                                <svg class="delete-task list-hor__item" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.8999 4.80005H3.7999H18.9999" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6.6498 4.8V2.9C6.6498 2.39609 6.84998 1.91282 7.2063 1.5565C7.56262 1.20018 8.04589 1 8.5498 1H12.3498C12.8537 1 13.337 1.20018 13.6933 1.5565C14.0496 1.91282 14.2498 2.39609 14.2498 2.9V4.8M17.0998 4.8V18.1C17.0998 18.6039 16.8996 19.0872 16.5433 19.4435C16.187 19.7998 15.7037 20 15.1998 20H5.6998C5.19589 20 4.71262 19.7998 4.3563 19.4435C3.99998 19.0872 3.7998 18.6039 3.7998 18.1V4.8H17.0998Z" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M8.5498 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12.3501 9.55005V15.25" stroke="#DBDCE8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                                
+                            </div>                                              
+                        </header>
+                        <main class="task-data__main">
+                            <header class="wrapp-header">
+                                <div class="list-hor">
+                                    <select id="projects-task-data" class="custom-select projects-task-data projects text">
+                                        <?php include "php/getProjects.php"; ?>
+                                    </select>
+                                    <select id="targets-task-data" class="custom-select targets-task-data targets text">
+                                    </select>
+                                    <select id="durations-task-data" class="custom-select durations durations-task-data text">
+                                        <option value="15">15 минут</option>
+                                        <option value="30">30 минут</option>
+                                        <option value="45">45 минут</option>
+                                        <option value="60">1 час</option>
+                                        <option value="75">1 час 15 минут</option>
+                                        <option value="90">1 час 30 минут</option>
+                                        <option value="105">1 час 45 минут</option>
+                                        <option value="120">2 часа</option>
+                                        <option value="135">2 часа 15 минут</option>
+                                        <option value="150">2 часа 30 минут</option>
+                                        <option value="165">2 часа 45 минут</option>
+                                        <option value="180">3 часа</option>
+                                        <option value="195">3 часа 15 минут</option>
+                                        <option value="210">3 часа 30 минут</option>
+                                        <option value="225">3 часа 45 минут</option>
+                                        <option value="240">4 часа</option>
+                                        <option value="255">4 часа 15 минут</option>
+                                        <option value="270">4 часа 30 минут</option>
+                                        <option value="285">4 часа 45 минут</option>
+                                        <option value="300">5 часов</option>
+                                        <option value="315">5 часов 15 минут</option>
+                                        <option value="330">5 часов 30 минут</option>
+                                        <option value="345">5 часов 45 минут</option>
+                                        <option value="360">6 часов</option>
+                                    </select>
                                 </div>
-                                <div class="subtasks list-ver flex f-col">
-                                    <div class="subtask subtask-block-add flex" id="1">
-                                        <div class="btn-subtask-add"></div>
-                                        <input type="text" class="add-task input" placeholder="текст подзадачи">
+                            </header>
+                            <section class="wrapp-content">
+                                <div class="task-data__content task-content">
+                                    <textarea type="text" class="task-content__text input title" spellcheck="false" wrap="soft" placeholder="текст">Lorem, ipsum dollor sit ames minor slor sit ames minit ames minima. etur rvoluptatibus!</textarea>
+                                    <!-- <input class="task-content__text title"></input> -->
+                                    <textarea class="task-content__description text regular" spellcheck="false" wrap="soft" placeholder="описание">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio vitae atque nobis dignissimos expedita libero natus, </textarea>
+                                    <div class="task-content__progress hide">
+                                        <div class="progress arrow empty flex">
+                                            <div class="progress-label progress-percent text-gradient">0<span class="count-subtask text regular">/0</span></div>
+                                            <div class="progress-bar">
+                                                <div class="progress-bar__current"></div>
+                                            </div>
+                                        </div>
+                                        <div class="subtasks flex f-col">
+                                            <div class="subtasks-list list-ver"></div>
+                                            <div class="subtask subtask-block-add flex">
+                                                <div class="btn-subtask-add"></div>
+                                                <input type="text" class="add-task input" placeholder="текст подзадачи">
+                                            </div>
+                                        </div>                                         
                                     </div>
-                                    <span class="subtasks__remove text regular">удалить подзадачи</span>
-                                </div>                                         
-                            </div>
-                            <div class="task-content__attachments">
-                                <div class="area-files flex text">
-                                    Перетащите сюда файл или
-                                    <div class="area-files__button-file">
-                                        <input type="file" name="file" id="area-files__input" class="button-file hide" multiple>
-                                        <label for="area-files__input">нажмите для загрузки</label>
-                                    </div>
+                                    <div class="task-content__attachments">
+                                        <div class="area-files flex text">
+                                            Перетащите сюда файл или
+                                            <div class="area-files__button-file">
+                                                <input type="file" name="file" id="area-files__input" class="button-file hide" multiple>
+                                                <label for="area-files__input">нажмите для загрузки</label>
+                                            </div>
+                                        </div>
+                                        <div class="uploaded-files list-hor flex">
+                                            <!-- <div class="file list-hor__item" file-path="'.$output.'">
+                                                <div class="btn-close"></div>
+                                                <img src="/pictures/icons/file-icons/bak.svg" alt="" title = "" class="file__icon">
+                                                <p class="file__name text" title = "">filename.jpg</p>
+                                                <p class="file__download text">скачать</p>
+                                            </div> -->
+                                        </div>                                    
+                                    </div>                        
                                 </div>
-                                <div class="uploaded-files list-hor flex">
-                                    <div class="file list-hor__item" file-path="'.$output.'">
-                                        <div class="btn-close"></div>
-                                        <img src="/pictures/icons/file-icons/bak.svg" alt="" title = "" class="file__icon">
-                                        <p class="file__name text" title = "">filename.jpg</p>
-                                        <p class="file__download text">скачать</p>
-                                    </div>
-                                </div>                                    
-                            </div>                        
-                        </div>
-                    </main>
-                    <footer class="task-data__footer">
-                        <select id="user-select" class="custom-select user-select user-select text to-up">
-                            <option value="-1" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="wed-designer">Евгений Ермоленко</option>
-                            <option value="1" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="ui-designer">Афанасьев Алексей</option>
-                            <option value="0" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="ux-designer">Геша Игорь</option>
-                        </select>
-                    </footer>
+                            </section>
+                        </main>
+                        <footer class="task-data__footer">
+                            <select id="user-select" class="custom-select user-select text to-up">
+                                <option value="-1" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="wed-designer">Евгений Ермоленко</option>
+                                <option value="1" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="ui-designer">Афанасьев Алексей</option>
+                                <option value="0" scr-avatar="./pictures/users_avatar/myPhoto.jpg" user-spec="ux-designer">Геша Игорь</option>
+                            </select>
+                        </footer>
+                    </div>
                 </div>
             </div>
+            <div id="tab-3" class="tabs-content__item">
+                <section class="projects-area grid-area">
+                    <div class="projects-head grid-area__header flex">
+                        <header class="header flex">
+                            <div class="title-section flex f-col">
+                                <h2 class="title-section__title">Проекты</h2>
+                                <h3 class="title-section__subtitle subtitle">
+                                   Проекты над которыми вы работаете
+                                </h3>
+                            </div>
+                        </header>
+                        <button class="button small" id="add-task">+</button></div>
+                    <div class="projects-list list-ver">
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="data-block project-block list-ver__item panel">134325</div>
+                        <div class="project-block list-ver__item panel">134325</div>
+                        <div class="project-block list-ver__item panel">134325</div>
+                        <div class="project-block list-ver__item panel">134325</div>
+                        <div class="project-block list-ver__item panel">134325</div>
+                        <div class="project-block list-ver__item panel">134325</div>  
+                    </div>
+                </section>
+                <section class="targets-area grid-area">
+                    <div class="targets-head grid-area__header flex">
+                        <header class="header flex">
+                            <div class="title-section flex f-col">
+                                <h2 class="title-section__title">Цели</h2>
+                                <h3 class="title-section__subtitle subtitle">
+                                    Цели для завершения проекта
+                                </h3>
+                            </div>
+                        </header>
+                        <button class="button small" id="add-task">+</button>
+                    </div>
+                    <div class="targets-list panel"></div>
+                    <div class="user-panel flex">
+                        <div class="user-panel-wrapper flex">
+                            <div class="user-data flex f-col">
+                                <span class="user-data__nickname text-gradient"><?php echo $_SESSION['user']['nickname']; ?></span>
+                                <h3 class="user-data__fullname"><?php echo $_SESSION['user']['name'] . " " . $_SESSION['user']['surname']; ?></h3>
+                                <?php
+                                include "php/getSpecName.php";
+                                ?> 
+                            </div>
+                            <div class="user-avatar flex f-col">
+                                <img class="user-avatar__photo" src="<?php if (!empty($_SESSION['user']['avatar'])) {
+                                                                            echo $_SESSION['user']['avatar'];
+                                                                        } else {
+                                                                            echo 'pictures/users_avatar/default-avatar.svg';
+                                                                        } ?>" alt="avatar">
+                            </div>
+                            <div class="user-menu panel">
+                                <ul>
+                                    <li class="user-menu__item menu-item">
+                                        <img src="pictures/icons/icon-settings.svg" alt="icon-settings" class="menu-item__icon"><span class="menu-item__title">Настройки профиля</span>
+                                    </li>
+                                    <li class="user-menu__item menu-item flex">
+                                        <img src="pictures/icons/icon-sun.svg" alt="icon-sun" class="menu-item__icon">
+                                        <span class="menu-item__title theme-label">Светлая тема</span>
+                                        <div class="checkbox-theme r" id="checkbox-theme">
+                                            <input type="checkbox" class="checkbox">
+                                            <div class="knobs"></div>
+                                            <div class="layer"></div>
+                                        </div>
+                                    </li>
+                                    <li class="user-menu__item menu-item">
+                                        <img src="pictures/icons/icon-logout.svg" alt="icon-logout" class="menu-item__icon"><span class="menu-item__title">Выход</span>
+                                    </li>
+                                    <li class="user-menu__item menu-item">
+                                        <img src="pictures/icons/icon-email.svg" alt="icon-email" class="menu-item__icon">
+                                        <span class="menu-item__title">
+                                            <a href="https://vk.com/jeka_coffeiok" target="_blank">Связь с разработчиком</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="attachments-area grid-area">
+                    <div class="attachments-head grid-area__header flex">
+                        <header class="header flex">
+                            <div class="title-section flex f-col">
+                                <h2 class="title-section__title">Вложения</h2>
+                                <h3 class="title-section__subtitle subtitle">
+                                    Комментарии и файлы
+                                </h3>
+                            </div>
+                        </header>
+                        <button class="button small" id="add-task">+</button>
+                    </div>
+                    <div class="attachments-list panel"></div>
+                </section>
+            </div>
+            <div id="tab-4" class="tabs-content__item"></div>
+            <div id="tab-5" class="tabs-content__item"></div>
         </main>
     </div>
 

@@ -64,8 +64,6 @@ if($project != 0){ // если был выбран проект
     $sql .= 'AND project.id_project = :idProject 
     AND target.id_target = :idTarget ';
 
-   
-
     if($executor != 0){
 
         try{
@@ -189,7 +187,7 @@ function SetBlocks($nestedSQL, $sql){
             }
 
 
-            $block .= '<div class="task-block panel" id="'.$task[0].'">
+            $block .= '<div class="data-block task-block panel" id="'.$task[0].'">
                             <header class="task-block__head flex">
                                 '.$status.'
                                 <div class="task-block__date text">'.GetDayOfWeek($task[2]).'<span class="date">'.FormattingDate($task[2]).'</span></div>

@@ -239,6 +239,10 @@ input.input,
 	}	
 }
 
+.subtasks-list{
+	width: 100%;
+}
+
 .subtask {
 	width: 100%;
 	padding-left: 10px;
@@ -900,25 +904,6 @@ input.input,
 
 
 
-
-
-
-
-
-
-.task-block{
-
-    &:hover{
-        transform: translateX(-2px) translateY(-2px);
-        @include shadow-hover();
-    }
-
-    &.selection{
-        //border: 1px solid $main;
-        transform: translateX(-6px) translateY(-6px);
-        @include shadow-select();
-    }
-}
 
 .task-content__attachments{
 	//margin-top: 3.5vh;

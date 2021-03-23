@@ -197,6 +197,10 @@ input.input.with-shadow,
   opacity: 0;
 }
 
+.subtasks-list {
+  width: 100%;
+}
+
 .subtask {
   width: 100%;
   padding-left: 10px;
@@ -819,19 +823,6 @@ input.input.with-shadow,
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
-}
-
-.task-block:hover {
-  -webkit-transform: translateX(-2px) translateY(-2px);
-          transform: translateX(-2px) translateY(-2px);
-  -webkit-box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
-          box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
-}
-.task-block.selection {
-  -webkit-transform: translateX(-6px) translateY(-6px);
-          transform: translateX(-6px) translateY(-6px);
-  -webkit-box-shadow: 25px 30px 30px rgba(0, 0, 0, 0.1);
-          box-shadow: 25px 30px 30px rgba(0, 0, 0, 0.1);
 }
 
 .task-content__attachments .area-files {

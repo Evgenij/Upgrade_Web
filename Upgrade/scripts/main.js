@@ -1,6 +1,6 @@
 // глобальные переменные
 
-var chart, datepicker;
+var chart, datepicker, taskSelection = 0;
 
 // глобальные переменные
 
@@ -56,71 +56,38 @@ $('li[value=\"tab-2\"]').click(function () {
 
 $(document).on('click', '.task-block', function (e) {
 
-	var idTask = $(this).attr('id');
+	let currentTaskId = $(this).attr('id')
+	taskSelection = currentTaskId;
 	
 	if (!$(e.target).hasClass('rect')) {
 		if ($(this).hasClass('selection')) {
 			$(this).removeClass('selection');
-			$('.task-data').html('<div class="task-data__message flex f-col"><h3 class="task-data__title title text">Информационная панель задачи</><h2 class="task-data__subtitle text">выберите задачу для просмотра детальной информации о ней</h2></div>');
+			$('.task-data__message').removeClass('hide');
+			$('.task-data__information').addClass('hide');
 		} else {
 			$('.task-block').removeClass('selection');
 			$(this).addClass('selection');
 
-			//iniSelect('projects-task-data');
-			//let idProject = getValueSelect('projects-task-data');
-			//SetSelectTargets(idProject, 'targets-task-data');
+			$('.task-data__message').addClass('hide');
+			$('.task-data__information').removeClass('hide');
+
+			//console.log(taskSelection);
 
 			$.ajax({
 				url: '/php/blocks/tasks/getDataTask.php',
 				type: 'GET',
 				dataType: 'json',
 				data: {
-					idTask: idTask
+					idTask: currentTaskId
 				},
 				success(data) {
 					if (data.status == true) {
-						
-						iniSelect('projects-task-data', data.idProject);
-						SetSelectTargets(data.idProject, 'targets-task-data', data.idTarget);
-						iniSelect('durations-task-data', data.taskDur);
 
-						$('.task-content__text').text(data.taskText);
-						$('.task-content__description').text(data.taskDescr);
-
-						if (data.taskStatus == 1) {
-							$('#btn-task-done').addClass('completed').text('Выполнено');
-						}
-						else {
-							$('#btn-task-done').removeClass('completed').text('Выполнить');
-						}
-
-						if (data.checkSubtasks == true) {
-							$('.task-content__progress').removeClass('hide');
-							$('.task-content__progress').find('.progress-label').html(data.countDoneSubtasks + '<span class="count-subtask text regular">/' + data.countSubtasks + '</span>');
-							$('.progress-bar__current').css({ 'width': + data.progress + '%' });
-							$('.task-content__progress').find('.list-ver').html(data.subtasks + '<div class="subtask subtask-block-add flex"><div class="btn-subtask-add"></div><input type="text" class="add-task input" placeholder = "текст подзадачи" ></div><span class="subtasks__remove text regular">удалить подзадачи</span>');
-						}
-						else {
-							$('.task-content__progress').addClass('hide');
-						}
-
-						if (data.checkFiles == true) {
-							$('.task-content__attachments').find('.uploaded-files').removeClass('hide');
-							$('.task-content__attachments').find('.uploaded-files').html(data.files);
-						} else {
-							$('.task-content__attachments').find('.uploaded-files').addClass('hide');
-						}
-
-						if (data.checkExecutor == true) {
-							$('.task-data__footer').removeClass('hide');
-							$('.task-data__footer').find('select.user-select').html(data.executors);
-							SetDatasSelect('user-select', data.executors, data.idExecutor, true);
-							//iniSelect('user-select', data.idExecutor, true);
-
-
-						} else {
-							$('.task-data__footer').addClass('hide');
-						}
+						SetDataTask(data.idProject, data.idTarget,
+							data.taskDur, data.taskText, data.taskDescr,
+							data.taskStatus, data.checkSubtasks, data.countDoneSubtasks,
+							data.countSubtasks, data.progress, data.subtasks,
+							data.checkExecutor, data.executors, data.idExecutor);
 
 					} else {
 						$('.task-data').text(data.message);
@@ -130,22 +97,94 @@ $(document).on('click', '.task-block', function (e) {
 		}
 	}
 	else {
-		
-		var status = $(this).find('input').is(':checked');
+		if ($(this).find('input').is(':checked')) {
+			ChangeStatusTask(false);
+		} else {
+			ChangeStatusTask();
+		}
 
-		//console.log(status);
-
-		$.ajax({
-			url: '/php/blocks/tasks/changeStatus.php',
-			type: 'GET',
-			dataType: 'json',
-			data: {
-				idTask: idTask,
-				status: status
-			}
-		});
+		GetTasks();
 	}
 })
+
+
+function getFilesTask() {
+	//var idTask = $('.task-block.selection').attr('id');
+
+	$.ajax({
+		url: '/php/blocks/tasks/getFilesTask.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTask: taskSelection
+		},
+		success(data) {
+			if (data.status == true) {
+				if (data.checkFiles == true) {
+					$('.task-content__attachments').find('.uploaded-files').removeClass('hide');
+					$('.task-content__attachments').find('.uploaded-files').html(data.files);
+				} else {
+					$('.task-content__attachments').find('.uploaded-files').addClass('hide');
+				}
+			} else {
+				$('.task-content__attachments').find('.uploaded-files').empty();
+				$('.task-content__attachments').find('.uploaded-files').text(data.message);
+			}
+		}
+	})
+}
+
+function getSubtasksTask() {
+	$.ajax({
+		url: '/php/blocks/tasks/getSubtasksTask.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTask: taskSelection
+		},
+		success(data) {
+			if (data.checkSubtasks == true) {
+				$('.task-content__progress').removeClass('hide');
+			}
+			else {
+				$('.task-content__progress').addClass('hide');
+			}
+			$('.task-content__progress').find('.progress-label').html(data.countDoneSubtasks + '<span class="count-subtask text regular">/' + data.countSubtasks + '</span>');
+			$('.task-content__progress').find('.progress-bar__current').css({ 'width': + data.progress + '%' });
+			$('.task-content__progress').find('.subtasks-list').html(data.subtasks);
+		}
+	})
+}
+
+function SetDataTask(idProject, idTarget,
+	duration, text, description,
+	status, subtask = false, countDoneSubtasks,
+	countSubtasks, progress, subtasks, executor, executors, idExecutor) {
+	
+	iniSelect('projects-task-data', idProject);
+	SetSelectTargets(idProject, 'targets-task-data', idTarget);
+	iniSelect('durations-task-data', duration);
+
+	$('.task-content__text').text(text);
+	$('.task-content__description').text(description);
+
+	ChangeButtonTask(status);
+	getSubtasksTask();
+
+	if (executor == true) {
+		$('.task-data__footer').removeClass('hide');
+		$('.task-data__footer').find('select.user-select').html(executors);
+		SetDatasSelect('user-select', executors, idExecutor, true);
+	} else {
+		$('.task-data__footer').addClass('hide');
+	}
+
+	getFilesTask();
+}
+
+
+
+
 
 
 
@@ -172,6 +211,7 @@ function GetTasks() {
 
 	//console.log(period, idProject, idTarget, status, executor);
 
+
 	$.ajax({
 		url: 'php/blocks/tasks/getTasks.php',
 		type: 'POST',
@@ -187,6 +227,7 @@ function GetTasks() {
 			if (data.status == true) {
 				//$('.task-data').text(data.sql);
 				$('.task-list').html(data.tasks);
+				SetSelectionTask(taskSelection);
 			} else {
 				$('.task-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
 				//$('.task-data').text(data.message + '   -------------   ' + data.sql);
@@ -199,37 +240,49 @@ function ChangeTaskData() {
 	let idProject = getValueSelect('projects-task-data'),
 		idTarget = getValueSelect('targets-task-data'),
 		duration = getValueSelect('durations-task-data'),
-		executor = getValueSelect('user-select');
-	
-	let status = 0;
-	if ($('#btn-task-done').hasClass('completed')) {
-		status = 1;
-	} else {
-		status = 0;
-	}
-	console.log('proj = ' + idProject, 'targ = ' + idTarget, 'dur = ' + duration, 'stat = ' + status, 'exec = ' +  executor);
+		text = $('.task-content__text').val(),
+		description = $('.task-content__description').val();
 
-	// $.ajax({
-	// 	url: 'php/blocks/tasks/getTasks.php',
-	// 	type: 'POST',
-	// 	dataType: 'json',
-	// 	data: {
-	// 		period: period,
-	// 		project: idProject,
-	// 		target: idTarget,
-	// 		status: status,
-	// 		executor: executor
-	// 	},
-	// 	success(data) {
-	// 		if (data.status == true) {
-	// 			//$('.task-data').text(data.sql);
-	// 			$('.task-list').html(data.tasks);
-	// 		} else {
-	// 			$('.task-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
-	// 			//$('.task-data').text(data.message + '   -------------   ' + data.sql);
-	// 		}
-	// 	}
-	// });
+	if ($('.task-data__footer').hasClass('hide')) {
+		executor = 0;
+	} else {
+		executor = getValueSelect('user-select');
+	}
+
+	// console.log('proj = ' + idProject, 'targ = ' + idTarget,
+	// 	'dur = ' + duration, 'exec = ' + executor,
+	// 	'text = ' + text, 'descr = ' + description);
+
+	$.ajax({
+		url: '/php/blocks/tasks/changeDataTask.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTask: taskSelection,
+			idProject: idProject,
+			idTarget: idTarget,
+			duration: duration,
+			executor: executor,
+			text: text,
+			description: description
+		},
+		success(data) {
+			if (data.status == true) {
+				GetTasks();
+			} else {
+				//alert(data.message);
+			}
+		}
+	});
+}
+
+
+function SetSelectionTask(idTask) {
+	if (idTask != 0) {
+		$('.task-block[id=' + idTask + ']').addClass('selection');
+	} else {
+		return;
+	}
 }
 
 
@@ -239,13 +292,21 @@ function ChangeTaskData() {
 
 
 
+
+
+
+
 $('#btn-task-done').click(function () {
-	//ChangeTaskData();
+	if ($(this).hasClass('completed')) {
+		ChangeStatusTask(false);
+	} else {
+		ChangeStatusTask();
+	}
 })
 
-$('#btn-task-change').click(function () {
-	ChangeTaskData();
-})
+
+
+
 
 
 
@@ -263,26 +324,37 @@ $('.add-subtasks').click(function () {
 $(document).on('click', '.btn-subtask-add', function () {
 	let text = $(this).siblings('input').val();
 	if (text.length != 0) {
-		$(this).parents('.subtask-block-add').before('<div class="subtask list-ver__item flex" id="0"><div class= "btn-subtask-delete" ></div><label class="task-status flex text"><input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status" unchecked=""><div class="rect"></div><div class="subtask-text">' + text + '</div></label></div>');
-		
+		$(this).parents('.subtask-block-add').siblings('.subtasks-list').append('<div class="subtask list-ver__item flex" id="0"><div class= "btn-subtask-delete" ></div><label class="task-status flex text"><input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status" unchecked=""><div class="rect"></div><div class="subtask-text">' + text + '</div></label></div>');
 		ChangeCountSubtask();
+		AddSubtask(text);
+		$(this).siblings('input').val('');
 	}
 })
 
 $(document).on('click', '.btn-subtask-delete', function () {
 	$(this).parents('.subtask').remove();
-	ChangeCountSubtask();
+
+	ChangeDataTaskProgress();
+	DeleteSubtask($(this));
+
 })
 
 $(document).on('click', '.subtask', function () {
 	if (!$(this).hasClass('subtask-block-add')) {
-		let countSubtasks = $('.task-content__progress').find('.count-subtask').text().replace('/','');
+		//let countSubtasks = $('.task-content__progress').find('.count-subtask').text().replace('/','');
 		//alert(countSubtasks);
-		ChangeCountDoneSubtask();
-		ChangeCountSubtask();
-		ChangeProgress();
+		ChangeDataTaskProgress();
+		ChangeStatusSubtask($(this));
+		//console.log();
+		//SetDataTask1($('.task-block.selection').attr('id'));
 	}
 })
+
+function ChangeDataTaskProgress() {
+	ChangeCountDoneSubtask();
+	ChangeCountSubtask();
+	ChangeProgress();
+}
 
 function ChangeCountSubtask() {
 	let countSubtasks = $('.subtask').length - 1;
@@ -299,16 +371,159 @@ function ChangeProgress() {
 	let countDoneSubtasks = $('.subtask').find("input[type='checkbox']:checked").length;
 	let countSubtasks = $('.subtask').length - 1;
 
-	let progress = (countDoneSubtasks * 100) / countSubtasks;
+	let progress = 0;
+	if (countSubtasks != 0) {
+		progress = (countDoneSubtasks * 100) / countSubtasks;
+	}
+
 	$('.task-content__progress').find('.progress-bar__current').css({ 'width': progress + "%" });
+	
+	//console.log(progress);
+	
 	if (progress == 100) {
-		$('#btn-task-done').addClass('completed').text('Выполнено');
-		// ChangeTaskData()
+		ChangeStatusTask(true);
 	}
 	else {
+		ChangeStatusTask(false);
+	}
+}
+
+function AddSubtask(text) {
+	var idTask = $('.task-block.selection').attr('id');
+
+	$.ajax({
+		url: '/php/blocks/tasks/subtasks/addSubtask.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTask: idTask,
+			text: text
+		},
+		success(data) {
+			if (data.status == false) {
+				alert(data.message);
+			} else {
+				GetTasks();
+				getSubtasksTask();
+			}
+		}
+	})
+}
+
+function DeleteSubtask(subtask) {
+	var idSubtask = $(subtask).parents('.subtask').attr('id');
+
+	$.ajax({
+		url: '/php/blocks/tasks/subtasks/deleteSubtask.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idSubtask: idSubtask
+		},
+		success(data) {
+			if (data.status == false) {
+				alert(data.message);
+			} else {
+				GetTasks();
+			}
+		}
+	})
+}
+
+function ChangeStatusSubtask(subtask) {
+	//console.log(subtask);
+	var status = 0,
+		idSubtask = $(subtask).attr('id');
+
+	if($(subtask).find('.checkbox_status').is(':checked')){
+		status = 1;
+	} else {
+		status = 0;
+	}
+
+	$.ajax({
+		url: '/php/blocks/tasks/subtasks/changeStatus.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idSubtask: idSubtask,
+			status: status
+		},
+		success(data) {
+			if (data.status == false) {
+				alert(data.message);
+			} else {
+				GetTasks();
+			}
+		}
+	})
+}
+
+function ChangeButtonTask(taskStatus) {
+	if (taskStatus == true) {
+		$('#btn-task-done').addClass('completed').text('Выполнено');
+	} else {
 		$('#btn-task-done').removeClass('completed').text('Выполнить');
 	}
 }
+
+function ChangeStatusTask(status = true) {
+
+	ChangeButtonTask(status);
+
+	if (status == true) {
+		statusTask = 1;
+	} else {
+		statusTask = 0;
+	}
+
+	$.ajax({
+		url: '/php/blocks/tasks/changeStatus.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTask: taskSelection,
+			status: statusTask
+		},
+		success(data) {
+			if (data.status == true) {
+				GetTasks();
+			} else {
+				alert(data.message);
+			}
+		}
+	})
+}
+
+$('.delete-task').click(function () {
+
+	$.ajax({
+		url: '/php/blocks/tasks/deleteTask.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTask: taskSelection
+		},
+		success(data) {
+			if (data.status == true) {
+				GetTasks();
+			} else {
+				alert(data.message);
+			}
+		}
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -373,6 +588,16 @@ function SelectOption(select, id) {
 
 
 
+
+
+
+
+
+
+
+
+
+
 // функции и события общего назначения
 
 // вывод всплывающего сообщения
@@ -411,6 +636,17 @@ function mouseUp(target) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 function GetGeneralData() {
 	$.ajax({
 		url: 'php/getGeneralData.php',
@@ -422,6 +658,17 @@ function GetGeneralData() {
 		}
 	});
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -577,20 +824,6 @@ $('#add-task').click(function () {
 	let idProject = getValueSelect('projects-task');
 	SetSelectTargets(idProject, 'targets-task');
 	getExecutors(idProject, 'executors-task');
-	
-	//console.log(idProject);
-
-	// $.ajax({
-	// 	url: 'php/getTargets.php',
-	// 	type: 'POST',
-	// 	dataType: 'html',
-	// 	data: {
-	// 		project: idProject
-	// 	},
-	// 	success(data) {
-	// 		SetDatasSelect('targets-task', data);
-	// 	}
-	// });
 
 	iniSelect('durations-task');
 })
@@ -629,6 +862,7 @@ $('input.add-task').keyup(function (event) {
 					success(data) {
 						if (data.status == true) {
 							showNotification('Задача добавлена!');
+							GetTasks();
 						}
 						else {
 							alert(data.message);
@@ -705,6 +939,7 @@ $('.custom-options.projects').click(function () {
 	}
 	else if (id_select_projects == 'projects-task-data') {
 		SetSelectTargets(idProject, 'targets-task-data');
+		ChangeTaskData();
 	}
 })
 
@@ -713,6 +948,8 @@ $('.custom-options.targets').click(function () {
 
 	if (id_select_targets == 'targets-filter') {
 		GetTasks();
+	} else if (id_select_targets == 'targets-task-data') {
+		ChangeTaskData();
 	}
 })
 
@@ -726,6 +963,14 @@ $('.custom-options.status').click(function () {
 
 $('.custom-options.executors').click(function () {
 	GetTasks();
+})
+
+$('.custom-options.durations').click(function () {
+	let id_select_durations = $(this).attr('id');
+
+	if (id_select_durations == 'durations-task-data') {
+		ChangeTaskData();
+	}
 })
 
 function SetSelectProjects(selectProjects) {
@@ -791,6 +1036,33 @@ function getExecutors(idProject, selectExecutors) {
 function GetDefaultValueSelect(string) {
 	return '<span class="custom-option undefined" data-value="0">' + string + '</span>';
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('.task-content__text').focusout(function () {
+	ChangeTaskData();
+})
+$('.task-content__description').focusout(function () {
+	ChangeTaskData();
+})
+
+
 
 
 

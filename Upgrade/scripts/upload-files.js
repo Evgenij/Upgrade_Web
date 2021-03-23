@@ -1,3 +1,5 @@
+const ParentFile = { Attachment: 'red', GREEN: 'green', BLUE: 'blue' };
+
 $(document).ready(function () {
 
     $('.area-files').bind('dragover',function () {
@@ -32,8 +34,19 @@ $(document).ready(function () {
         uploadFiles(formData);
     });
 
-    function uploadFiles(formData) {
+    function uploadFiles(formData,) {
+        if ($('.task-block.selection').attr('id') != undefined) {
+            formData.append('idTask', $('.task-block.selection').attr('id'));
+        } else {
+            formData.append('idTask', '');
+        }
 
+        if ($('.task-block.selection').attr('name') != undefined) {
+            formData.append('idTask', $('.task-block.selection').attr('name'));
+        } else {
+            formData.append('idAttach', '');
+        }
+        
         $.ajax({
             url: "/php/uploadFiles.php",
             method: "POST",
@@ -43,10 +56,10 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             success(data) {
-                if (data.status == true) {
-                    $('.uploaded-files').append(data.files);
+                if (data.status == false) {
+                    $('.uploaded-files').text(data.message);
                 } else {
-                    alert(data.message);
+                    getFilesTask();
                 }
             }
         })
@@ -55,6 +68,24 @@ $(document).ready(function () {
 });
 
 $(document).on('click', '.btn-close', function () {
-    //alert(this.parentNode);
-    this.parentNode.remove();
+
+    var idFile = $(this).parents('.file').attr('id');
+
+    $.ajax({
+        url: "/php/vendor/deleteFile.php",
+        method: "GET",
+        dataType: 'json',
+        data: {
+            idFile: idFile
+        },
+        success(data) {
+            if (data.status == true) {
+                //alert(1);
+                $('.file[id='+idFile+']').remove();
+                //$(this).parents('.file').detach();
+            } else {
+                $('.uploaded-files').text(data.message);
+            }
+        }
+    })
 });
