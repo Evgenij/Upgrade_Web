@@ -175,7 +175,7 @@ function SetBlocks($nestedSQL, $sql){
 
             $progress = '';
             if($task[7] != 0){
-                $progress = '<div class="progress arrow empty flex f-col trigger">
+                $progress = '<div class="progress block-content__progress arrow empty flex f-col trigger">
                                 <div class="progress-labels flex">
                                     <div class="progress-labels__item text">Прогресс</div>
                                     <div class="progress-label progress-percent text-gradient">'.$task[6].'<span class="count-subtask text regular">/'.$task[7].'</span></div>
@@ -188,16 +188,16 @@ function SetBlocks($nestedSQL, $sql){
 
 
             $block .= '<div class="data-block task-block panel" id="'.$task[0].'">
-                            <header class="task-block__head flex">
+                            <header class="task-block__head block-head flex">
                                 '.$status.'
                                 <div class="task-block__date text">'.GetDayOfWeek($task[2]).'<span class="date">'.FormattingDate($task[2]).'</span></div>
                             </header>
-                            <main class="task-block__content">
-                                <div class="task-block__name title title-block">'.$task[4].'</div>
-                                <div class="task-block__description text regular">'.$task[5].'</div>
+                            <main class="task-block__content block-content">
+                                <div class="block-content__title title title-block">'.$task[4].'</div>
+                                <div class="block-content__description text regular">'.$task[5].'</div>
                                 '.$progress.'
                             </main>
-                            <footer class="task-block__footer flex list-hor">
+                            <footer class="task-block__footer block-footer flex list-hor">
                                 <div class="task-block__tags flex list-hor">
                                     <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[9]).'; color:'.ColoringTagText($task[9]).';">'.$task[8].'</div>
                                     <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[12]).'; color:'.ColoringTagText($task[12]).';">'.$task[11].'</div>

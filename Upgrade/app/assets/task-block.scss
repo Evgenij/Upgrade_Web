@@ -11,12 +11,6 @@
         margin-top: 10px;
     }
 
-    & &__footer{
-        margin-top: 25px;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
-
     & &__tags{
         justify-content: flex-start;
     }
@@ -37,13 +31,6 @@
         font-weight: 700;
         margin-left: 0.7vw;
         color: $main;
-    }
-}
-
-.task-block__content{
-    .progress{
-        margin-top: 15px;
-        margin-bottom: 5px;
     }
 }
 

@@ -67,6 +67,27 @@ a {
   fill: #A5A7BC;
 }
 
+.data-block:hover {
+  -webkit-transform: translateX(-2px) translateY(-2px);
+          transform: translateX(-2px) translateY(-2px);
+  -webkit-box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
+          box-shadow: 15px 20px 35px rgba(0, 0, 0, 0.07);
+}
+.data-block.selection {
+  -webkit-transform: translateX(-6px) translateY(-6px);
+          transform: translateX(-6px) translateY(-6px);
+  -webkit-box-shadow: 25px 30px 30px rgba(0, 0, 0, 0.1);
+          box-shadow: 25px 30px 30px rgba(0, 0, 0, 0.1);
+}
+
+.participants-users__item {
+  border: 3px solid #FFF;
+}
+.participants-users__item:last-child {
+  text-align: center;
+  background-color: #E6E8F7;
+}
+
 input, textarea {
   border: 1px solid #E6E8F7;
   border-radius: 8px;

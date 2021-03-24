@@ -3,26 +3,18 @@
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
-.data-block .block-head {
+.data-block .block__head {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 15px;
 }
-.data-block .block-footer {
+.data-block .block-content__description {
+  margin-top: 10px;
+}
+.data-block .block__footer {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  margin-top: 25px;
-}
-
-.block-content__description {
-  margin-top: 10px;
-}
-.block-content__progress {
-  width: 100%;
   margin-top: 15px;
 }

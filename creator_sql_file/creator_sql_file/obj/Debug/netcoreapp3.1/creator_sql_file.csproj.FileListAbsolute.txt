@@ -11,3 +11,16 @@ C:\Users\evgen\Desktop\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1
 C:\Users\evgen\Desktop\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.dll
 C:\Users\evgen\Desktop\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.pdb
 C:\Users\evgen\Desktop\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.genruntimeconfig.cache
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\bin\Debug\netcoreapp3.1\creator_sql_file.exe
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\bin\Debug\netcoreapp3.1\creator_sql_file.deps.json
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\bin\Debug\netcoreapp3.1\creator_sql_file.runtimeconfig.json
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\bin\Debug\netcoreapp3.1\creator_sql_file.runtimeconfig.dev.json
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\bin\Debug\netcoreapp3.1\creator_sql_file.dll
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\bin\Debug\netcoreapp3.1\creator_sql_file.pdb
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.csprojAssemblyReference.cache
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.AssemblyInfoInputs.cache
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.AssemblyInfo.cs
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.csproj.CoreCompileInputs.cache
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.dll
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.pdb
+C:\Users\Evgenij\Documents\Git\Upgrade_Web\creator_sql_file\creator_sql_file\obj\Debug\netcoreapp3.1\creator_sql_file.genruntimeconfig.cache

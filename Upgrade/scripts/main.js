@@ -38,6 +38,10 @@ $('li[value=\"tab-2\"]').click(function () {
 	iniSelect('user-select', null, true);
 })
 
+$('li[value=\"tab-3\"]').click(function () {
+	GetProjects();
+})
+
 
 
 
@@ -85,9 +89,7 @@ $(document).on('click', '.task-block', function (e) {
 
 						SetDataTask(data.idProject, data.idTarget,
 							data.taskDur, data.taskText, data.taskDescr,
-							data.taskStatus, data.checkSubtasks, data.countDoneSubtasks,
-							data.countSubtasks, data.progress, data.subtasks,
-							data.checkExecutor, data.executors, data.idExecutor);
+							data.taskStatus, data.checkExecutor, data.executors, data.idExecutor);
 
 					} else {
 						$('.task-data').text(data.message);
@@ -158,8 +160,7 @@ function getSubtasksTask() {
 
 function SetDataTask(idProject, idTarget,
 	duration, text, description,
-	status, subtask = false, countDoneSubtasks,
-	countSubtasks, progress, subtasks, executor, executors, idExecutor) {
+	status, executor, executors, idExecutor) {
 	
 	iniSelect('projects-task-data', idProject);
 	SetSelectTargets(idProject, 'targets-task-data', idTarget);
@@ -284,6 +285,52 @@ function SetSelectionTask(idTask) {
 		return;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function GetProjects() {
+	$.ajax({
+		url: 'php/blocks/tasks/getTasks.php',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			period: period,
+			project: idProject,
+			target: idTarget,
+			status: status,
+			executor: executor
+		},
+		success(data) {
+			if (data.status == true) {
+				
+			} else {
+				$('.task-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
+				//$('.task-data').text(data.message + '   -------------   ' + data.sql);
+			}
+		}
+	});
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -578,6 +625,10 @@ function SelectOption(select, id) {
 }
 
 // функции для работы с выпадающим списком
+
+
+
+
 
 
 
@@ -1006,7 +1057,7 @@ function SetSelectTargets(idProject, selectTargets, id) {
 
 function getExecutors(idProject, selectExecutors) {
 
-	//console.log(1);
+	//console.log(idProject);
 
 	$.ajax({
 		url: 'php/getExecutor.php',

@@ -131,8 +131,8 @@ namespace creator_sql_file
                             "\'password" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
                             "\'nickname" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
                             "\'name" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
-                            "\'surname" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
-                            "'pictures/users_avatar/" + (j + 1).ToString() + (i + 1).ToString() + ".png');"
+                            "\'surname" + (j + 1).ToString() + (i + 1).ToString() + "\', " + 
+                            "\'pictures/users_avatar/default-avatar.svg\');"
                             );                       
                         // запись массива байтов в файл
                         fstream.Write(array, 0, array.Length);
@@ -145,10 +145,11 @@ namespace creator_sql_file
                     {
                         // преобразуем строку в байты
                         byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                            "INSERT INTO `project` (`id_project`, `id_user`, `creator`, `name`, `mark`) VALUES(NULL, " +
+                            "INSERT INTO `project` (`id_project`, `id_user`, `creator`, `name`, `descr`, `mark`) VALUES(NULL, " +
                             "\'" + i.ToString() + "\', " +
                             "\'"+random.Next(0,2)+"\', " +
-                            "\'Project№" + (j + 1).ToString() + i.ToString() + "\', " +
+                            "\'Project№" + (j + 1).ToString() + i.ToString() + "\', " + 
+                            "\'Project description...\', " +
                             "'#323232');"
                             );                                                                                 
                         // запись массива байтов в файл
@@ -212,9 +213,10 @@ namespace creator_sql_file
                     {
                         // преобразуем строку в байты
                         byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                            "INSERT INTO `target` (`id_target`, `id_project`, `name`, `mark`) VALUES(NULL, " +
+                            "INSERT INTO `target` (`id_target`, `id_project`, `name`, `descr`, `mark`) VALUES(NULL, " +
                             "\'" + i.ToString() + "\', " +
-                            "\'NameTarget - " + random.Next(0, 90000) + "\', " +
+                            "\'Target№" + random.Next(0, 100) + "\', " + 
+                            "\'Target description...\', " +
                             "'#121212');"
                             );
                         // запись массива байтов в файл

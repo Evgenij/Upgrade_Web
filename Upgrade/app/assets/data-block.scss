@@ -4,14 +4,28 @@
     cursor: pointer;
     transition: 0.3s;
 
-    &:hover{
-        transform: translateX(-2px) translateY(-2px);
-        @include shadow-hover();
-    }
+    .block{
+        &-head{
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
 
-    &.selection{
-        //border: 1px solid $main;
-        transform: translateX(-6px) translateY(-6px);
-        @include shadow-select();
+        &-footer{
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 25px;
+        }
     }
 }
+
+.block-content{
+    &__description{
+        margin-top: 10px;
+    }
+
+    &__progress{
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+

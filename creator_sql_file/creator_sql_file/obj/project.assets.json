@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\evgen\\.nuget\\packages\\": {}
+    "C:\\Users\\Evgenij\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\evgen\\Desktop\\creator_sql_file\\creator_sql_file\\creator_sql_file.csproj",
+      "projectUniqueName": "C:\\Users\\Evgenij\\Documents\\Git\\Upgrade_Web\\creator_sql_file\\creator_sql_file\\creator_sql_file.csproj",
       "projectName": "creator_sql_file",
-      "projectPath": "C:\\Users\\evgen\\Desktop\\creator_sql_file\\creator_sql_file\\creator_sql_file.csproj",
-      "packagesPath": "C:\\Users\\evgen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\evgen\\Desktop\\creator_sql_file\\creator_sql_file\\obj\\",
+      "projectPath": "C:\\Users\\Evgenij\\Documents\\Git\\Upgrade_Web\\creator_sql_file\\creator_sql_file\\creator_sql_file.csproj",
+      "packagesPath": "C:\\Users\\Evgenij\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Evgenij\\Documents\\Git\\Upgrade_Web\\creator_sql_file\\creator_sql_file\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\evgen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Evgenij\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }
