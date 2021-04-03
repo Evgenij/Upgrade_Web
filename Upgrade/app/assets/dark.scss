@@ -25,7 +25,7 @@ body{
 	font-size: 1vw;
 	color: $title;
 	font-weight: $bold-text;
-	line-height: 1.2em;
+	line-height: 1.4em;
 
 	&-block{
 		font-size: 1.7vh;
@@ -75,9 +75,62 @@ a{
 }
 
 
-.modal-window__content{
-	& path{
-		fill: $text;
+svg.svg{
+	transition: 0.3s;
+
+	&-stroke { 
+		&-menu{
+			& path{
+				stroke: $title;
+			}
+			& rect{
+				fill: $title;
+			}
+		}
+
+		& path{
+			stroke: $gray;
+		}
+	}
+	&-fill{
+		&-menu{
+			& path{
+				fill: $title;
+			}
+			& rect{
+				fill: $title;
+			}
+		}
+
+		& path{
+			fill: $gray;
+		}
+	}
+}
+
+
+
+
+.data-block{
+
+    &:hover{
+        transform: translateX(-2px) translateY(-2px);
+        @include shadow-hover();
+    }
+
+    &.selection{
+        //border: 1px solid $main;
+        transform: translateX(-6px) translateY(-6px);
+        @include shadow-select();
+    }
+}
+
+.participants-users__item{
+	border: 3px solid $panel; 
+	
+	&:last-child{
+		text-align: center;
+		background-color: $border;
 	}
 }
 
@@ -85,15 +138,11 @@ a{
 
 
 
-
-
-
-
-
-input.input{
+input,textarea{
+	display: block;
 	border: 1px solid $border;
 	border-radius: 8px;
-	padding: 1.9vh 2.9vh;
+	padding: 1.6vh 2.3vh;
 	width: 100%;
 	background-color: $panel;
 	position: relative;
@@ -190,8 +239,13 @@ input.input,
 
 // custom checkbox
 
-.task-block__status
+.task-status
 {
+	cursor: pointer;
+	&:hover .rect{
+		border-color: #76c240;
+	}
+
 	& .checkbox_status{
 		display: none;
 
@@ -233,6 +287,93 @@ input.input,
 		}
 	}	
 }
+
+.subtasks-list{
+	width: 100%;
+}
+
+.subtask {
+	width: 100%;
+	padding-left: 10px;
+
+	&-text{
+		flex-basis: 90%;
+	}
+
+	& .btn-subtask-delete{
+		margin-right: 20px;
+		width: 16px;
+		height: 16px;
+		position: relative;
+		cursor: pointer;
+
+		&:hover{ 
+			&::before,&::after{
+				background-color: $red;
+			}
+		}
+		
+		&::before, &::after{
+			content: '';
+			position: absolute;
+			width: 16px;
+			height: 2px;
+			background-color: $gray;
+			top: 8px;
+			transition: 0.2s;
+		}
+
+		&::before{
+			left: -1px;
+			transform: rotate(45deg) translateY(-50%);
+		}
+		&::after{
+			transform: rotate(-45deg) translateY(-50%);
+		}
+	}
+
+	& .btn-subtask-add{
+		margin-right: 20px;
+		width: 16px;
+		height: 16px;
+		position: relative;
+		cursor: pointer;
+
+		&:hover{ 
+			&::before,&::after{
+				background-color: $green;
+			}
+		}
+		
+		&::before, &::after{
+			content: '';
+			position: absolute;
+			width: 16px;
+			height: 2px;
+			background-color: $gray;
+			top: 8px;
+			transition: 0.2s;
+		}
+
+		&::before{
+			left: -1px;
+			transform: rotate(90deg) translateY(-50%);
+		}
+	}
+
+	&-block-add{
+		width: 100%;
+	}
+
+	& .rect{
+		margin-right: 0.8vw;
+	}
+
+	& .task-status{
+		justify-content: flex-start;
+		flex-basis: 100%;
+	}
+}
 // custom checkbox
 
 
@@ -247,10 +388,6 @@ input.input,
 .custom-select-wrapper {
 	position: relative;
 	display: inline-flex;
-
-	&.hide{
-		display: none;
-	}
 }
 .custom-select-wrapper select {
 	display: none;
@@ -261,12 +398,12 @@ input.input,
 	width: 100%;
 }
 .custom-select-trigger {
-	max-width: 170px;
+	max-width: 180px;
 	position: relative;
 	display: block;
 	min-width: 100%;
 	//padding: 18px 55px 18px 24px;
-	padding: 1.9vh 6vh 1.9vh 2.9vh;
+	padding: 1.6vh 5.1vh 1.6vh 2.3vh;
 	background: $panel;
 	border-radius: 8px;
 	cursor: pointer;
@@ -280,11 +417,11 @@ input.input,
 	position: absolute;
 	display: block;
 	content: '';
-	width: 10px; 
-	height: 10px;
+	width: 8px; 
+	height: 8px;
 	top: 50%; 
-	right: 1.3vw;
-	margin-top: -3px;
+	right: 1.1vw;
+	margin-top: -1px;
 	border-bottom: 2px solid $gray;
 	border-right: 2px solid $gray;
 	transform: rotate(45deg) translateY(-50%);
@@ -292,7 +429,7 @@ input.input,
 	transform-origin: 50% 0;
 }
 .custom-select.opened .custom-select-trigger:after {
-	margin-top: 3px;
+	margin-top: 1px;
 	transform: rotate(-135deg) translateY(-50%);
 }
 .custom-options {
@@ -312,11 +449,16 @@ input.input,
 	background: $panel;
 	transition: all .4s ease-in-out;
 	opacity: 0;
-	visibility: hidden;
+	//visibility: hidden;
 	pointer-events: none;
 	transform: translateY(-15px);
     min-width: max-content;
 }
+
+.custom-options.to-up{
+	transform: translateY(-120%);
+}
+
 .custom-select.opened .custom-options {
 	opacity: 1;
 	visibility: visible;
@@ -324,10 +466,14 @@ input.input,
 	transform: translateY(0);
 }
 
+.custom-select.opened .custom-options.to-up {
+	transform: translateY(-127%);
+}
+
 .custom-option {
 	position: relative;
 	display: block;
-    padding: 18px 24px;
+    padding: 1.8vh 1.1vw;
 	border-bottom: 1px solid $border;
 	color: $title;
 	cursor: pointer;
@@ -343,6 +489,26 @@ input.input,
 .custom-option:hover,
 .custom-option.selection {
 	color: $main;
+}
+
+.user-select
+{
+	&-avatar{
+		height: 45px;
+		width: 45px;
+		border-radius: 50%;
+		margin-right: 15px;
+	}
+
+	&-name{
+		font-weight: 700;
+	}
+}
+
+.custom-select-trigger.user-select{
+	padding: 0 5.1vh 0 0;
+	max-width: none;
+	border: none;
 }
 // select 
 
@@ -615,8 +781,15 @@ input.input,
 	}
 
 	&.additional{
-		background: $panel-add;
+		background: $border;
 		box-shadow: none;
+		color: $text;
+	}
+
+	&.completed{
+		background: $green;
+		box-shadow: none;
+		padding-left: 50px;
 	}
 
 	&:hover{
@@ -624,6 +797,24 @@ input.input,
 	}
 	&.additional:hover{
 		background: $gray;
+	}
+	&.completed:hover{
+		background: #5a8f34;
+	}
+
+	&.completed::before{
+		content: "";
+		position: absolute;
+		z-index: 10;
+		height: 17px;
+		width: 9px;
+		border-bottom: 3px solid white;
+		border-right: 3px solid white;
+		border-radius: 3px;
+		transform: rotate(40deg) translateY(-50%);
+		left: 21px;
+    	top: 18px;
+		transition: all 0.2s ease 0s;
 	}
 }
 
@@ -750,7 +941,6 @@ input.input,
 
 .tag{
 	padding: 0.7vh 0.8vw;;
-	margin-right: 10px;
 	background-color: #6318c531;
 	color: #a78feb;
 	border-radius: 20px;
@@ -764,24 +954,121 @@ input.input,
 
 
 
+.task-content__attachments{
+	//margin-top: 3.5vh;
 
+	& .area-files{		
+		width: 100%;
+		height: 20vh;
+		border-radius: 10px;
+		border: 2px dashed $border;
+		margin-bottom: 20px;
 
-
-
-
-.task-block{
-
-    &:hover{
-        transform: translateX(-2px) translateY(-2px);
-        @include shadow-hover();
-    }
-
-    &.selection{
-        //border: 1px solid $main;
-        transform: translateX(-6px) translateY(-6px);
-        @include shadow-select();
-    }
+		&:hover{
+			border-color: transparentize($main, 0.7);
+			color:#8a66f0c4;
+		}
+	}     
+	& .area-drag-file {
+		border-color: transparentize($main, 0.7);
+		color:#8a66f0c4;
+	}
 }
+
+.area-files__button-file{
+	label{
+		cursor: pointer;
+		padding: 1vh 0.7vw;
+		border: 1px solid $border;
+		border-radius: 5px;
+		margin-left: 0.4vw;
+		transition: 0.2s;
+
+		&:hover{
+			border-color: transparentize($main, 0.7);
+		}
+	}
+}
+
+.file {
+	min-width: 85px;
+	background-color: $panel;
+	border: 1px solid $border;
+	border-radius: 5px;
+	padding: 15px 15px 10px 15px;
+	display: flex;
+	width: fit-content;
+	flex-direction: column;
+	text-align: center;
+	position: relative;
+	margin-bottom: 10px;
+	cursor: pointer;
+
+	&:hover .file__download{
+		display: block;
+	}
+
+	&__icon{
+		width: 25px;
+		height: auto;
+		margin: auto;
+	}
+
+	&__name, &__download{
+		padding: 0;
+		margin: 0;
+		margin-top: 8px;
+	}
+
+	&__download{
+		border-top: 1px solid $border;
+		padding-top: 5px;
+		display: none;
+		color: $main;
+		font-size: 1.4vh;
+
+		&:hover{
+			text-decoration: underline;
+		}
+	}
+
+	& .btn-close{
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		border: 1px solid $red;
+		padding: 5px;
+		line-height: 1em;
+		border-radius: 50%;
+		background-color: transparentize($red, 0.5);
+		right: -4px;
+    	top: -4px;
+		cursor: pointer;
+
+		&:hover{
+			background-color: transparentize($red, 0.4);
+		}
+		
+		&::before, &::after{
+			content: '';
+			position: absolute;
+			background-color: $red;
+			width: 8px;
+			height: 2px;
+			left: 5px;
+			top: 8px;
+		}
+
+		&::before {
+			transform: rotate(-45deg);
+		}
+
+		&::after {
+			transform: rotate(45deg);
+		}
+	}
+}
+
 
 
 
@@ -797,8 +1084,8 @@ input.input,
     &::-webkit-scrollbar-button {
         background-image:url('');
         background-repeat:no-repeat;
-        width:10px;
-		height:0px;
+        width: 0px;
+		height: 0px;
     }
     &::-webkit-scrollbar-track {
         background-color: $border;
@@ -822,6 +1109,7 @@ input.input,
 
     &::-webkit-scrollbar{
 		width: 7px;
+		height: 7px;
 		cursor: pointer;
     }
 }
@@ -856,3 +1144,87 @@ svg.weekly-chart{
         }
     }
 }
+
+.task-data{
+    &__header{
+        border-bottom: 2px solid $border;
+    }
+}
+
+.color-block{
+	position: relative;
+
+	&:hover .btn-delete-color{
+		opacity: 1;
+	}
+
+	& .btn-delete-color:hover{
+		&::before, &::after{
+			background-color: $red;
+		}
+	}
+
+	& .btn-delete-color{
+		opacity: 0;
+		cursor: pointer;
+		position: absolute;
+		left: 0px;
+		top: 40px;
+		width: 40px;
+		height: 20px;
+		transition: 0.4s;
+
+		&::before, &::after{
+			position: absolute;
+			content: "";
+			left: 14px;
+			top: 12px;
+			width: 13px;
+			height: 2px;
+			background-color: rgb(219, 220, 232);
+			transition: 0.2s;
+		}
+
+		&::before{
+			left: 13px;
+			transform: rotate(45deg) translateY(-50%);
+		}
+		&::after{
+			transform: rotate(-45deg) translateY(-50%);
+		}
+	}
+}
+
+.color-block__picker{
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	cursor: pointer;
+
+	&::-webkit-color-swatch-wrapper { 
+		border: none; 
+	}
+	&::-webkit-color-swatch { 
+		opacity: 0; 
+	}
+
+	&:focus{
+		border: 1px solid $gray;
+	}
+}
+
+.color-block-add{
+	&__picker{
+		position: relative;
+	}
+    &__rect{
+		cursor: pointer;
+		font-size: 2vh;
+		position: absolute;
+		top: 6px;
+    	left: 14px;
+	}
+}
+
+

@@ -1,0 +1,27 @@
+.target-block {
+  min-width: 400px;
+}
+.target-block .block-content__description {
+  width: 100%;
+  max-height: 40px;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}
+.target-block .participants-users {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+.target-block .participants-users__item:nth-child(2) {
+  left: 10px;
+}
+.target-block .participants-users__item:nth-child(3) {
+  left: 20px;
+}
+.target-block .participants-users__item:nth-child(4) {
+  left: 30px;
+}
+.target-block .participants-users__item:nth-child(5) {
+  left: 40px;
+}

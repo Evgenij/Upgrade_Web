@@ -1,6 +1,6 @@
+@import "variables.scss";
 $margin: 25px;
 $inner-margin: 20px;
-$main: #8A66F0;
 
 .wrapp-modal{
     height: 100%;
@@ -33,6 +33,10 @@ $main: #8A66F0;
         
         & .date-picker, .list-hor {
             margin-bottom: $inner-margin;
+        }
+
+        & .list-hor.colors-list, .list-hor.user-colors {
+            margin-bottom: 0;
         }
 
         
@@ -70,7 +74,13 @@ $main: #8A66F0;
     &__message{
         justify-content: flex-start;
         margin-bottom: 15px;
-        color:#e06262;
+    
+        &.error{
+            color:#e06262;
+        }
+        &.info{
+            color:#478ECC;
+        }
 
         &.hide{
             display: none;
@@ -94,11 +104,71 @@ $main: #8A66F0;
         top: 0px;
     }
 
+    &.add-project{
+        //display: none;
+        visibility: hidden;
+        left: 34vw;
+        top: 8vh;
+        max-width: 480px;
+    }
+    &.add-target{
+        //display: none;
+        visibility: hidden;
+        right: 33vw;
+        top: 8vh;
+    }
+
     &.show{
         visibility: visible;
+    }
+
+    & .fields{
+        width: 100%;
+
+        & .fields__item{
+            margin-top: 15px;
+        }
+
+        & .field__title{
+            margin-left: 15px;
+            margin-bottom: 8px;
+            font-size: 1.5vh;
+        }
     }
 }
 
 .datepicker{
     width: 65%;
 }
+
+.modal-window{
+
+    & .modal-window__message.info{
+        padding-left: 15px;
+        margin-top: 8px;
+        margin-bottom: 0px;
+    }
+
+    & .modal-window__message.error{
+        padding-left: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+.modal-window .group-fields{
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    &__item{
+        margin-right: 15px;
+
+        & .wrapper-teams .custom-select-wrapper{
+            margin-right: 12px;
+        }
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}
+

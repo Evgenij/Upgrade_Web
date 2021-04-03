@@ -1,6 +1,10 @@
 // глобальные переменные
 
-var chart, datepicker, taskSelection = 0;
+var chart, datepicker,
+	taskSelection = 0,
+	projectSelection = 0,
+	targetSelection = 0,
+	wrapp = $('.wrapp-modal');
 
 // глобальные переменные
 
@@ -40,6 +44,7 @@ $('li[value=\"tab-2\"]').click(function () {
 
 $('li[value=\"tab-3\"]').click(function () {
 	GetProjects();
+	GetTargets();
 })
 
 
@@ -60,8 +65,8 @@ $('li[value=\"tab-3\"]').click(function () {
 
 $(document).on('click', '.task-block', function (e) {
 
-	let currentTaskId = $(this).attr('id')
-	taskSelection = currentTaskId;
+	let currentId = $(this).attr('id')
+	taskSelection = currentId;
 	
 	if (!$(e.target).hasClass('rect')) {
 		if ($(this).hasClass('selection')) {
@@ -82,7 +87,7 @@ $(document).on('click', '.task-block', function (e) {
 				type: 'GET',
 				dataType: 'json',
 				data: {
-					idTask: currentTaskId
+					idTask: currentId
 				},
 				success(data) {
 					if (data.status == true) {
@@ -108,6 +113,23 @@ $(document).on('click', '.task-block', function (e) {
 		GetTasks();
 	}
 })
+
+
+
+$(document).on('click', '.project-block', function (e) {
+
+	let currentId = $(this).attr('id')
+	projectSelection = currentId;
+
+	if ($(this).hasClass('selection')) {
+		$(this).removeClass('selection');
+	} else {
+		$('.project-block').removeClass('selection');
+		$(this).addClass('selection');
+	}
+})
+
+
 
 
 function getFilesTask() {
@@ -303,22 +325,31 @@ function SetSelectionTask(idTask) {
 
 function GetProjects() {
 	$.ajax({
-		url: 'php/blocks/tasks/getTasks.php',
+		url: '/php/blocks/projects/getProjects.php',
 		type: 'POST',
 		dataType: 'json',
-		data: {
-			period: period,
-			project: idProject,
-			target: idTarget,
-			status: status,
-			executor: executor
-		},
 		success(data) {
 			if (data.status == true) {
-				
+				$('.projects-list').html(data.blocksProject);
 			} else {
-				$('.task-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
-				//$('.task-data').text(data.message + '   -------------   ' + data.sql);
+				$('.projects-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
+				//$('.projects-list').text(data.message);
+			}
+		}
+	});
+}
+
+function GetTargets() {
+	$.ajax({
+		url: '/php/blocks/targets/getTargets.php',
+		type: 'POST',
+		dataType: 'json',
+		success(data) {
+			if (data.status == true) {
+				$('.targets-list').html(data.blocksTarget);
+			} else {
+				$('.targets-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
+				//$('.projects-list').text(data.message);
 			}
 		}
 	});
@@ -599,12 +630,6 @@ function iniSelect(select, id, user = false) {
 		//console.log(select, id);
 		$('.custom-options#' + select).find('.custom-option:first').addClass('selection');
 	}
-	 
-	// if (num) {
-	// 	$('.custom-options#' + select).find('.custom-option:nth-child(' + num + ')').addClass('selection');
-	// } else {
-	// 	$('.custom-options#' + select).find('.custom-option:first').addClass('selection');
-	// }
 
 	if (user == false) {
 		$('.custom-select-trigger#' + select).text($('.custom-options#' + select).find('.custom-option.selection').text());
@@ -658,7 +683,7 @@ function showNotification(text) {
 
 	setTimeout(() => {
 		$('.notification').fadeOut(500);
-	}, 3000);
+	}, 2000);
 }
 
 // Реализация скрития/показа пароля в полях ввода
@@ -848,22 +873,46 @@ $('#periods_stat.custom-options').click(function (e) {
 
 // функции и события для работы с МОДАЛЬНЫМИ ОКНАМИ
 
-function showModal(modal, close) {
+function showModal(modal, change = false) {
+	
+	var modalWindow = $('.modal-window.' + $(modal).attr('id'));
 
-	var wrapp = $('.wrapp-modal');
-	var modalWindow = $('.' + $(modal).attr('id'));
+	if (modalWindow.hasClass('add-project')) {
+		if (change == false) {
+			modalWindow.find('.head__title').text('Создание проекта');
+			modalWindow.find('input').val('');
+			modalWindow.find('textarea').val('');
+		} else {
+			modalWindow.find('.head__title').text('Изменение проекта');
+		}
+	} else if (modalWindow.hasClass('add-target')) {
+		if (change == false) {
+			modalWindow.find('.head__title').text('Создание цели');
+			modalWindow.find('input').val('');
+			modalWindow.find('textarea').val('');
+			modalWindow.find('.select-activity[data!="default-select"]').detach();
+		} else {
+			modalWindow.find('.head__title').text('Изменение цели');
+		}
+	}
 
 	wrapp.toggleClass('hide');
-	if (close == true) {
-		$('.modal-window').toggleClass('show');
-	}
-	else {
-		modalWindow.toggleClass('show');
-	}
+	modalWindow.addClass('show');
 };
 
+function closeModal(modal) {
+	var wrapp = $('.wrapp-modal');
+	wrapp.toggleClass('hide');
+	modal.removeClass('show');
+}
+
+
+
+
+
 $('.head__btn-close').click(function () {
-	showModal(this, true);
+	closeModal($(this).parents('.modal-window'));
+	$(this).parents('.modal-window').removeClass('change-data');
 })
 
 
@@ -878,6 +927,31 @@ $('#add-task').click(function () {
 
 	iniSelect('durations-task');
 })
+
+$('#add-project').click(function () {
+	showModal(this);
+	GetUserColors($('.modal-window.add-project'));
+})
+
+$('#add-target').click(function () {
+	showModal(this);
+	GetUserColors($('.modal-window.add-target'));
+	iniSelect('projects-target');
+	iniSelect('activities-target-1');
+	//$(".custom-select-wrapper#activities-target").clone().appendTo(".wrapp");
+})
+
+$('#add-team-act').click(function () {
+	let classLastSelect = $("select.activities-target").filter(':last').attr('id');
+	let idNewSelect = parseInt(classLastSelect.match(/\d+/)) + 1;
+	
+	$('<div class="wrapper-teams__item select-activity" data="temp-' + idNewSelect + '"><div class= "custom-select-wrapper"><select id="activities-target-' + idNewSelect + '" class="custom-select activities-target activities text"><option value="1">Маркетинг</option><option value="2">Web-разработка</option><option value="3">Web - дизайн</option><option value="4">UI/UX дизайн</option><option value="5">Frontend</option><option value="6">Backend</option><option value="7">SEO</option><option value="8">SMM</option><option value="9">Реклама</option><option value="10">Аналитика</option><option value="11">Логистика</option><option value="12">Менеджмент</option><option value="13">Финансы</option><option value="14">Планирование</option></select><div class="custom-select activities-target activities text"><span class="custom-select-trigger custom-select activities-target activities text" id="activities-target-' + idNewSelect + '">Маркетинг</span><div class="custom-options custom-select activities-target activities text" id="activities-target-' + idNewSelect +'"><span class="custom-option undefined selection" data-value="1">Маркетинг</span><span class="custom-option undefined" data-value="2">Web-разработка</span><span class="custom-option undefined" data-value="3">Web - дизайн</span><span class="custom-option undefined" data-value="4">UI/UX дизайн</span><span class="custom-option undefined" data-value="5">Frontend</span><span class="custom-option undefined" data-value="6">Backend</span><span class="custom-option undefined" data-value="7">SEO</span><span class="custom-option undefined" data-value="8">SMM</span><span class="custom-option undefined" data-value="9">Реклама</span><span class="custom-option undefined" data-value="10">Аналитика</span><span class="custom-option undefined" data-value="11">Логистика</span><span class="custom-option undefined" data-value="12">Менеджмент</span><span class="custom-option undefined" data-value="13">Финансы</span><span class="custom-option undefined" data-value="14">Планирование</span></div></div></div><div class="btn-delete-act"></div></div>').insertBefore($(".wrapper-teams").find('.button'));
+	$('.custom-options#activities-target').attr('id', 'activities-target-' + idNewSelect);
+})
+
+
+
+
 
 $('input.add-task').keyup(function (event) {
 	if (event.keyCode == 13) {
@@ -922,16 +996,214 @@ $('input.add-task').keyup(function (event) {
 				});
 			}
 			else {
-				$('.modal-window__message').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Введите текст задачи...');
+				$('.add-task').find('.modal-window__message').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Введите текст задачи...');
 			}
 		}
 		else { // если дата не выбрана, то отображается уведомление
-			$('.modal-window__message').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Не выбрана дата');
+			$('.add-task').find('.modal-window__message').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Не выбрана дата');
 		}
 	}
 });
 
-// // функции и события для работы с модальными окнами
+$('input').keyup(function (event) {
+	if (event.keyCode == 13) {
+		if ($(this).hasClass('add-project')) {
+			if (!$(this).parents('.modal-window').hasClass('change-data')) {
+				AddProject();
+			} else {
+				ChangeProject();
+			}
+		} else if ($(this).hasClass('add-target')) {
+			if (!$(this).parents('.modal-window').hasClass('change-data')) {
+				AddTarget();
+			} else {
+				ChangeTarget();
+			}
+		}
+	}
+});
+$('textarea').keyup(function (event) {
+	if (event.keyCode == 13) {
+		if ($(this).hasClass('add-project')) {
+			if (!$(this).parents('.modal-window').hasClass('change-data')) {
+				AddProject();
+			} else {
+				ChangeProject();
+			}
+		} else if ($(this).hasClass('add-target')) {
+			if (!$(this).parents('.modal-window').hasClass('change-data')) {
+				AddTarget();
+			} else {
+				ChangeTarget();
+			}
+		}
+	}
+});
+
+
+
+function AddProject() {
+	let name = $('input.add-project').val(),
+		descr = $('textarea.add-project').val(),
+		mark = $('input.color_status:checked').siblings('.color-rect').css("background-color");
+
+	if (name.length != 0) {
+		$('.modal-window__message').addClass('hide');
+
+		$.ajax({
+			url: '/php/blocks/projects/addProject.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				name: name,
+				descr: descr,
+				mark: rgb_to_hex(mark)
+			},
+			success(data) {
+				if (data.status == true) {
+					showNotification('Проект добавлен!');
+					GetProjects();
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		});
+	}
+	else {
+		$('.add-project').find('.modal-window__message.error').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Введите название проекта');
+	}
+}
+
+function ChangeProject() {
+
+	let name = $('input.add-project').val(),
+		descr = $('textarea.add-project').val(),
+		mark = $('input.color_status:checked').siblings('.color-rect').css("background-color");
+
+	$.ajax({
+		url: '/php/blocks/projects/changeDataProject.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idProject: projectSelection,
+			name: name,
+			descr: descr,
+			mark: rgb_to_hex(mark)
+		},
+		success(data) {
+			if (data.status == true) {
+				GetProjects();
+				GetTargets();
+			} else {
+				alert(data.message);
+			}
+		}
+	});
+}
+
+
+
+
+
+function AddTarget() {
+	let idProject = getValueSelect('projects-target'),
+		name = $('input.add-target').val(),
+		descr = $('textarea.add-target').val(),
+		mark = $('input.color_status:checked').siblings('.color-rect').css("background-color");
+
+	let teams = [];
+	for (let index = 1; index <= $("select.activities-target").length; index++) {
+		teams.push(getValueSelect('activities-target-'+index));
+	}
+
+	if (name.length != 0) {
+		$('.modal-window__message').addClass('hide');
+
+		$.ajax({
+			url: '/php/blocks/targets/addTarget.php',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				idProject: idProject,
+				teams: teams,
+				name: name,
+				descr: descr,
+				mark: rgb_to_hex(mark)
+			},
+			success(data) {
+				if (data.status == true) {
+					showNotification('Цель добавлена!');
+					GetTargets();
+				}
+				else {
+					alert(data.message);
+				}
+			}
+		});
+	}
+	else {
+		$('.add-target').find('.modal-window__message.error').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg> Введите название цели');
+	}
+}
+
+function ChangeTarget() {
+	let idProject = getValueSelect('projects-target'),
+		name = $('input.add-target').val(),
+		descr = $('textarea.add-target').val(),
+		mark = $('input.color_status:checked').siblings('.color-rect').css("background-color");
+
+	let activities = [], teams = [], newTeams = [];
+	for (let index = 1; index <= $("select.activities-target").length; index++) {
+		activities.push(getValueSelect('activities-target-' + index));
+	}
+	$('.modal-window.add-target').find('.select-activity').each(function (index, el) {
+		if ($(el).attr('data')) {
+			console.log(index);
+			if ($(el).attr('data') == 'default-select') {
+				teams.push(getValueSelect('activities-target-' + index));
+			} else {
+				newTeams.push(getValueSelect('activities-target-' + index));
+			}
+		} else {
+			//$(el).attr('id');
+			console.log(index);
+			teams.push(getValueSelect('activities-target-' + index));
+		}
+	});
+	console.log("current-teams");
+	console.log(teams);
+	console.log("new-teams");
+	console.log(newTeams);
+	// for (let index = 1; index <= $('.modal-window.add-target').find('.select-activity').length; index++) {
+	// 	teams.push(getValueSelect('activities-target-temp' + index));
+	// }
+	// teamsSelect = $('.modal-window.add-target').find('.select-activity[id]');
+	// console.log(teamsSelect);
+	
+	// $.ajax({
+	// 	url: '/php/blocks/targets/changeDataTarget.php',
+	// 	type: 'GET',
+	// 	dataType: 'json',
+	// 	data: {
+	// 		idTarget: targetSelection,
+	// 		idProject: idProject,
+	// 		name: name,
+	// 		descr: descr,
+	// 		mark: rgb_to_hex(mark),
+	// 		activities: activities
+	// 	},
+	// 	success(data) {
+	// 		if (data.status == true) {
+	// 			GetTargets();
+	// 		} else {
+	// 			alert(data.message);
+	// 		}
+	// 	}
+	// });
+}
+
+// функции и события для работы с модальными окнами
 
 
 
@@ -1060,7 +1332,7 @@ function getExecutors(idProject, selectExecutors) {
 	//console.log(idProject);
 
 	$.ajax({
-		url: 'php/getExecutor.php',
+		url: '/php/getExecutor.php',
 		type: 'POST',
 		dataType: 'json',
 		data: {
@@ -1096,6 +1368,225 @@ function GetDefaultValueSelect(string) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+$(document).on('click', '.delete-data-block', function () {
+	let parent = $(this).parents('.data-block');
+	let idBlock = parent.attr('id');
+	
+	if (parent.hasClass('project-block')) {
+		$.ajax({
+			url: '/php/blocks/projects/deleteProject.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				idProject: idBlock
+			},
+			success(data) {
+				if (data.status == true) {
+					GetProjects();
+					GetTargets();
+				}
+			}
+		});
+	}
+})
+
+$(document).on('click', '.change-data-block', function () {
+	let parent = $(this).parents('.data-block');
+	let idBlock = parent.attr('id');
+
+	if (parent.hasClass('project-block')) {
+		projectSelection = idBlock;
+		ShowModalChange(idBlock, 'add-project');
+	} else if (parent.hasClass('target-block')) {
+		targetSelection = idBlock;
+		ShowModalChange(idBlock, 'add-target');
+	}
+})
+
+$(document).on('click', '.btn-delete-color', function () {
+	let parent = $(this).parents('.color-block');
+	let idBlock = parent.attr('id');
+
+	$.ajax({
+		url: '/php/vendor/deleteColor.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			id: idBlock
+		},
+		success(data) {
+			if (data.status == true) {
+				parent.remove();
+				GetUserColors($('.modal-window.add-project'));
+			}
+		}
+	});
+})
+
+
+$(document).on('click', '.btn-delete-act', function () {
+	let parent = $(this).parents('.select-activity');
+	let idBlock = parent.attr('id');
+
+	if (!idBlock.includes('temp')) { // если id установлен
+		$.ajax({
+			url: '/php/blocks/teams/deleteTeam.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				id: idBlock
+			},
+			success(data) {
+				if (data.status == true) {
+					parent.remove();
+					//GetUserColors($('.add-project'));
+				}
+			}
+		});
+	} else { // если атрибут id отсутствует
+		parent.remove();
+	}
+
+	
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ShowModalChange(idBlock, modal) {
+	$('.modal-window.' + modal).addClass('change-data');
+
+	if (modal == 'add-project') {
+		$.ajax({
+			url: '/php/blocks/projects/getDataProject.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				id: idBlock
+			},
+			success(data) {
+				if (data.status == true) {
+					$('.modal-window.' + modal).find('.name-project').val(data.name);
+					$('.modal-window.' + modal).find('.descr-project').val(data.descr);
+
+					showModal('#'+modal, true);
+					GetUserColors($('.modal-window.add-project'));
+				}
+			}
+		});
+	} else if (modal == 'add-target') {
+
+		// удаление всех выпадающих списков кроме первого во 
+		// избежание накопления создаваемых списков при открытии 
+		// модального окна на изменение
+		$('.modal-window.'+modal).find('.select-activity[data!="default-select"]').detach();
+
+		$.ajax({
+			url: '/php/blocks/targets/getDataTarget.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				id: idBlock
+			},
+			success(data) {
+				if (data.status == true) {
+					$('.modal-window.' + modal).find('.name-target').val(data.name);
+					$('.modal-window.' + modal).find('.descr-target').val(data.descr);
+					iniSelect('projects-target', data.idProject);
+
+					if (data.teams.length >= 2) {
+						iniSelect('activities-target-1', data.activities[0]);
+						$('.modal-window.' + modal).find('.select-activity:first-child').attr('id', data.teams[0]);
+						
+						for (let i = 1; i < data.activities.length; i++) {
+							
+							$('<div class="wrapper-teams__item select-activity" id="' + data.teams[i] + '"><div class= "custom-select-wrapper"><select id="activities-target-' + data.activities[i] + '" class="custom-select activities-target activities text"><option value="1">Маркетинг</option><option value="2">Web-разработка</option><option value="3">Web - дизайн</option><option value="4">UI/UX дизайн</option><option value="5">Frontend</option><option value="6">Backend</option><option value="7">SEO</option><option value="8">SMM</option><option value="9">Реклама</option><option value="10">Аналитика</option><option value="11">Логистика</option><option value="12">Менеджмент</option><option value="13">Финансы</option><option value="14">Планирование</option></select><div class="custom-select activities-target activities text"><span class="custom-select-trigger custom-select activities-target activities text" id="activities-target-' + data.activities[i] + '">Маркетинг</span><div class="custom-options custom-select activities-target activities text" id="activities-target-' + data.activities[i] +'"><span class="custom-option undefined selection" data-value="1">Маркетинг</span><span class="custom-option undefined" data-value="2">Web-разработка</span><span class="custom-option undefined" data-value="3">Web - дизайн</span><span class="custom-option undefined" data-value="4">UI/UX дизайн</span><span class="custom-option undefined" data-value="5">Frontend</span><span class="custom-option undefined" data-value="6">Backend</span><span class="custom-option undefined" data-value="7">SEO</span><span class="custom-option undefined" data-value="8">SMM</span><span class="custom-option undefined" data-value="9">Реклама</span><span class="custom-option undefined" data-value="10">Аналитика</span><span class="custom-option undefined" data-value="11">Логистика</span><span class="custom-option undefined" data-value="12">Менеджмент</span><span class="custom-option undefined" data-value="13">Финансы</span><span class="custom-option undefined" data-value="14">Планирование</span></div></div></div><div class="btn-delete-act"></div></div>').insertBefore($(".wrapper-teams").find('.button'));
+							iniSelect('activities-target-' + data.activities[i], data.activities[i]);
+						}
+					} else {
+						iniSelect('activities-target-1', data.activities[0]);
+						$('.modal-window.' + modal).find('.select-activity:first-child').attr('id', data.teams[0]);
+					}
+					
+					showModal('#' + modal, true);
+					GetUserColors($('.modal-window.add-target'));
+				}
+			}
+		});
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+$('input.color-block__picker').change(function () {
+
+	var window = $('.modal-window.show');
+
+	console.log(window);
+
+	$.ajax({
+		url: '/php/vendor/addColor.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			color: $(this).val()
+		},
+		success(data) {
+			if (data.status == true) {
+				GetUserColors(window);
+			}
+		}
+	});
+})
+
+
+
+function GetUserColors(window) {
+
+	//console.log(window);
+
+	$.ajax({
+		url: '/php/vendor/getUserColors.php',
+		type: 'GET',
+		dataType: 'json',
+		success(data) {
+			if (data.status == true) {
+				window.find('.user-colors').html(data.colors);
+			}
+		}
+	});
+}
 
 
 
@@ -1349,3 +1840,20 @@ function wireUpTriggers() {
 $('.trigger').click(function () {
 	$(this).toggleClass('active');
 });
+
+
+
+
+
+
+
+
+$('textarea').on('input', function () {
+	this.style.height = '1px';
+	this.style.height = (this.scrollHeight + 2) + 'px';
+});
+
+function rgb_to_hex(color) {
+	var rgb = color.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+)/i);
+	return (rgb && rgb.length === 4) ? "#" + ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) + ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) + ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : color;
+}

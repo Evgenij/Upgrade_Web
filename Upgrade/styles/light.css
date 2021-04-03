@@ -3,6 +3,10 @@ body {
   color: #332F2F;
 }
 
+.modal-window {
+  border: 1px solid #E6E8F7;
+}
+
 .panel {
   background-color: #FFF;
   padding: 3vh 1.8vw;
@@ -24,7 +28,7 @@ body {
   line-height: 1.4em;
 }
 .title-block {
-  font-size: 1.7vh;
+  font-size: 1vw;
 }
 
 .text {
@@ -63,8 +67,27 @@ a {
   color: text;
 }
 
-.modal-window__content path {
-  fill: #A5A7BC;
+svg.svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+svg.svg-stroke-menu path {
+  stroke: #332F2F;
+}
+svg.svg-stroke-menu rect {
+  fill: #332F2F;
+}
+svg.svg-stroke path {
+  stroke: #DBDCE8;
+}
+svg.svg-fill-menu path {
+  fill: #332F2F;
+}
+svg.svg-fill-menu rect {
+  fill: #332F2F;
+}
+svg.svg-fill path {
+  fill: #DBDCE8;
 }
 
 .data-block:hover {
@@ -89,6 +112,7 @@ a {
 }
 
 input, textarea {
+  display: block;
   border: 1px solid #E6E8F7;
   border-radius: 8px;
   padding: 1.6vh 2.3vh;
@@ -364,7 +388,7 @@ input.input.with-shadow,
   top: 100%;
   left: 0;
   right: 0;
-  min-width: 100%;
+  max-width: 300px;
   max-height: 300px;
   overflow-y: auto;
   margin: 5px 0px 0px 0px;
@@ -379,9 +403,7 @@ input.input.with-shadow,
   pointer-events: none;
   -webkit-transform: translateY(-15px);
           transform: translateY(-15px);
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
+  min-width: 300px;
 }
 
 .custom-options.to-up {
@@ -876,6 +898,7 @@ input.input.with-shadow,
 }
 
 .file {
+  min-width: 85px;
   background-color: #FFF;
   border: 1px solid #E6E8F7;
   border-radius: 5px;
@@ -955,7 +978,7 @@ input.input.with-shadow,
 *::-webkit-scrollbar-button {
   background-image: url("");
   background-repeat: no-repeat;
-  width: 10px;
+  width: 0px;
   height: 0px;
 }
 *::-webkit-scrollbar-track {
@@ -966,6 +989,7 @@ input.input.with-shadow,
   background-color: rgba(138, 102, 240, 0.4);
 }
 *::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
   background-color: rgba(138, 102, 240, 0.7);
 }
 *::-webkit-resizer {
@@ -976,6 +1000,7 @@ input.input.with-shadow,
 }
 *::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
   cursor: pointer;
 }
 
@@ -996,4 +1021,113 @@ svg.weekly-chart line {
 
 .task-data__header {
   border-bottom: 2px solid #E6E8F7;
+}
+
+.color-block {
+  position: relative;
+}
+.color-block:hover .btn-delete-color {
+  opacity: 1;
+}
+.color-block .btn-delete-color:hover::before, .color-block .btn-delete-color:hover::after {
+  background-color: #e06262;
+}
+.color-block .btn-delete-color {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  left: 0px;
+  top: 40px;
+  width: 30px;
+  height: 20px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.color-block .btn-delete-color::before, .color-block .btn-delete-color::after {
+  position: absolute;
+  content: "";
+  left: 14px;
+  top: 12px;
+  width: 13px;
+  height: 2px;
+  background-color: #dbdce8;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.color-block .btn-delete-color::before {
+  left: 13px;
+  -webkit-transform: rotate(45deg) translateY(-50%);
+          transform: rotate(45deg) translateY(-50%);
+}
+.color-block .btn-delete-color::after {
+  -webkit-transform: rotate(-45deg) translateY(-50%);
+          transform: rotate(-45deg) translateY(-50%);
+}
+
+.color-block__picker {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.color-block__picker::-webkit-color-swatch-wrapper {
+  border: none;
+}
+.color-block__picker::-webkit-color-swatch {
+  opacity: 0;
+}
+.color-block__picker:focus {
+  border: 1px solid #DBDCE8;
+}
+
+.color-block-add__picker {
+  position: relative;
+}
+.color-block-add__rect {
+  cursor: pointer;
+  font-size: 2vh;
+  position: absolute;
+  top: 6px;
+  left: 14px;
+}
+
+.select-activity {
+  position: relative;
+}
+.select-activity:hover .btn-delete-act {
+  opacity: 1;
+}
+.select-activity .btn-delete-act:hover::before, .select-activity .btn-delete-act:hover::after {
+  background-color: #e06262;
+}
+.select-activity .btn-delete-act {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  left: 40%;
+  top: 50px;
+  width: 14px;
+  height: 20px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.select-activity .btn-delete-act::before, .select-activity .btn-delete-act::after {
+  position: absolute;
+  content: "";
+  top: 12px;
+  width: 13px;
+  height: 2px;
+  background-color: #dbdce8;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.select-activity .btn-delete-act::before {
+  left: -1px;
+  -webkit-transform: rotate(45deg) translateY(-50%);
+          transform: rotate(45deg) translateY(-50%);
+}
+.select-activity .btn-delete-act::after {
+  -webkit-transform: rotate(-45deg) translateY(-50%);
+          transform: rotate(-45deg) translateY(-50%);
 }

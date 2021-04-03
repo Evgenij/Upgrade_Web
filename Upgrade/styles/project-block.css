@@ -1,33 +1,20 @@
+.project-block .participants-users__item:nth-child(2) {
+  left: -10px;
+}
+.project-block .participants-users__item:nth-child(3) {
+  left: -20px;
+}
+.project-block .participants-users__item:nth-child(4) {
+  left: -30px;
+}
+.project-block .participants-users__item:nth-child(5) {
+  left: -40px;
+}
+
 .block-head__label {
   width: 60px;
   height: 10px;
   border-radius: 5px;
-  background-color: indianred;
-}
-
-.participants-users {
-  margin-top: 5px;
-}
-.participants-users__item {
-  width: 35px;
-  height: 35px;
-  border-radius: 20px;
-  background-image: url(/pictures/users_avatar/myPhoto.jpg);
-  background-size: contain;
-  position: relative;
-}
-.participants-users__item:nth-child(2) {
-  left: -10px;
-}
-.participants-users__item:nth-child(3) {
-  left: -20px;
-}
-.participants-users__item:nth-child(4) {
-  left: -30px;
-}
-.participants-users__item:last-child {
-  left: -40px;
-  background-image: none;
 }
 
 .count-attach {

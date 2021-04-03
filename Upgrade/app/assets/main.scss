@@ -3,6 +3,7 @@
 @import "data-block.scss";
 @import "task-block.scss";
 @import "project-block.scss";
+@import "target-block.scss";
 
 *{
     font-family: 'Manrope', sans-serif;
@@ -107,7 +108,7 @@ body{
     font-size: 1.7vh;
     line-height: 1.3em;
     
-    & object{
+    & svg{
         margin-right: 0.9vw;
     }
     
@@ -386,9 +387,9 @@ li.tabs-triggers__item--active::before {
             "tasks task-data";
     }
     &:nth-child(3){
-        grid-template-columns: 510px 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 3.4vh 2vw;
+        grid-template-columns: 530px 1fr;
+        grid-template-rows: 0.9fr 1fr;
+        gap: 3.4vh 2.5vw;
         grid-template-areas:
             "projects-area targets-area"
             "projects-area attachments-area";
@@ -499,11 +500,10 @@ li.tabs-triggers__item--active::before {
 .list{
     &-ver{
         &__item{
-        margin-bottom: 20px;
+            margin-bottom: 20px;
         }
     }
     &-hor{
-        
         & .custom-select-wrapper{
             margin-left: 10px;
 
@@ -518,6 +518,18 @@ li.tabs-triggers__item--active::before {
 
             &:first-child{
                 margin-left: 0;
+            }
+        }
+
+        &-big{
+            overflow-x: auto;
+            &__item{
+
+                margin-left: 20px;
+
+                &:first-child{
+                    margin-left: 0;
+                }
             }
         }
     }
@@ -582,6 +594,8 @@ li.tabs-triggers__item--active::before {
 }
 
 .progress{
+    width: 100%;
+
     &-labels{
         justify-content: space-between;
         align-items: flex-end;
@@ -944,7 +958,12 @@ li.tabs-triggers__item--active::before {
 .targets-head { 
     grid-area: targets-head; 
 }
-.targets-list { grid-area: targets-list; }
+.targets-list { 
+    align-items: flex-start;
+    justify-content: flex-start;
+    grid-area: targets-list;
+    padding: 6px 0px 30px 6px;
+}
 .user-panel { grid-area: user-panel; }
 .projects-area {
     display: grid;
@@ -958,9 +977,9 @@ li.tabs-triggers__item--active::before {
 }
 .projects-head { grid-area: projects-head; }
 .projects-list { 
-    padding-top: 6px;
-    padding-left: 6px;
-    grid-area: projects-list; 
+    overflow-y: auto;
+    padding: 6px 30px 0px 6px;
+    grid-area: projects-list;
 }
 .attachments-area {
 	display: grid;
@@ -974,3 +993,41 @@ li.tabs-triggers__item--active::before {
 }
 .attachments-head { grid-area: attachments-head; }
 .attachments-list { grid-area: attachments-list; }
+
+.colors-list{
+    width: 100%;
+    justify-content: flex-start;
+    padding-bottom: 25px;
+    overflow-x: auto;
+    margin-bottom: 0;
+}
+
+.color-block__status {
+	cursor: pointer;
+
+	& .color_status{
+		display: none;
+
+		&:checked + .color-rect::before{
+			opacity: 1;
+		}
+	}
+	& .color-rect{
+		display: block;
+		width: 40px;
+		height: 40px;
+		border-radius: 5px;
+		transition: 0.2s;
+		cursor: pointer;
+		position: relative;
+
+		&::before{
+			content: url(/pictures/icons/icon-check-color.svg);
+			position: absolute;
+			left: 19px;
+			top: 19px;
+			transition: 0.2s;
+			opacity: 0;
+		}
+	}	
+}

@@ -4,12 +4,14 @@
   transition: 0.3s;
 }
 .data-block .block-head {
+  width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 15px;
 }
 .data-block .block-footer {
+  width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -19,10 +21,34 @@
   margin-top: 25px;
 }
 
+.block-head svg:first-child:hover path {
+  fill: #8A66F0;
+}
+.block-head svg:last-child:hover path {
+  stroke: #e06262;
+}
+
+.block-content {
+  width: 100%;
+}
 .block-content__description {
   margin-top: 10px;
 }
 .block-content__progress {
   width: 100%;
   margin-top: 15px;
+}
+
+.participants-users {
+  margin-top: 5px;
+}
+.participants-users__item {
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+  background-size: cover;
+  position: relative;
+}
+.participants-users__item:last-child {
+  background-image: none;
 }

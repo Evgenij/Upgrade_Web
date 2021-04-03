@@ -57,13 +57,37 @@ namespace creator_sql_file
                 activities.Add("Финансы", "finance.svg");
                 activities.Add("Планирование", "planing.svg");
 
+                string[] colorsActivities = {
+                    "CE5555",
+                    "59B5D2",
+                    "3984CA",
+                    "B46DED",
+                    "EB9E57",
+                    "5361E0",
+                    "7CB94B",
+                    "DD6E88",
+                    "D77843",
+                    "3B4C75",
+                    "6A7D94",
+                    "A85591",
+                    "388640",
+                    "48BDB6"
+                };
+
+
+                int idColor = 0;
                 foreach (KeyValuePair<string, string> obj in activities)
                 {
                     byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                        "INSERT INTO `activity` (`id_act`, `name`, `logo`) VALUES(NULL, \'" + obj.Key + "\', \'icons/activities/" + obj.Value + "\');"
+                        "INSERT INTO `activity` (`id_act`, `name`, `logo`, `mark`) " +
+                        "VALUES (NULL, " +
+                        "\'" + obj.Key + "\', " +
+                        "\'/pictures/icons/activities/" + obj.Value + "\', " +
+                        "\'#"+ colorsActivities[idColor] + "\');"
                         );
                     // запись массива байтов в файл
                     fstream.Write(array, 0, array.Length);
+                    idColor++;
                 }
 
                 string[] specialization = {
@@ -108,6 +132,22 @@ namespace creator_sql_file
                     "iOS-разработчик",
                     "UI дизайнер",
                     "UX дизайнер"
+                };
+
+                string[] colors = {
+                    "CC2E2E",
+                    "DE7D24",
+                    "F8C032",
+                    "53AC34",
+                    "5CA4E6",
+                    "4153F5",
+                    "853CA7"
+                };
+
+                string[] users_colors = {
+                    "0777C8",
+                    "BF3BBA",
+                    "E9427E"
                 };
 
                 for (int i = 0; i < specialization.Length; i++) {
@@ -301,10 +341,9 @@ namespace creator_sql_file
                     {
                         // преобразуем строку в байты
                         byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                            "INSERT INTO `team` (`id_team`, `id_target`, `id_act`, `mark`) VALUES(NULL, " +
+                            "INSERT INTO `team` (`id_team`, `id_target`, `id_act`) VALUES(NULL, " +
                             "\'" + random.Next(1, 169) + "\', " +
-                            "\'" + random.Next(1, 15) + "\', " +
-                            "'#134543');"
+                            "\'" + random.Next(1, 15) + "\');"
                             );
                         // запись массива байтов в файл
                         fstream.Write(array, 0, array.Length);
@@ -341,6 +380,17 @@ namespace creator_sql_file
                     fstream.Write(array, 0, array.Length);
                 }
 
+                for (int i = 0; i < users_colors.Length; i++)
+                {
+                    for (int j = 1; j <= 28; j++) 
+                    {
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                            "INSERT INTO `colors` (`id_color`, `id_user`, `value`) VALUES(NULL, " + j + ", \'#" + users_colors[random.Next(0,3)] + "\');");
+                        // запись массива байтов в файл
+                        fstream.Write(array, 0, array.Length);
+                    }
+                }
 
                 Console.WriteLine("Файл создан!");
             }

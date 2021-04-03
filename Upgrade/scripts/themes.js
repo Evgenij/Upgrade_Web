@@ -25,6 +25,9 @@ $('.checkbox-theme').click(function () {
     link.setAttribute("href", currTheme);
 
     Save(theme);
+
+    GetTasks();
+    GetTargets();
 });
 
 function SetStateCheckbox(state) { 

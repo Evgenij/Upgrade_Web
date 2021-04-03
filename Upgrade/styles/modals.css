@@ -26,6 +26,9 @@
 .modal-window__content .date-picker, .modal-window__content .list-hor {
   margin-bottom: 20px;
 }
+.modal-window__content .list-hor.colors-list, .modal-window__content .list-hor.user-colors {
+  margin-bottom: 0;
+}
 .modal-window__content .date-picker:hover svg path {
   fill: #8A66F0;
 }
@@ -54,7 +57,12 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
   margin-bottom: 15px;
+}
+.modal-window__message.error {
   color: #e06262;
+}
+.modal-window__message.info {
+  color: #478ECC;
 }
 .modal-window__message.hide {
   display: none;
@@ -71,10 +79,60 @@
   left: 13.5vw;
   top: 0px;
 }
+.modal-window.add-project {
+  visibility: hidden;
+  left: 34vw;
+  top: 8vh;
+  max-width: 480px;
+}
+.modal-window.add-target {
+  visibility: hidden;
+  right: 33vw;
+  top: 8vh;
+}
 .modal-window.show {
   visibility: visible;
+}
+.modal-window .fields {
+  width: 100%;
+}
+.modal-window .fields .fields__item {
+  margin-top: 15px;
+}
+.modal-window .fields .field__title {
+  margin-left: 15px;
+  margin-bottom: 8px;
+  font-size: 1.5vh;
 }
 
 .datepicker {
   width: 65%;
+}
+
+.modal-window .modal-window__message.info {
+  padding-left: 15px;
+  margin-top: 8px;
+  margin-bottom: 0px;
+}
+.modal-window .modal-window__message.error {
+  padding-left: 15px;
+  margin-bottom: 15px;
+}
+
+.modal-window .group-fields {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.modal-window .group-fields__item {
+  margin-right: 15px;
+}
+.modal-window .group-fields__item .wrapper-teams .custom-select-wrapper {
+  margin-right: 12px;
+}
+.modal-window .group-fields__item:last-child {
+  margin-right: 0;
 }

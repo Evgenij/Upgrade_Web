@@ -5,6 +5,10 @@ body{
 	color: $title;
 }
 
+.modal-window{
+    border: 1px solid $border;
+}
+
 .panel{
 	background-color: $panel;
 	padding: 3vh 1.8vw;
@@ -28,7 +32,7 @@ body{
 	line-height: 1.4em;
 
 	&-block{
-		font-size: 1.7vh;
+		font-size: 1vw;
 	}
 }
 
@@ -74,12 +78,39 @@ a{
 	}
 }
 
+svg.svg{
+	transition: 0.3s;
 
-.modal-window__content{
-	& path{
-		fill: $text;
+	&-stroke { 
+		&-menu{
+			& path{
+				stroke: $title;
+			}
+			& rect{
+				fill: $title;
+			}
+		}
+
+		& path{
+			stroke: $gray;
+		}
+	}
+	&-fill{
+		&-menu{
+			& path{
+				fill: $title;
+			}
+			& rect{
+				fill: $title;
+			}
+		}
+
+		& path{
+			fill: $gray;
+		}
 	}
 }
+
 
 
 
@@ -111,6 +142,7 @@ a{
 
 
 input,textarea{
+	display: block;
 	border: 1px solid $border;
 	border-radius: 8px;
 	padding: 1.6vh 2.3vh;
@@ -410,7 +442,7 @@ input.input,
 	top: 100%; 
 	left: 0; 
 	right: 0;
-	min-width: 100%;
+	max-width: 300px;
 	max-height: 300px;
     overflow-y: auto;
 	margin: 5px 0px 0px 0px;
@@ -423,7 +455,7 @@ input.input,
 	//visibility: hidden;
 	pointer-events: none;
 	transform: translateY(-15px);
-    min-width: max-content;
+    min-width: 300px;
 }
 
 .custom-options.to-up{
@@ -962,6 +994,7 @@ input.input,
 }
 
 .file {
+	min-width: 85px;
 	background-color: $panel;
 	border: 1px solid $border;
 	border-radius: 5px;
@@ -1054,8 +1087,8 @@ input.input,
     &::-webkit-scrollbar-button {
         background-image:url('');
         background-repeat:no-repeat;
-        width:10px;
-		height:0px;
+        width: 0px;
+		height: 0px;
     }
     &::-webkit-scrollbar-track {
         background-color: $border;
@@ -1067,6 +1100,7 @@ input.input,
 	}
 
     &::-webkit-scrollbar-thumb:hover{
+		cursor: pointer;
 		background-color: transparentize($main, 0.3);
     }
 
@@ -1079,6 +1113,7 @@ input.input,
 
     &::-webkit-scrollbar{
 		width: 7px;
+		height: 7px;
 		cursor: pointer;
     }
 }
@@ -1118,4 +1153,124 @@ svg.weekly-chart{
     &__header{
         border-bottom: 2px solid $border;
     }
+}
+
+.color-block{
+	position: relative;
+
+	&:hover .btn-delete-color{
+		opacity: 1;
+	}
+
+	& .btn-delete-color:hover{
+		&::before, &::after{
+			background-color: $red;
+		}
+	}
+
+	& .btn-delete-color{
+		opacity: 0;
+		cursor: pointer;
+		position: absolute;
+		left: 0px;
+		top: 40px;
+		width: 30px;
+		height: 20px;
+		transition: 0.4s;
+
+		&::before, &::after{
+			position: absolute;
+			content: "";
+			left: 14px;
+			top: 12px;
+			width: 13px;
+			height: 2px;
+			background-color: rgb(219, 220, 232);
+			transition: 0.2s;
+		}
+
+		&::before{
+			left: 13px;
+			transform: rotate(45deg) translateY(-50%);
+		}
+		&::after{
+			transform: rotate(-45deg) translateY(-50%);
+		}
+	}
+}
+
+.color-block__picker{
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 5px;
+	cursor: pointer;
+
+	&::-webkit-color-swatch-wrapper { 
+		border: none; 
+	}
+	&::-webkit-color-swatch { 
+		opacity: 0; 
+	}
+
+	&:focus{
+		border: 1px solid $gray;
+	}
+}
+
+.color-block-add{
+	&__picker{
+		position: relative;
+	}
+    &__rect{
+		cursor: pointer;
+		font-size: 2vh;
+		position: absolute;
+		top: 6px;
+    	left: 14px;
+	}
+}
+
+
+.select-activity{
+	position: relative;
+
+	&:hover .btn-delete-act{
+		opacity: 1;
+	}
+
+	& .btn-delete-act:hover{
+		&::before, &::after{
+			background-color: $red;
+		}
+	}
+
+	& .btn-delete-act{
+		opacity: 0;
+		cursor: pointer;
+		position: absolute;
+		left: 40%;
+		top: 50px;
+		width: 14px;
+		height: 20px;
+		transition: 0.4s;
+
+		&::before, &::after{
+			position: absolute;
+			content: "";
+			top: 12px;
+			width: 13px;
+			height: 2px;
+			background-color: rgb(219, 220, 232);
+			transition: 0.2s;
+		}
+
+		&::before{
+			left: -1px;
+			transform: rotate(45deg) translateY(-50%);
+		}
+		&::after{
+			transform: rotate(-45deg) translateY(-50%);
+		}
+	}
 }

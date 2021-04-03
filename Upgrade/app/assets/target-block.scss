@@ -1,0 +1,31 @@
+@import "variables.scss";
+
+.target-block{
+    min-width: 400px;
+
+    & .block-content__description{
+        width: 100%;
+        max-height: 40px;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
+    }
+
+    & .participants-users{
+        flex-direction: row-reverse;
+
+        &__item{
+            &:nth-child(2){
+                left: 10px;
+            }
+            &:nth-child(3){
+                left: 20px;
+            }
+            &:nth-child(4){
+                left: 30px;
+            }
+            &:nth-child(5){
+                left: 40px;
+            }
+        }
+    }
+}
