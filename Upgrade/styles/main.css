@@ -34,6 +34,9 @@
 }
 .block-content__description {
   margin-top: 10px;
+  width: 100%;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
 }
 .block-content__progress {
   width: 100%;
@@ -127,10 +130,7 @@
   min-width: 400px;
 }
 .target-block .block-content__description {
-  width: 100%;
   max-height: 40px;
-  overflow-y: hidden;
-  text-overflow: ellipsis;
 }
 .target-block .participants-users {
   -webkit-box-orient: horizontal;
@@ -149,6 +149,43 @@
 }
 .target-block .participants-users__item:nth-child(5) {
   left: 40px;
+}
+
+.attach-block {
+  height: 100%;
+}
+.attach-block .block-head__buttons {
+  margin-left: 30px;
+}
+.attach-block__wrapper {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.attach-block__wrapper .files {
+  margin-left: 40px;
+}
+.attach-block .files-list {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 290px;
+  margin-top: 10px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-y: auto;
+  height: 160px;
+}
+.attach-block .comment {
+  max-width: 320px;
+}
+.attach-block .date {
+  font-weight: 700;
+  color: #8A66F0;
+  margin-left: 10px;
 }
 
 * {
@@ -515,7 +552,7 @@ li.tabs-triggers__item--active::before {
 }
 .tabs-content__item:nth-child(3) {
   grid-template-columns: 530px 1fr;
-  grid-template-rows: 0.9fr 1fr;
+  grid-template-rows: minmax(0, 1fr) 1fr;
   gap: 3.4vh 2.5vw;
   grid-template-areas: "projects-area targets-area" "projects-area attachments-area";
 }
@@ -603,16 +640,16 @@ li.tabs-triggers__item--active::before {
   margin-bottom: 20px;
 }
 .list-hor .custom-select-wrapper {
-  margin-left: 10px;
+  margin-right: 10px;
 }
-.list-hor .custom-select-wrapper:first-child {
+.list-hor .custom-select-wrapper:last-child {
   margin: 0;
 }
 .list-hor__item {
-  margin-left: 10px;
+  margin-right: 10px;
 }
-.list-hor__item:first-child {
-  margin-left: 0;
+.list-hor__item:last-child {
+  margin-right: 0;
 }
 .list-hor-big {
   overflow-x: auto;
@@ -913,7 +950,6 @@ li.tabs-triggers__item--active::before {
 }
 .task-data .header-actions .list-hor__item {
   cursor: pointer;
-  margin-left: 15px;
 }
 .task-data .header-actions .list-hor__item:hover path {
   stroke: #8A66F0;
@@ -1067,6 +1103,13 @@ li.tabs-triggers__item--active::before {
 
 .attachments-list {
   grid-area: attachments-list;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 6px 0px 30px 6px;
 }
 
 .colors-list {

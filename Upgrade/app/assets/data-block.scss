@@ -40,6 +40,9 @@
 
     &__description{
         margin-top: 10px;
+        width: 100%;
+        overflow-y: hidden;
+        text-overflow: ellipsis;
     }
 
     &__progress{

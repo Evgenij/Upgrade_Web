@@ -11,7 +11,7 @@ $mark = $_POST['mark'];
 
 try {
     $sql = "INSERT INTO `team` (`id_team`, `id_target`, `id_act`, `mark`) 
-            VALUES (NULL, :idTarget, :idActivity, '#323232')";
+            VALUES (NULL, :idTarget, :idActivity)";
     $tempSql = $db->prepare($sql);
     $params = [
         'idProject' => $idProject,

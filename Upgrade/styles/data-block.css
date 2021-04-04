@@ -33,6 +33,9 @@
 }
 .block-content__description {
   margin-top: 10px;
+  width: 100%;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
 }
 .block-content__progress {
   width: 100%;

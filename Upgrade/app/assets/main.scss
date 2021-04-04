@@ -4,6 +4,7 @@
 @import "task-block.scss";
 @import "project-block.scss";
 @import "target-block.scss";
+@import "attach-block.scss";
 
 *{
     font-family: 'Manrope', sans-serif;
@@ -388,7 +389,7 @@ li.tabs-triggers__item--active::before {
     }
     &:nth-child(3){
         grid-template-columns: 530px 1fr;
-        grid-template-rows: 0.9fr 1fr;
+        grid-template-rows: minmax(0, 1fr) 1fr;
         gap: 3.4vh 2.5vw;
         grid-template-areas:
             "projects-area targets-area"
@@ -505,19 +506,19 @@ li.tabs-triggers__item--active::before {
     }
     &-hor{
         & .custom-select-wrapper{
-            margin-left: 10px;
+            margin-right: 10px;
 
-            &:first-child{
+            &:last-child{
                 margin: 0;
             }
         }
 
         &__item{
 
-            margin-left: 10px;
+            margin-right: 10px;
 
-            &:first-child{
-                margin-left: 0;
+            &:last-child{
+                margin-right: 0;
             }
         }
 
@@ -830,7 +831,7 @@ li.tabs-triggers__item--active::before {
     & .header-actions{
         .list-hor__item{
             cursor: pointer;
-            margin-left: 15px;
+            //margin-left: 15px;
 
             &:hover{
                 path{
@@ -992,7 +993,12 @@ li.tabs-triggers__item--active::before {
 	grid-area: attachments-area;
 }
 .attachments-head { grid-area: attachments-head; }
-.attachments-list { grid-area: attachments-list; }
+.attachments-list { 
+    grid-area: attachments-list; 
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 6px 0px 30px 6px;
+}
 
 .colors-list{
     width: 100%;

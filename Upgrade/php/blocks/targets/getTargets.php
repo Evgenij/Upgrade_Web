@@ -10,7 +10,21 @@ $response = [
     ];
 
 try{
-    $sql = 'SELECT target.id_target, target.name, target.descr, target.mark, 
+    if($_POST['idProject'] != 0){
+        $sql = 'SELECT target.id_target, target.name, target.descr, target.mark, 
+            project.name, project.mark, 
+            getTargetPercentComplete(target.id_target) AS "progress"
+            FROM target
+            INNER JOIN project ON project.id_project = target.id_project 
+            INNER JOIN user ON user.id_user = project.id_user 
+            WHERE user.id_user = :idUser AND target.id_project = :idProject';
+
+        $nestedSQL = $db->prepare($sql);
+        $params = [':idUser' => $_SESSION['user']['id'],
+                    ':idProject' => $_POST['idProject']];
+        $nestedSQL->execute($params);
+    } else {
+        $sql = 'SELECT target.id_target, target.name, target.descr, target.mark, 
             project.name, project.mark, 
             getTargetPercentComplete(target.id_target) AS "progress"
             FROM target
@@ -18,9 +32,10 @@ try{
             INNER JOIN user ON user.id_user = project.id_user 
             WHERE user.id_user = :idUser';
 
-    $nestedSQL = $db->prepare($sql);
-    $params = [':idUser' => $_SESSION['user']['id']];
-    $nestedSQL->execute($params);
+        $nestedSQL = $db->prepare($sql);
+        $params = [':idUser' => $_SESSION['user']['id']];
+        $nestedSQL->execute($params);
+    }
 
     if($nestedSQL->rowCount() > 0){
         $response["checkTargets"] = true;

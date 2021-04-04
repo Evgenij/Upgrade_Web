@@ -123,9 +123,11 @@ $(document).on('click', '.project-block', function (e) {
 
 	if ($(this).hasClass('selection')) {
 		$(this).removeClass('selection');
+		GetTargets();
 	} else {
 		$('.project-block').removeClass('selection');
 		$(this).addClass('selection');
+		GetTargets(currentId);
 	}
 })
 
@@ -339,11 +341,14 @@ function GetProjects() {
 	});
 }
 
-function GetTargets() {
+function GetTargets(idProject = 0) {
 	$.ajax({
 		url: '/php/blocks/targets/getTargets.php',
 		type: 'POST',
 		dataType: 'json',
+		data: {
+			idProject: idProject
+		},
 		success(data) {
 			if (data.status == true) {
 				$('.targets-list').html(data.blocksTarget);
@@ -1153,54 +1158,53 @@ function ChangeTarget() {
 		descr = $('textarea.add-target').val(),
 		mark = $('input.color_status:checked').siblings('.color-rect').css("background-color");
 
-	let activities = [], teams = [], newTeams = [];
-	for (let index = 1; index <= $("select.activities-target").length; index++) {
-		activities.push(getValueSelect('activities-target-' + index));
-	}
+	let activities = [], // для изменения деят. уже сущ.команд - idAct
+		teams = [], // для изменения уже сущ.команд - idTeam
+		newTeams = []; // для добавления новых команд - idNewTeam
+
 	$('.modal-window.add-target').find('.select-activity').each(function (index, el) {
 		if ($(el).attr('data')) {
-			console.log(index);
 			if ($(el).attr('data') == 'default-select') {
-				teams.push(getValueSelect('activities-target-' + index));
+				activities.push(getValueSelect($(el).find('select').attr('id')));
+				teams.push($(el).attr('id'));
 			} else {
-				newTeams.push(getValueSelect('activities-target-' + index));
+				newTeams.push(getValueSelect($(el).find('select').attr('id')));
 			}
 		} else {
 			//$(el).attr('id');
-			console.log(index);
-			teams.push(getValueSelect('activities-target-' + index));
+			activities.push(getValueSelect($(el).find('select').attr('id')));
+			teams.push($(el).attr('id'));
 		}
 	});
-	console.log("current-teams");
-	console.log(teams);
-	console.log("new-teams");
-	console.log(newTeams);
-	// for (let index = 1; index <= $('.modal-window.add-target').find('.select-activity').length; index++) {
-	// 	teams.push(getValueSelect('activities-target-temp' + index));
-	// }
-	// teamsSelect = $('.modal-window.add-target').find('.select-activity[id]');
-	// console.log(teamsSelect);
+	// console.log("current-teams");
+	// console.log(teams);
+	// console.log("current-teams-act");
+	// console.log(activities);
+	// console.log("new-teams");
+	// console.log(newTeams);
 	
-	// $.ajax({
-	// 	url: '/php/blocks/targets/changeDataTarget.php',
-	// 	type: 'GET',
-	// 	dataType: 'json',
-	// 	data: {
-	// 		idTarget: targetSelection,
-	// 		idProject: idProject,
-	// 		name: name,
-	// 		descr: descr,
-	// 		mark: rgb_to_hex(mark),
-	// 		activities: activities
-	// 	},
-	// 	success(data) {
-	// 		if (data.status == true) {
-	// 			GetTargets();
-	// 		} else {
-	// 			alert(data.message);
-	// 		}
-	// 	}
-	// });
+	$.ajax({
+		url: '/php/blocks/targets/changeDataTarget.php',
+		type: 'GET',
+		dataType: 'json',
+		data: {
+			idTarget: targetSelection,
+			idProject: idProject,
+			name: name,
+			descr: descr,
+			mark: rgb_to_hex(mark),
+			teams: teams,
+			activities: activities,
+			newTeams: newTeams
+		},
+		success(data) {
+			if (data.status == true) {
+				GetTargets();
+			} else {
+				alert(data.message);
+			}
+		}
+	});
 }
 
 // функции и события для работы с модальными окнами
@@ -1392,13 +1396,29 @@ $(document).on('click', '.delete-data-block', function () {
 				idProject: idBlock
 			},
 			success(data) {
-				if (data.status == true) {
-					GetProjects();
-					GetTargets();
+				if (data.status == false) {
+					alert(data.message);
+				}
+			}
+		});
+	} else if (parent.hasClass('target-block')) {
+		$.ajax({
+			url: '/php/blocks/targets/deleteTarget.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				idTarget: idBlock
+			},
+			success(data) {
+				if (data.status == false) {
+					alert(data.message);
 				}
 			}
 		});
 	}
+
+	GetProjects();
+	GetTargets();
 })
 
 $(document).on('click', '.change-data-block', function () {
