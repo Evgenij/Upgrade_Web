@@ -232,6 +232,52 @@ if (!isset($_SESSION["theme"])) {
                 </p>
             </footer>
         </div>
+        <div class="modal-window add-attach panel">
+            <header class="modal-window__head flex">
+                <h3 class="head__title title">Создание вложения</h3>
+                <svg class="head__btn-close" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.2875 1.55029L1.38798 11.4498" stroke="#A5A7BC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1.38806 1.55029L11.2876 11.4498" stroke="#A5A7BC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </header> 
+            <main class="modal-window__content flex f-col">
+                <select id="projects-attach" class="custom-select projects-attach projects text">
+                    <?php include "php/getProjects.php"; ?>
+                </select>
+                <div class="fields">
+                    <div class="fields__item field flex f-col">
+                        <p class="field__title title">Комментарий</p>
+                        <textarea rows="1" type="text" class="field__input add-attach comment-attach input" placeholder="введите комментарий"></textarea>
+                    </div>
+                    <div class="fields__item field flex f-col">
+                        <p class="field__title title">Файлы</p>
+                        <div class="attachment-files wrapp-area-files">
+                            <div class="area-files flex text">
+                                Перетащите сюда файл или
+                                <div class="area-files__button-file">
+                                    <input type="file" name="file" id="area-files__input" class="button-file hide" multiple>
+                                    <label for="area-files__input">нажмите для загрузки</label>
+                                </div>
+                            </div>
+                            <div class="uploaded-files list-hor flex">
+                            </div>                                    
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="modal-window__footer">
+                <div class="modal-window__message error flex hide"></div>
+                <p class="text regular">нажмите
+                    <span class="color-bold">
+                        <svg class="icon-enter" width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 6.42312C0 6.23384 0.075191 6.05231 0.209032 5.91847C0.342873 5.78463 0.5244 5.70944 0.71368 5.70944H9.27784C9.84567 5.70944 10.3903 5.48386 10.7918 5.08234C11.1933 4.68082 11.4189 4.13624 11.4189 3.5684V0.71368C11.4189 0.5244 11.4941 0.342873 11.6279 0.209032C11.7617 0.0751912 11.9433 0 12.1326 0C12.3218 0 12.5034 0.0751912 12.6372 0.209032C12.771 0.342873 12.8462 0.5244 12.8462 0.71368V3.5684C12.8462 4.5148 12.4703 5.42243 11.8011 6.09164C11.1319 6.76084 10.2242 7.1368 9.27784 7.1368H0.71368C0.5244 7.1368 0.342873 7.06161 0.209032 6.92776C0.075191 6.79392 0 6.6124 0 6.42312Z" fill="#8A66F0" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.209078 6.92724C0.0752835 6.7934 0.00012207 6.61191 0.00012207 6.42267C0.00012207 6.23342 0.0752835 6.05193 0.209078 5.91809L3.0638 3.06338C3.1984 2.93337 3.37867 2.86144 3.5658 2.86306C3.75292 2.86469 3.93192 2.93975 4.06425 3.07207C4.19657 3.20439 4.27162 3.38339 4.27325 3.57052C4.27488 3.75764 4.20294 3.93792 4.07294 4.07252L1.72279 6.42267L4.07294 8.77281C4.1411 8.83865 4.19547 8.9174 4.23288 9.00447C4.27028 9.09154 4.28997 9.18519 4.29079 9.27995C4.29161 9.37471 4.27356 9.46869 4.23767 9.5564C4.20179 9.64411 4.14879 9.72379 4.08179 9.7908C4.01478 9.85781 3.93509 9.9108 3.84738 9.94669C3.75968 9.98257 3.6657 10.0006 3.57094 9.99981C3.47617 9.99898 3.38253 9.9793 3.29545 9.94189C3.20838 9.90449 3.12963 9.85012 3.0638 9.78196L0.209078 6.92724Z" fill="#8A66F0" />
+                        </svg>Enter
+                    </span>,
+                    чтобы создать вложение
+                </p>
+            </footer>
+        </div>
     </div>
 
     <div class="tabs">
@@ -595,7 +641,7 @@ if (!isset($_SESSION["theme"])) {
                                             </div>
                                         </div>                                         
                                     </div>
-                                    <div class="task-content__attachments">
+                                    <div class="task-content__attachments wrapp-area-files">
                                         <div class="area-files flex text">
                                             Перетащите сюда файл или
                                             <div class="area-files__button-file">
@@ -760,7 +806,7 @@ if (!isset($_SESSION["theme"])) {
                                 </h3>
                             </div>
                         </header>
-                        <button class="button small" id="add-task">+</button>
+                        <button class="button small" id="add-attach">+</button>
                     </div>
                     <div class="attachments-list list-hor-big flex">
                         <div class="data-block attach-block panel list-hor-big__item">

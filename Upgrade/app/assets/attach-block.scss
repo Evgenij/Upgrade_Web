@@ -1,32 +1,33 @@
 @import "variables.scss";
 
 .attach-block{
-    height: 100%;
 
     .block-head__buttons{
-        margin-left: 30px;
+        margin-left: 50px;
+        width: max-content;
     }
     
     &__wrapper{
         align-items: flex-start;
-
-        & .files{
-            margin-left: 40px;
-        }
     }
 
     .files-list{
         align-items: flex-start;
         justify-content: flex-start;
-        width: 290px;
-        margin-top: 10px;
+        max-width: 290px;
+        width: max-content;
+        padding-top: 10px;
+        padding-right: 20px;
         flex-wrap: wrap;
         overflow-y: auto;
-        height: 160px;
+        max-height: 160px;
     }
 
     & .comment{
-        max-width: 320px;
+        max-width: max-content;
+        max-height: 80px;
+        overflow: auto;
+        padding-right: 20px;
     }
 
     & .date{

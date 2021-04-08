@@ -505,6 +505,11 @@ input.input,
 
 	&-name{
 		font-weight: 700;
+		width: max-content;
+	}  
+
+	&-spec{
+		width: max-content;
 	}
 }
 
@@ -957,15 +962,60 @@ input.input,
 
 
 
-.task-content__attachments{
-	//margin-top: 3.5vh;
+// .task-content__attachments{
+// 	//margin-top: 3.5vh;
 
+// 	& .area-files{		
+// 		width: 100%;
+// 		height: 20vh;
+// 		border-radius: 10px;
+// 		border: 2px dashed $border;
+// 		margin-bottom: 20px;
+// 		padding: 30px;
+// 		flex-wrap: wrap;
+
+// 		&:hover{
+// 			border-color: transparentize($main, 0.7);
+// 			color:#8a66f0c4;
+// 		}
+// 	}     
+// 	& .area-drag-file {
+// 		border-color: transparentize($main, 0.7);
+// 		color:#8a66f0c4;
+// 	}
+// }
+
+// .modal-window .attachments-files{
+
+// 	& .area-files{		
+// 		width: 100%;
+// 		height: 20vh;
+// 		border-radius: 10px;
+// 		border: 2px dashed $border;
+// 		margin-bottom: 20px;
+// 		padding: 30px;
+// 		flex-wrap: wrap;
+
+// 		&:hover{
+// 			border-color: transparentize($main, 0.7);
+// 			color:#8a66f0c4;
+// 		}
+// 	}     
+// 	& .area-drag-file {
+// 		border-color: transparentize($main, 0.7);
+// 		color:#8a66f0c4;
+// 	}
+// }
+
+.wrapp-area-files{
 	& .area-files{		
 		width: 100%;
 		height: 20vh;
 		border-radius: 10px;
 		border: 2px dashed $border;
 		margin-bottom: 20px;
+		padding: 30px;
+		flex-wrap: wrap;
 
 		&:hover{
 			border-color: transparentize($main, 0.7);
@@ -977,6 +1027,7 @@ input.input,
 		color:#8a66f0c4;
 	}
 }
+
 
 .area-files__button-file{
 	label{
@@ -1273,4 +1324,10 @@ svg.weekly-chart{
 			transform: rotate(-45deg) translateY(-50%);
 		}
 	}
+}
+
+.attach-block__wrapper .files {
+    border-left: 1px solid $border;
+    padding-left: 30px;
+    margin-left: 30px;
 }

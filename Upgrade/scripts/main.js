@@ -45,6 +45,7 @@ $('li[value=\"tab-2\"]').click(function () {
 $('li[value=\"tab-3\"]').click(function () {
 	GetProjects();
 	GetTargets();
+	GetAttachments();
 })
 
 
@@ -124,10 +125,12 @@ $(document).on('click', '.project-block', function (e) {
 	if ($(this).hasClass('selection')) {
 		$(this).removeClass('selection');
 		GetTargets();
+		GetAttachments();
 	} else {
 		$('.project-block').removeClass('selection');
 		$(this).addClass('selection');
 		GetTargets(currentId);
+		GetAttachments(currentId);
 	}
 })
 
@@ -150,10 +153,10 @@ function getFilesTask() {
 					$('.task-content__attachments').find('.uploaded-files').removeClass('hide');
 					$('.task-content__attachments').find('.uploaded-files').html(data.files);
 				} else {
+					$('.task-content__attachments').find('.uploaded-files').empty();
 					$('.task-content__attachments').find('.uploaded-files').addClass('hide');
 				}
 			} else {
-				$('.task-content__attachments').find('.uploaded-files').empty();
 				$('.task-content__attachments').find('.uploaded-files').text(data.message);
 			}
 		}
@@ -355,6 +358,25 @@ function GetTargets(idProject = 0) {
 			} else {
 				$('.targets-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
 				//$('.projects-list').text(data.message);
+			}
+		}
+	});
+}
+
+function GetAttachments(idProject = 0) {
+	$.ajax({
+		url: '/php/blocks/attachments/getAttach.php',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			idProject: idProject
+		},
+		success(data) {
+			if (data.status == true) {
+				$('.attachments-list').html(data.blocksAttach);
+			} else {
+				$('.attachments-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
+				alert(data.message);
 			}
 		}
 	});
@@ -943,7 +965,6 @@ $('#add-target').click(function () {
 	GetUserColors($('.modal-window.add-target'));
 	iniSelect('projects-target');
 	iniSelect('activities-target-1');
-	//$(".custom-select-wrapper#activities-target").clone().appendTo(".wrapp");
 })
 
 $('#add-team-act').click(function () {
@@ -953,6 +974,14 @@ $('#add-team-act').click(function () {
 	$('<div class="wrapper-teams__item select-activity" data="temp-' + idNewSelect + '"><div class= "custom-select-wrapper"><select id="activities-target-' + idNewSelect + '" class="custom-select activities-target activities text"><option value="1">Маркетинг</option><option value="2">Web-разработка</option><option value="3">Web - дизайн</option><option value="4">UI/UX дизайн</option><option value="5">Frontend</option><option value="6">Backend</option><option value="7">SEO</option><option value="8">SMM</option><option value="9">Реклама</option><option value="10">Аналитика</option><option value="11">Логистика</option><option value="12">Менеджмент</option><option value="13">Финансы</option><option value="14">Планирование</option></select><div class="custom-select activities-target activities text"><span class="custom-select-trigger custom-select activities-target activities text" id="activities-target-' + idNewSelect + '">Маркетинг</span><div class="custom-options custom-select activities-target activities text" id="activities-target-' + idNewSelect +'"><span class="custom-option undefined selection" data-value="1">Маркетинг</span><span class="custom-option undefined" data-value="2">Web-разработка</span><span class="custom-option undefined" data-value="3">Web - дизайн</span><span class="custom-option undefined" data-value="4">UI/UX дизайн</span><span class="custom-option undefined" data-value="5">Frontend</span><span class="custom-option undefined" data-value="6">Backend</span><span class="custom-option undefined" data-value="7">SEO</span><span class="custom-option undefined" data-value="8">SMM</span><span class="custom-option undefined" data-value="9">Реклама</span><span class="custom-option undefined" data-value="10">Аналитика</span><span class="custom-option undefined" data-value="11">Логистика</span><span class="custom-option undefined" data-value="12">Менеджмент</span><span class="custom-option undefined" data-value="13">Финансы</span><span class="custom-option undefined" data-value="14">Планирование</span></div></div></div><div class="btn-delete-act"></div></div>').insertBefore($(".wrapper-teams").find('.button'));
 	$('.custom-options#activities-target').attr('id', 'activities-target-' + idNewSelect);
 })
+
+$('#add-attach').click(function () {
+	showModal(this);
+	iniSelect('projects-attach');
+})
+
+
+
 
 
 
@@ -1041,6 +1070,12 @@ $('textarea').keyup(function (event) {
 			} else {
 				ChangeTarget();
 			}
+		} else if ($(this).hasClass('add-attach')) {
+			if (!$(this).parents('.modal-window').hasClass('change-data')) {
+				AddAttach();
+			} else {
+				//ChangeTarget();
+			}
 		}
 	}
 });
@@ -1100,6 +1135,7 @@ function ChangeProject() {
 			if (data.status == true) {
 				GetProjects();
 				GetTargets();
+				GetAttachments();
 			} else {
 				alert(data.message);
 			}
@@ -1207,6 +1243,38 @@ function ChangeTarget() {
 	});
 }
 
+
+
+function AddAttach() {
+	let idProject = getValueSelect('projects-attach'),
+		comment = $('textarea.add-attach').val(),
+		files = [];
+
+	$('.attachment-files').find('.file').each(function (index, el) {
+		// Для каждого элемента сохраняем значение в personsIdsArray,
+		// если значение есть.
+		files.push($(el).find('p').attr('title'));
+	});
+
+	$.ajax({
+		url: '/php/blocks/attachments/addAttach.php',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			idProject: idProject,
+			comment: comment,
+			files: files
+		},
+		success(data) {
+			if (data.status == true) {
+				GetProjects();
+				GetAttachments();
+			} else {
+				alert(data.message);
+			}
+		}
+	});
+}
 // функции и события для работы с модальными окнами
 
 

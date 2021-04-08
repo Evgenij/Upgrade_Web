@@ -31,8 +31,8 @@ try {
                                         <a class="file__download text" href="/php/downloadFile.php?filename='.$file['path'].'">скачать</a>
                                     </div>';
         }
-        
     }
+    
 } catch (PDOException $ex) {
     $response = [
         'status' => false,

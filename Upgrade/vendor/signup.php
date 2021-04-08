@@ -72,7 +72,8 @@ if ($tempSql->rowCount() > 0) {
         if($password === $password_confirm){
 
             try{
-                $sql = "INSERT INTO user (id_user, id_spec, email, password, nickname, name, surname, avatar) VALUES(NULL, :idSpec, :userEmail, :userPassword, :userNickname, :userName, :userSurname, '')";
+                $sql = "INSERT INTO user (id_user, id_spec, email, password, nickname, name, surname, avatar) 
+                        VALUES(NULL, :idSpec, :userEmail, :userPassword, :userNickname, :userName, :userSurname, '/pictures/users_avatar/default-avatar.svg')";
                 $tempSql = $db->prepare($sql);
                 $params = [
                     ':idSpec' => $id_spec,

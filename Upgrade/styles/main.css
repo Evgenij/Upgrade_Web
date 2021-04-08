@@ -151,19 +151,16 @@
   left: 40px;
 }
 
-.attach-block {
-  height: 100%;
-}
 .attach-block .block-head__buttons {
-  margin-left: 30px;
+  margin-left: 50px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 .attach-block__wrapper {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-}
-.attach-block__wrapper .files {
-  margin-left: 40px;
 }
 .attach-block .files-list {
   -webkit-box-align: start;
@@ -172,15 +169,24 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  width: 290px;
-  margin-top: 10px;
+  max-width: 290px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding-top: 10px;
+  padding-right: 20px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   overflow-y: auto;
-  height: 160px;
+  max-height: 160px;
 }
 .attach-block .comment {
-  max-width: 320px;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  max-height: 80px;
+  overflow: auto;
+  padding-right: 20px;
 }
 .attach-block .date {
   font-weight: 700;
@@ -1149,4 +1155,13 @@ li.tabs-triggers__item--active::before {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   opacity: 0;
+}
+
+.uploaded-files {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }

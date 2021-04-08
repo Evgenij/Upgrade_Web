@@ -74,21 +74,25 @@
   margin: 0px 5px;
 }
 
-.modal-window.add-task {
+.modal-window {
   visibility: hidden;
+}
+.modal-window.add-task {
   left: 13.5vw;
   top: 0px;
 }
 .modal-window.add-project {
-  visibility: hidden;
   left: 34vw;
   top: 8vh;
   max-width: 480px;
 }
 .modal-window.add-target {
-  visibility: hidden;
   right: 33vw;
   top: 8vh;
+}
+.modal-window.add-attach {
+  right: 41vw;
+  bottom: 9vh;
 }
 .modal-window.show {
   visibility: visible;

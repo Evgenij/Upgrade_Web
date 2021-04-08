@@ -97,25 +97,28 @@ $inner-margin: 20px;
 }
 
 .modal-window{
+    visibility: hidden;
+
     &.add-task{
         //display: none;
-        visibility: hidden;
         left: 13.5vw;
         top: 0px;
     }
 
     &.add-project{
         //display: none;
-        visibility: hidden;
         left: 34vw;
         top: 8vh;
         max-width: 480px;
     }
     &.add-target{
         //display: none;
-        visibility: hidden;
         right: 33vw;
         top: 8vh;
+    }
+    &.add-attach{
+        right: 41vw;
+        bottom: 9vh;
     }
 
     &.show{
@@ -171,4 +174,5 @@ $inner-margin: 20px;
         }
     }
 }
+
 

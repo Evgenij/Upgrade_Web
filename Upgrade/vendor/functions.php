@@ -19,6 +19,11 @@ function FormattingDate($date){
     return $date[2].'.'.$date[1].'.'.$date[0];
 }
 
+function FormattingTime($time){
+    $time = explode(':', $time);
+    return $time[0].':'.$time[1];
+}
+
 function GetDayOfWeek($date){
     $days = array( 1 => "Понедельник" , "Вторник" , "Среда" , 
     "Четверг" , "Пятница" , "Суббота" , "Воскресенье" );
@@ -26,7 +31,7 @@ function GetDayOfWeek($date){
     return $days[date('N', strtotime($date))];   
 }
 
-function FormattingTime($time){
+function FormattingTimeTask($time){
     if($time >= 60)
     {
         if($time % 60 == 0){

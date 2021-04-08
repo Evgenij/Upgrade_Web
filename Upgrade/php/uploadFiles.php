@@ -30,8 +30,8 @@ if (!isset($_FILES['file']['name'][0])) {
 } else {
     try{
         foreach ($_FILES['file']['name'] as $key => $fileName) {
-            if (move_uploaded_file($_FILES['file']['tmp_name'][$key], '../app/uploads/' . $_SESSION['user']['id'] . '_' . $fileName)) {
-                $output = 'app/uploads/'. $_SESSION['user']['id'] . '_' . $fileName;
+            if (move_uploaded_file($_FILES['file']['tmp_name'][$key],$_SERVER['DOCUMENT_ROOT'].'/app/uploads/' . $_SESSION['user']['id'] . '_' . $fileName)) {
+                $output = '/app/uploads/'. $_SESSION['user']['id'] . '_' . $fileName;
 
                 $sql = "INSERT INTO `file` (`id_file`, `id_attach`, `id_task`, `name`, `path`) 
                             VALUES (NULL, :idAttach, :idTask, :fileName, :path);";
@@ -61,9 +61,5 @@ if (!isset($_FILES['file']['name'][0])) {
         echo json_encode($response);
         die();
     }
-
-    /* foreach ($ext as $val) {
-        echo $val;
-    } */
 }
 

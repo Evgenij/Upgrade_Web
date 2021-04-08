@@ -203,7 +203,7 @@ function SetBlocks($nestedSQL, $sql){
                                     <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[12]).'; color:'.ColoringTagText($task[12]).';">'.$task[11].'</div>
                                 </div>
                                 <div class="task-block__duration text">
-                                ' . FormattingTime($task[3]) . '
+                                ' . FormattingTimeTask($task[3]) . '
                                 </div>     
                             </footer>
                         </div>';

@@ -204,46 +204,51 @@ namespace creator_sql_file
                 {
                     month = random.Next(1, 13);
 
-                    if (month == 2)
+                    for (int j = 0; j < 3; j++)
                     {
-                        day = random.Next(1, 29);
-                    }
-                    else
-                    {
-                        if (month >= 8)
+
+                        if (month == 2)
                         {
-                            if (month % 2 == 0)
-                            {
-                                day = random.Next(1, 32);
-                            }
-                            else
-                            {
-                                day = random.Next(1, 31);
-                            }
+                            day = random.Next(1, 29);
                         }
                         else
                         {
-                            if (month % 2 == 0)
+                            if (month >= 8)
                             {
-                                day = random.Next(1, 31);
+                                if (month % 2 == 0)
+                                {
+                                    day = random.Next(1, 32);
+                                }
+                                else
+                                {
+                                    day = random.Next(1, 31);
+                                }
                             }
                             else
                             {
-                                day = random.Next(1, 32);
+                                if (month % 2 == 0)
+                                {
+                                    day = random.Next(1, 31);
+                                }
+                                else
+                                {
+                                    day = random.Next(1, 32);
+                                }
                             }
                         }
-                    }
 
-                    // преобразуем строку в байты
-                    byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                        "INSERT INTO `attachment` (`id_attach`, `id_project`, `comment`, `date`, `time`) VALUES(NULL, " +
-                        "\'"+random.Next(1,57)+"\', " +
-                        "\'TextComments - "+random.Next(0,90000)+"\', " +
-                        "\'2021-" + month.ToString() + "-" + day.ToString() + "\', " +
-                        "\'"+random.Next(0,25)+":"+random.Next(0,60)+":00\');"
-                        );
-                    // запись массива байтов в файл
-                    fstream.Write(array, 0, array.Length);
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
+                            "INSERT INTO `attachment` (`id_attach`, `id_project`, `id_user`, `comment`, `date`, `time`) VALUES(NULL, " +
+                            "\'" + random.Next(1, 57) + "\', " +
+                            "\'" + random.Next(1, 29) + "\', " +
+                            "\'TextComments - " + random.Next(0, 90000) + "\', " +
+                            "\'2021-" + month.ToString() + "-" + day.ToString() + "\', " +
+                            "\'" + random.Next(0, 25) + ":" + random.Next(0, 60) + ":00\');"
+                            );
+                        // запись массива байтов в файл
+                        fstream.Write(array, 0, array.Length);
+                    }
                 }
                 
                 

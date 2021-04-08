@@ -21,7 +21,7 @@ $(".custom-select").each(function () {
 			template += '<div class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">';
 			template += '<div class="user-select-data flex">';
 			template += '<div style="background-image:url(' + $(this).attr("scr-avatar") + '); background-position: center; background-size: contain;" class="user-select-avatar"></div>';
-			template += '<div class="flex f-col"><p class="user-select-name"> ' + $(this).html() + '</p><span class="text regular">' + $(this).attr("user-spec") + '</span></div>'
+			template += '<div class="flex f-col"><p class="user-select-name"> ' + $(this).html() + '</p><span class="user-select-spec text regular">' + $(this).attr("user-spec") + '</span></div>'
 			template += '</div></div>';
 		});
 		template += '</div></div>';
