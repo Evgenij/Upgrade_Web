@@ -199,8 +199,8 @@ function SetBlocks($nestedSQL, $sql){
                             </main>
                             <footer class="task-block__footer block-footer flex list-hor">
                                 <div class="task-block__tags flex list-hor">
-                                    <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[9]).'; color:'.ColoringTagText($task[9]).';">'.$task[8].'</div>
-                                    <div class="list-hor__item tag" style="background:'.ColoringTagBackground($task[12]).'; color:'.ColoringTagText($task[12]).';">'.$task[11].'</div>
+                                    <div class="list-hor__item tag" title="'.$task[8].'" style="background:'.ColoringTagBackground($task[9]).'; color:'.ColoringTagText($task[9]).';">'.$task[8].'</div>
+                                    <div class="list-hor__item tag" title="'.$task[11].'" style="background:'.ColoringTagBackground($task[12]).'; color:'.ColoringTagText($task[12]).';">'.$task[11].'</div>
                                 </div>
                                 <div class="task-block__duration text">
                                 ' . FormattingTimeTask($task[3]) . '

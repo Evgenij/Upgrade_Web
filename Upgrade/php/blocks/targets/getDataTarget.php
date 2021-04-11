@@ -10,12 +10,13 @@ $response = [
     'name' => '',
     'descr' => '',
     'idProject' => '',
+    'mark' => '',
     'teams' => '',
     'activities' => ''
 ];
 
 try{
-    $sql = 'SELECT target.id_project, target.name, target.descr FROM target 
+    $sql = 'SELECT target.id_project, target.name, target.descr, target.mark FROM target 
             WHERE target.id_target = :idTarget';
 
     $nestedSQL = $db->prepare($sql);
@@ -29,6 +30,7 @@ try{
             $response["name"] = $target['name'];
             $response["descr"] = $target['descr'];
             $response["idProject"] = $target['id_project'];
+            $response["mark"] = strtoupper($target['mark']);
 
             $sql = 'SELECT team.id_team, team.id_act FROM team WHERE team.id_target = :idTarget';
 

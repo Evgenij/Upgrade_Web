@@ -74,7 +74,7 @@
     </main>
 
     <footer>
-        <p class="text">© Разработчик: <a href="https://vk.com/jeka_coffeiok" target="_blank">Ермоленко Е. С.</a></p>
+        <p class="text">© Разработчик: <a href="https://vk.com/evgenij_ermolenko" target="_blank">Ермоленко Е. С.</a></p>
     </footer>
 
     <script src="scripts/jquery-3.4.1.min.js"></script>

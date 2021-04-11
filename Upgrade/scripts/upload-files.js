@@ -1,6 +1,10 @@
-const ParentFile = { Attachment: 'red', GREEN: 'green', BLUE: 'blue' };
+var useIconAttach = false;
 
 $(document).ready(function () {
+
+    $('svg.add-attach').click(function () {
+        useIconAttach = true;
+    })
 
     $('.area-files').bind('dragover',function () {
         $(this).addClass('area-drag-file');
@@ -35,6 +39,7 @@ $(document).ready(function () {
 
     $('input[type="file"]').on('change', function (e) {
 
+        console.log(1);
         let parent = $(this).parents('.wrapp-area-files');
 
         var formData = new FormData();
@@ -42,8 +47,9 @@ $(document).ready(function () {
             formData.append('file[]', input);
         });
 
-        if (parent.hasClass('task-content__attachments')) {
+        if (parent.hasClass('task-content__attachments') || useIconAttach == true) {
             uploadFiles(formData);
+            useIconAttach = false;
         } else if (parent.hasClass('attachment-files')) {
             setFilesAttachment(formData);
         }

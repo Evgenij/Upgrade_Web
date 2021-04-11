@@ -26,7 +26,7 @@ try{
 
         while ($project = $nestedSQL->fetch(PDO::FETCH_BOTH)) {
 
-            $sql = 'SELECT DISTINCT user.id_user, user.avatar FROM user 
+            $sql = 'SELECT DISTINCT user.id_user, user.avatar, user.name, user.surname FROM user 
                     INNER JOIN user_team ON user_team.id_user = user.id_user 
                     INNER JOIN team ON team.id_team = user_team.id_team
                     WHERE team.id_team IN 
@@ -42,7 +42,7 @@ try{
             if($secondSQL->rowCount() > 0){
                 $participants = '';
                 while ($avatar = $secondSQL->fetch(PDO::FETCH_BOTH)) {
-                    $participants .= '<div class="participants-users__item" user-id="'.$avatar['id_user'].'" style="background-image: url('.$avatar['avatar'].');"></div>';
+                    $participants .= '<div class="participants-users__item" user-id="'.$avatar['id_user'].'" style="background-image: url('.$avatar['avatar'].');" title="'.$avatar['name'].' '.$avatar['surname'].'"></div>';
                 }
                 $participants .= '<div class="participants-users__item text">...</div>';
             } else {

@@ -403,7 +403,9 @@ input.input.with-shadow,
   pointer-events: none;
   -webkit-transform: translateY(-15px);
           transform: translateY(-15px);
-  min-width: 300px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
 }
 
 .custom-options.to-up {

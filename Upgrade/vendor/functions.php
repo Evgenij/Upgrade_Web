@@ -5,8 +5,8 @@ $monthes = array(1 => "января", "февраля", "марта", "апре�
 
 $currWeek = [];
 $lastWeek = [];
-$currMonday = date('d', strtotime("Monday this week"));
-$lastMonday = date('d', strtotime("Monday last week"));
+$currMonday = strtotime("monday this week");
+$lastMonday = strtotime("monday last week");
 for ($i = 0; $i < 7; $i++) {
     $currWeek[] = date("d",strtotime('+'.$i.' day', $currMonday));
     $lastWeek[] = date("d",strtotime('+'.$i.' day', $lastMonday));

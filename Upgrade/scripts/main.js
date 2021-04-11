@@ -4,6 +4,7 @@ var chart, datepicker,
 	taskSelection = 0,
 	projectSelection = 0,
 	targetSelection = 0,
+	attachSelection = 0,
 	wrapp = $('.wrapp-modal');
 
 // глобальные переменные
@@ -16,6 +17,7 @@ var chart, datepicker,
 function iniMainWindow() {
 	SetThemeCheckbox();
 	iniSelect('periods_stat');
+	GetProjectsList();
 	setDataForWeeklyChart();
 	getDataTodays();
 	datepicker = new Datepicker('#datepicker');
@@ -133,6 +135,32 @@ $(document).on('click', '.project-block', function (e) {
 		GetAttachments(currentId);
 	}
 })
+
+
+
+
+
+
+function GetProjectsList() {
+	$.ajax({
+		url: '/php/getListProjects_small.php',
+		dataType: 'json',
+		success(data) {
+			if (data.status == true) {
+				$('.projects-progress').find('.projects-progress-list').html(data.projects);
+				initDrawers();
+			} else {
+				$('.projects-progress').find('.projects-progress-list').html('<div class="data-not-found flex f-col"><svg width = "30" height = "30" viewBox = "0 0 20 20" fill = "none" xmlns = "http://www.w3.org/2000/svg" class= "data-not-found__icon" ><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
+			}
+		}
+	})
+}
+
+
+
+
+
+
 
 
 
@@ -376,7 +404,7 @@ function GetAttachments(idProject = 0) {
 				$('.attachments-list').html(data.blocksAttach);
 			} else {
 				$('.attachments-list').html('<div class="data-not-found flex f-col"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="data-not-found__icon"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><p class="data-not-found__text text">Данные не найдены</p></div>');
-				alert(data.message);
+				//alert(data.message);
 			}
 		}
 	});
@@ -435,6 +463,19 @@ $(document).on('click', '.btn-subtask-add', function () {
 		$(this).siblings('input').val('');
 	}
 })
+
+$('input.add-subtask').keyup(function (event) {
+	if (event.keyCode == 13) {
+		let text = $(this).val();
+		if (text.length != 0) {
+			$(this).parents('.subtask-block-add').siblings('.subtasks-list').append('<div class="subtask list-ver__item flex" id="0"><div class= "btn-subtask-delete" ></div><label class="task-status flex text"><input type="checkbox" name="checkbox_status" id="checkbox_status" class="checkbox_status" unchecked=""><div class="rect"></div><div class="subtask-text">' + text + '</div></label></div>');
+			ChangeCountSubtask();
+			AddSubtask(text);
+			$(this).val('');
+		}
+	}
+})
+
 
 $(document).on('click', '.btn-subtask-delete', function () {
 	$(this).parents('.subtask').remove();
@@ -921,6 +962,15 @@ function showModal(modal, change = false) {
 		} else {
 			modalWindow.find('.head__title').text('Изменение цели');
 		}
+	} else if (modalWindow.hasClass('add-attach')) {
+		if (change == false) {
+			modalWindow.find('.head__title').text('Создание цели');
+			modalWindow.find('input').val('');
+			modalWindow.find('textarea').val('');
+			modalWindow.find('.select-activity[data!="default-select"]').detach();
+		} else {
+			modalWindow.find('.head__title').text('Изменение вложения');
+		}
 	}
 
 	wrapp.toggleClass('hide');
@@ -1074,7 +1124,7 @@ $('textarea').keyup(function (event) {
 			if (!$(this).parents('.modal-window').hasClass('change-data')) {
 				AddAttach();
 			} else {
-				//ChangeTarget();
+				ChangeAttach();
 			}
 		}
 	}
@@ -1275,6 +1325,38 @@ function AddAttach() {
 		}
 	});
 }
+
+function ChangeAttach() {
+	let idProject = getValueSelect('projects-attach'),
+		comment = $('textarea.add-attach').val(),
+		files = [];
+
+	$('.attachment-files').find('.file').each(function (index, el) {
+		// Для каждого элемента сохраняем значение в personsIdsArray,
+		// если значение есть.
+		files.push($(el).find('p').attr('title'));
+	});
+
+	$.ajax({
+		url: '/php/blocks/attachments/changeDataAttach.php',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			idAttach: attachSelection,
+			idProject: idProject,
+			comment: comment,
+			files: files
+		},
+		success(data) {
+			if (data.status == true) {
+				GetProjects();
+				GetAttachments();
+			} else {
+				alert(data.message);
+			}
+		}
+	});
+}
 // функции и события для работы с модальными окнами
 
 
@@ -1301,6 +1383,10 @@ $('.user-menu').on('mouseleave', function (e) {
 	$('.user-menu').toggleClass('active');
 	$('.user-panel-wrapper').toggleClass('active');
 });
+
+$('#logout').click(function () {
+	window.location.replace('/vendor/logout.php');
+})
 
 // функции и события для ВЫПАДАЮЩЕГО МЕНЮ ПОЛЬЗОВАТЕЛЯ
 
@@ -1483,6 +1569,22 @@ $(document).on('click', '.delete-data-block', function () {
 				}
 			}
 		});
+	} else if (parent.hasClass('attach-block')) {
+		$.ajax({
+			url: '/php/blocks/attachments/deleteAttach.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				idAttach: idBlock
+			},
+			success(data) {
+				if (data.status == false) {
+					alert(data.message);
+				} else {
+					GetAttachments();
+				}
+			}
+		});
 	}
 
 	GetProjects();
@@ -1499,6 +1601,9 @@ $(document).on('click', '.change-data-block', function () {
 	} else if (parent.hasClass('target-block')) {
 		targetSelection = idBlock;
 		ShowModalChange(idBlock, 'add-target');
+	} else if (parent.hasClass('attach-block')) {
+		attachSelection = idBlock;
+		ShowModalChange(idBlock, 'add-attach');
 	}
 })
 
@@ -1578,6 +1683,7 @@ function ShowModalChange(idBlock, modal) {
 				if (data.status == true) {
 					$('.modal-window.' + modal).find('.name-project').val(data.name);
 					$('.modal-window.' + modal).find('.descr-project').val(data.descr);
+					$('.modal-window.' + modal).find('.color-rect[style = "background-color:' + data.mark + ';"]').siblings('input[type=radio]').attr("checked", "checked");
 
 					showModal('#'+modal, true);
 					GetUserColors($('.modal-window.add-project'));
@@ -1602,10 +1708,12 @@ function ShowModalChange(idBlock, modal) {
 				if (data.status == true) {
 					$('.modal-window.' + modal).find('.name-target').val(data.name);
 					$('.modal-window.' + modal).find('.descr-target').val(data.descr);
+					$('.modal-window.' + modal).find('.color-rect[style = "background-color:' + data.mark + ';"]').siblings('input[type=radio]').attr("checked", "checked");
 					iniSelect('projects-target', data.idProject);
+					iniSelect('activities-target-1', data.activities[0]);
 
 					if (data.teams.length >= 2) {
-						iniSelect('activities-target-1', data.activities[0]);
+						//iniSelect('activities-target-1', data.activities[0]);
 						$('.modal-window.' + modal).find('.select-activity:first-child').attr('id', data.teams[0]);
 						
 						for (let i = 1; i < data.activities.length; i++) {
@@ -1614,12 +1722,30 @@ function ShowModalChange(idBlock, modal) {
 							iniSelect('activities-target-' + data.activities[i], data.activities[i]);
 						}
 					} else {
-						iniSelect('activities-target-1', data.activities[0]);
+						//iniSelect('activities-target-1', data.activities[0]);
 						$('.modal-window.' + modal).find('.select-activity:first-child').attr('id', data.teams[0]);
 					}
 					
 					showModal('#' + modal, true);
 					GetUserColors($('.modal-window.add-target'));
+				}
+			}
+		});
+	} else if (modal == 'add-attach') {
+
+		$.ajax({
+			url: '/php/blocks/attachments/getDataAttach.php',
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				id: idBlock
+			},
+			success(data) {
+				if (data.status == true) {
+					$('.modal-window.' + modal).find('.comment-attach').val(data.comment);
+					$('.modal-window.' + modal).find('.aploaded-files').empty();
+					iniSelect('projects-attach', data.idProject);
+					showModal('#' + modal, true);
 				}
 			}
 		});
@@ -1640,9 +1766,6 @@ function ShowModalChange(idBlock, modal) {
 $('input.color-block__picker').change(function () {
 
 	var window = $('.modal-window.show');
-
-	console.log(window);
-
 	$.ajax({
 		url: '/php/vendor/addColor.php',
 		type: 'GET',
@@ -1720,19 +1843,31 @@ $('#btn-auth').click(function (e) {
 	$('.message-block').addClass('hide');
 
 	let email = $('input[name="email"]').val(),
-		password = $('input[name="password"]').val();
+		password = $('input[name="password"]').val(),
+		remember_me = $('input[name="remember-login"]').is(':checked');
+	
+	if (remember_me == true) {
+		remember_me = 1;
+	} else {
+		remember_me = 0;
+	}
 
 	$.ajax({
 		url: 'vendor/signin.php',
 		type: 'POST',
 		dataType: 'json',
 		data: {
+			remember_me: remember_me,
 			email: email,
 			password: password
 		},
 		success(data) {
 			if (data.status) {
-				window.location.href = '/main.php';
+				if (document.documentElement.clientWidth < 1366) {
+					window.location.href = '/resources/infoPage.php';
+				} else {
+					window.location.href = '/main.php';
+				};
 			}
 			else {
 				data.fields.forEach(function (field) {
@@ -1886,7 +2021,7 @@ function initDrawers() {
 	window.addEventListener("resize", setHeights);
 }
 
-window.addEventListener("load", initDrawers);
+//window.addEventListener("load", initDrawers);
 
 function setHeights() {
 	containers.forEach(container => {

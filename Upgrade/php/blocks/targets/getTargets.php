@@ -43,7 +43,7 @@ try{
 
         while ($target = $nestedSQL->fetch(PDO::FETCH_BOTH)) {
 
-            $sql = 'SELECT DISTINCT user.id_user, user.avatar FROM user 
+            $sql = 'SELECT DISTINCT user.id_user, user.avatar, user.name, user.surname FROM user 
                     INNER JOIN user_team ON user_team.id_user = user.id_user 
                     INNER JOIN team ON team.id_team = user_team.id_team
                     WHERE team.id_team IN 
@@ -58,7 +58,7 @@ try{
             if($secondSQL->rowCount() > 0){
                 $participants = '';
                 while ($avatar = $secondSQL->fetch(PDO::FETCH_BOTH)) {
-                    $participants .= '<div class="participants-users__item" user-id="'.$avatar['id_user'].'" style="background-image: url('.$avatar['avatar'].');"></div>';
+                    $participants .= '<div class="participants-users__item" user-id="'.$avatar['id_user'].'" style="background-image: url('.$avatar['avatar'].');" title="'.$avatar['name'].' '.$avatar['surname'].'"></div>';
                 }
                 $participants .= '<div class="participants-users__item text">...</div>';
             } else {
@@ -96,7 +96,7 @@ try{
                             </main>
                             <footer class="target-block__footer block-footer flex">
                                 <div class="block-footer__item target-block__tags flex list-hor">
-                                    <div class="list-hor__item tag" style="background:'.ColoringTagBackground($target[5]).'; color:'.ColoringTagText($target[5]).';">'.$target[4].'</div>
+                                    <div class="list-hor__item tag" title="'.$target[4].'" style="background:'.ColoringTagBackground($target[5]).'; color:'.ColoringTagText($target[5]).';">'.$target[4].'</div>
                                 </div>
                                 <div class="block-footer__item participants flex f-col">
                                     <div class="participants-users flex">'.$participants.'</div>

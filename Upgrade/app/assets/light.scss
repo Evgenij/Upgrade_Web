@@ -455,7 +455,7 @@ input.input,
 	//visibility: hidden;
 	pointer-events: none;
 	transform: translateY(-15px);
-    min-width: 300px;
+    min-width: max-content;
 }
 
 .custom-options.to-up{

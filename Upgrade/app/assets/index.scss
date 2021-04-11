@@ -11,23 +11,23 @@ body{
         z-index: -100;
 
         &:first-child{
-            left: 150px;
-            top: -190px;
+            left: 6%;
+            top: -18%;
         }
 
         &:nth-child(2){
-            left: -200px;
-            top: 390px;
+            left: -15%;
+            top: 40%;
         }
 
         &:nth-child(3){
-            left: 1240px;
-            top: -85px;
+            left: 70%;
+            top: -8%;
         }
 
         &:last-child{
-            left: 1270px;
-            top: 590px;
+            left: 70%;
+            top: 60%;
         }
     }
 }
@@ -35,6 +35,49 @@ body{
 .content{
     width: 100%;
     height: 95%;
+
+    &.info-page{
+        align-items: center;
+
+        & .main-title{
+            align-items: center;
+
+            h1, h2, h3{
+                width: 80%;
+                text-align: center;
+            }
+
+            h1{
+                font-size: 2.3vh;
+            }
+
+            h3{
+                margin-top: 2vh;
+            }
+
+            & img{
+                margin-bottom: 4vh;
+            }
+        }
+
+        & .buttons-app{
+            align-items: center;
+            margin-top: 8vh;
+
+            & .buttons-list{
+                margin-top: 2.3vh;
+            }
+
+            & .buttons-list__item{
+                margin-right: 15px;
+                width: 11vw;
+
+                &:last-child{
+                    margin: 0;
+                }
+            }
+        }
+    }
 }
 
 .auth{
@@ -95,12 +138,68 @@ form{
     &.form-auth{
 
         .remember-pass{
-            margin-top: 7px;
             width: fit-content;
             text-align: right;
             cursor: pointer;
             &:hover{
                 color: $main;
+            }
+        }
+
+        .settings-auth{
+            margin-top: 9px;
+            width: 100%;
+            justify-content: space-between;
+
+            label{
+                display: inline-flex;
+                cursor: pointer;
+
+                &:hover .rect{
+                    border-color: $main;
+                }
+
+                & .checkbox_login{
+                    display: none;
+
+                    &:checked + .rect::before{
+                        opacity: 1;
+                    }
+                    &:checked + .rect{
+                        border-color: $main;
+                    }
+                }
+                & .rect{
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    margin: 0px 10px 0px 20px;
+                    border: 2px solid $gray;
+                    border-radius: 5px;
+                    transition: 0.2s;
+                    cursor: pointer;
+                    position: relative;
+
+                    &:hover{
+                        border-color: $main;
+                    }
+
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        height: 11px;
+                        width: 7px;
+                        border-bottom: 3px solid $main;
+                        border-right: 3px solid $main;
+                        border-radius: 3px;
+                        -webkit-transform: rotate(45deg) translateY(-50%);
+                        transform: rotate(40deg) translateY(-50%);
+                        left: 1px;
+                        top: 6px;
+                        transition: 0.2s;
+                        opacity: 0;
+                    }
+                }
             }
         }
 
@@ -137,7 +236,7 @@ form{
     }
 
     .button{
-        margin-top: 20px;
+        margin-top: 40px;
     }
 }
 

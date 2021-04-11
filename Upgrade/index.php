@@ -1,6 +1,27 @@
 <?php
 session_start();
 require_once "vendor/connect.php";
+
+if(isset($_COOKIE["password_cookie_token"]) && !empty($_COOKIE["password_cookie_token"])){
+
+    try{
+        $sql = "SELECT email FROM user WHERE password_cookie_token = :token";
+        
+        $nestedSQL = $db->prepare($sql);
+        $params = [
+            ':token' => $_COOKIE["password_cookie_token"]
+        ];
+        $nestedSQL->execute($params);
+
+        while ($data = $nestedSQL->fetch(PDO::FETCH_BOTH)) {
+            $_SESSION['email'] = $data[0];
+        }
+        
+    } catch (PDOException $ex) {
+        echo $ex->getMessage();
+    }
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +85,13 @@ require_once "vendor/connect.php";
                         <input type="password" name="password" class="input with-icon password-input" id="password" placeholder="введите пароль" value="1">
                         <a href="#" class="password-control flex" onmousedown="mouseDown(this)" onmouseup="mouseUp(this)"></a>
                     </div>
-                    <a class="remember-pass text" href="recovery_pass.php">забыли пароль?</a>
+                    <div class="settings-auth flex">
+                        <label for="remember-login" class="flex text">
+                            <input type="checkbox" name="remember-login" id="remember-login" class="checkbox_login">
+                            <span class="rect"></span>запомнить email
+                        </label>                                                                                                                                                                   
+                        <a class="remember-pass text" href="recovery_pass.php">забыли пароль?</a>                                                                                                            
+                    </div>
                 </div>
                 <div class="message-block hide"></div>
                 <button class="button" id="btn-auth" type="button">Войти</button>
@@ -81,7 +108,7 @@ require_once "vendor/connect.php";
     </main>
 
     <footer>
-        <p class="text">© Разработчик: <a href="https://vk.com/jeka_coffeiok" target="_blank">Ермоленко Е. С.</a></p>
+        <p class="text">© Разработчик: <a href="https://vk.com/evgenij_ermolenko" target="_blank">Ермоленко Е. С.</a></p>
     </footer>
 
     <script src="scripts/jquery-3.4.1.min.js"></script>

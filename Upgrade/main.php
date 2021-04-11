@@ -380,7 +380,7 @@ if (!isset($_SESSION["theme"])) {
                                             <div class="layer"></div>
                                         </div>
                                     </li>
-                                    <li class="user-menu__item menu-item">
+                                    <li class="user-menu__item menu-item" id="logout">
                                         <img src="pictures/icons/icon-logout.svg" alt="icon-logout" class="menu-item__icon"><span class="menu-item__title">Выход</span>
                                     </li>
                                     <li class="user-menu__item menu-item">
@@ -436,7 +436,6 @@ if (!isset($_SESSION["theme"])) {
                         </h3>
                     </div>
                     <div class="projects-progress-list list-ver">
-                        <?php include "php/getListProjects_small.php"; ?>
                     </div>
                 </section>
 
@@ -637,7 +636,7 @@ if (!isset($_SESSION["theme"])) {
                                             <div class="subtasks-list list-ver"></div>
                                             <div class="subtask subtask-block-add flex">
                                                 <div class="btn-subtask-add"></div>
-                                                <input type="text" class="add-task input" placeholder="текст подзадачи">
+                                                <input type="text" class="add-subtask input" placeholder="текст подзадачи">
                                             </div>
                                         </div>                                         
                                     </div>

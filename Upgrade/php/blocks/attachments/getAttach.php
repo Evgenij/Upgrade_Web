@@ -110,7 +110,7 @@ try{
                                 </div>
                                 <footer class="attach-block__footer block-footer flex">
                                     <div class="block-footer__item attach-block__tags flex list-hor">
-                                        <div class="list-hor__item tag" style="background:'.ColoringTagBackground($attach[9]).'; color:'.ColoringTagText($attach[9]).';">'.$attach[8].'</div>
+                                        <div class="list-hor__item tag" title="'.$attach[8].'" style="background:'.ColoringTagBackground($attach[9]).'; color:'.ColoringTagText($attach[9]).';">'.$attach[8].'</div>
                                     </div>
                                     <div class="block-footer__item attach-block__date flex">
                                         <p class="time text regular">'.FormattingTime($attach['time']).'</p>

@@ -165,14 +165,15 @@ namespace creator_sql_file
                     {
                         // преобразуем строку в байты
                         byte[] array = System.Text.Encoding.Default.GetBytes("\n" +
-                            "INSERT INTO `user` (`id_user`, `id_spec`, `email`, `password`, `nickname`, `name`, `surname`, `avatar`) VALUES(NULL, " +
+                            "INSERT INTO `user` (`id_user`, `id_spec`, `email`, `password`, `password_cookie_token`, `nickname`, `name`, `surname`, `avatar`) VALUES(NULL, " +
                             "\'"+(i+1).ToString()+"\', " +
-                            "\'emailexample" + (j+1).ToString() + (i+1).ToString() + "@mail.ru\', " +
+                            "\'emailexample" + (j + 1).ToString() + (i + 1).ToString() + "@mail.ru\', " +
                             "\'password" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
+                            "\'\', " +
                             "\'nickname" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
                             "\'name" + (j + 1).ToString() + (i + 1).ToString() + "\', " +
                             "\'surname" + (j + 1).ToString() + (i + 1).ToString() + "\', " + 
-                            "\'pictures/users_avatar/default-avatar.svg\');"
+                            "\'/pictures/users_avatar/default-avatar.svg\');"
                             );                       
                         // запись массива байтов в файл
                         fstream.Write(array, 0, array.Length);

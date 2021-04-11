@@ -23,7 +23,7 @@ try{
         while ($project = $nestedSQL->fetch(PDO::FETCH_BOTH)) {
             $response["name"] = $project['name'];
             $response["descr"] = $project['descr'];
-            $response["mark"] = $project['mark'];
+            $response["mark"] = strtoupper($project['mark']);
         }
     } else {
         $response["status"] = false;
