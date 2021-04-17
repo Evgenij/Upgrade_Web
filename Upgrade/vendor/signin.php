@@ -37,45 +37,13 @@ if (!empty($error_fields)) {
     
             //Создаём токен
             $password_cookie_token = md5($password.time());
-        
-            //Добавляем созданный токен в базу данных
-            //$update_password_cookie_token = $mysqli->query("UPDATE users SET password_cookie_token='".$password_cookie_token."' WHERE email = '".$email."'");
-        
+
             $params = [
                 ':token' => $password_cookie_token,
                 ':email' => $email
             ];
             $sql = 'UPDATE user SET password_cookie_token=:token WHERE email = :email';
             $nestedSQL = $db->prepare($sql)->execute($params);
-
-            // $flag = $nestedSQL->rowCount();
-            // if($flag < 0){
-            //     // // Сохраняем в сессию сообщение об ошибке. 
-            //     // $_SESSION["error_messages"] = "<p class='mesage_error' >Ошибка функционала 'запомнить меня'</p>";
-                
-            //     // //Возвращаем пользователя на страницу регистрации
-            //     // header("HTTP/1.1 301 Moved Permanently");
-            //     // header("Location: ".$address_site."form_auth.php");
-        
-            //     // //Останавливаем скрипт
-            //     // exit();
-
-            //     $response = [
-            //         "status" => false,
-            //         "type" => 100,
-            //         "message" => 'Ошибка функционала \'запомнить меня\''
-            //     ];
-            //     echo json_encode($response);
-            //     die();
-            // }
-        
-            /* 
-                Устанавливаем куку.
-                Параметры функции setcookie():
-                1 параметр - Название куки
-                2 параметр - Значение куки
-                3 параметр - Время жизни куки. Мы указали 30 дней
-            */
         
             //Устанавливаем куку с токеном
             setcookie("password_cookie_token", $password_cookie_token, time() + (1000 * 60 * 60 * 24 * 30), '/');
@@ -90,7 +58,6 @@ if (!empty($error_fields)) {
                 $nestedSQL = $db->prepare($sql)->execute($params);
 
                 //Удаляем куку password_cookie_token
-                //setcookie("password_cookie_token", "");
                 setcookie("password_cookie_token","",time()-3600*24);
             }
         }
@@ -104,44 +71,49 @@ if (!empty($error_fields)) {
         ];
         $tempSql->execute($params);
 
-        $userData = $tempSql->fetch(PDO::FETCH_BOTH);
+        if($tempSql->rowCount() > 0)
+        {
+            $userData = $tempSql->fetch(PDO::FETCH_BOTH);
 
-        if (password_verify($password, $userData['password'])) {
+            if (password_verify($password, $userData['password'])) {
 
-            $_SESSION['user'] = [
-                "id" => $userData['id_user'],
-                "id_spec" => $userData['id_spec'],
-                "email" => $userData['email'],
-                "password" => $userData['password'],
-                "nickname" => $userData['nickname'],
-                "name" => $userData['name'],
-                "surname" => $userData['surname'],
-                "avatar" => $userData['avatar']
-            ];
+                $_SESSION['user'] = [
+                    "id" => $userData['id_user'],
+                    "id_spec" => $userData['id_spec'],
+                    "email" => $userData['email'],
+                    "password" => $userData['password'],
+                    "nickname" => $userData['nickname'],
+                    "name" => $userData['name'],
+                    "surname" => $userData['surname'],
+                    "avatar" => $userData['avatar']
+                ];
 
-            $response = [
-                "status" => true
-            ];
-            echo json_encode($response);
-            die();
+                $response = [
+                    "status" => true
+                ];
+                echo json_encode($response);
+                die();
+            } else {
+                $error_fields[] = 'password';
+                $response = [
+                    "status" => false,
+                    "type" => 2,
+                    "message" => 'пароль неверный',
+                    "fields" => $error_fields
+                ];
+                echo json_encode($response);
+                die();
+            }
         } else {
-            $error_fields[] = 'password';
             $response = [
                 "status" => false,
-                "type" => 2,
-                "message" => 'пароль неверный',
-                "fields" => $error_fields
+                "type" => 4,
+                "message" => 'Пользователя с данным email не существует... Пройдите регистрацию'
             ];
             echo json_encode($response);
             die();
         }
 
-        $response = [
-            "status" => true,
-            "message" => 'пользователь зарегистрирован'
-        ];
-        echo json_encode($response);
-        die();
     } catch (PDOException $ex) {
         $response = [
             "status" => false,

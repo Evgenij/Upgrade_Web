@@ -190,6 +190,10 @@ input.input.with-shadow,
   background: url(/pictures/icons/no-view.svg) 0 no-repeat;
 }
 
+.user-menu {
+  border: 1px solid #E6E8F7;
+}
+
 .tabs-triggers__item object #document svg path {
   -webkit-transition: 0.3s;
   transition: 0.3s;

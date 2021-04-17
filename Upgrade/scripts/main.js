@@ -29,12 +29,14 @@ $('li[value=\"tab-1\"]').click(function () {
 })
 
 $('li[value=\"tab-2\"]').click(function () {
+	GetDataToProjectsSelect();
 	iniSelect('date-filter', 0);
 	iniSelect('status-filter');
 	iniSelect('projects-filter');
 
 	//SetSelectProjects('projects-filter');
 	let idProject = getValueSelect('projects-filter');
+	console.log(idProject);
 
 	iniSelect('executors-filter');
 	SetSelectTargets(idProject, 'targets-filter');
@@ -45,6 +47,7 @@ $('li[value=\"tab-2\"]').click(function () {
 })
 
 $('li[value=\"tab-3\"]').click(function () {
+	GetDataToProjectsSelect();
 	GetProjects();
 	GetTargets();
 	GetAttachments();
@@ -155,6 +158,46 @@ function GetProjectsList() {
 		}
 	})
 }
+
+
+function GetDataToProjectsSelect() {
+	$.ajax({
+		url: '/php/vendor/getProjects.php',
+		dataType: 'json',
+		success(data) {
+			$('.custom-options.projects-task').html(data.projects);
+			$('.custom-options.projects-filter').html("<span class='custom-option undefined' data-value='0'>Все проекты</span>"+data.projects);
+			$('.custom-options.projects-task-data').html(data.projects);
+			$('.custom-options.projects-target').html(data.projects);
+			$('.custom-options.projects-attach').html(data.projects);
+
+			iniSelect('projects-task');
+			let idProject = getValueSelect('projects-task');
+			SetSelectTargets(idProject, 'targets-task');
+			getExecutors(idProject, 'executors-task');
+		}
+	})
+}
+
+function GetDataToTargetsSelect() {
+	$.ajax({
+		url: '/php/vendor/getTargets.php',
+		dataType: 'json',
+		success(data) {
+			$('.custom-options.targets-task').html(data.projects);
+			$('.custom-options.projects-filter').html("<span class='custom-option undefined' data-value='0'>Все проекты</span>" + data.projects);
+			$('.custom-options.projects-task-data').html(data.projects);
+
+			iniSelect('projects-task');
+			let idProject = getValueSelect('projects-task');
+			SetSelectTargets(idProject, 'targets-task');
+			getExecutors(idProject, 'executors-task');
+		}
+	})
+}
+
+
+
 
 
 
@@ -964,13 +1007,13 @@ function showModal(modal, change = false) {
 		}
 	} else if (modalWindow.hasClass('add-attach')) {
 		if (change == false) {
-			modalWindow.find('.head__title').text('Создание цели');
+			modalWindow.find('.head__title').text('Создание вложения');
 			modalWindow.find('input').val('');
 			modalWindow.find('textarea').val('');
-			modalWindow.find('.select-activity[data!="default-select"]').detach();
 		} else {
 			modalWindow.find('.head__title').text('Изменение вложения');
 		}
+		modalWindow.find('.uploaded-files').empty();
 	}
 
 	wrapp.toggleClass('hide');
@@ -994,13 +1037,14 @@ $('.head__btn-close').click(function () {
 
 
 $('#add-task').click(function () {
+	GetDataToProjectsSelect();
 	showModal(this);
 
-	iniSelect('projects-task');
+	//iniSelect('projects-task');
 
-	let idProject = getValueSelect('projects-task');
-	SetSelectTargets(idProject, 'targets-task');
-	getExecutors(idProject, 'executors-task');
+	// let idProject = getValueSelect('projects-task');
+	// SetSelectTargets(idProject, 'targets-task');
+	// getExecutors(idProject, 'executors-task');
 
 	iniSelect('durations-task');
 })
@@ -1384,7 +1428,7 @@ $('.user-menu').on('mouseleave', function (e) {
 	$('.user-panel-wrapper').toggleClass('active');
 });
 
-$('#logout').click(function () {
+$('.logout').click(function () {
 	window.location.replace('/vendor/logout.php');
 })
 
@@ -1409,6 +1453,7 @@ $('.custom-options.projects').click(function () {
 
 	let id_select_projects = $(this).attr('id');
 	idProject = getValueSelect(id_select_projects);
+	console.log(idProject);
 
 	if (id_select_projects == 'projects-task') {
 		SetSelectTargets(idProject, 'targets-task');
@@ -1468,14 +1513,14 @@ function SetSelectProjects(selectProjects) {
 function SetSelectTargets(idProject, selectTargets, id) {
 	if (idProject != 0) {
 		$.ajax({
-			url: 'php/getTargets.php',
+			url: '/php/vendor/getTargets.php',
 			type: 'POST',
-			dataType: 'html',
+			dataType: 'json',
 			data: {
 				project: idProject
 			},
 			success(data) {
-				SetDatasSelect(selectTargets, data, id);
+				SetDatasSelect(selectTargets, data.targets, id);
 			}
 		});
 	}
@@ -1870,10 +1915,13 @@ $('#btn-auth').click(function (e) {
 				};
 			}
 			else {
-				data.fields.forEach(function (field) {
-					$(`input[name="${field}"]`).addClass('error');
-				});
-				$('.message-block').removeClass('hide').text(data.message);
+				if (data.type == 1 || data.type == 2) {
+					data.fields.forEach(function (field) {
+						$(`input[name="${field}"]`).addClass('error');
+					});
+				}
+				// $('.message-block').removeClass('hide').text(data.message);
+				$('.message-block').removeClass('hide').html('<svg class="icon-mess error" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 19C14.9706 19 19 14.9706 19 10C19 5.02944 14.9706 1 10 1C5.02944 1 1 5.02944 1 10C1 14.9706 5.02944 19 10 19Z" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 6.3999V9.9999" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path d="M10 13.6001H10.01" stroke="#8A66F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>' + data.message);
 			}
 		}
 	});

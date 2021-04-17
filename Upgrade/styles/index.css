@@ -217,9 +217,8 @@ form .button {
 }
 
 .message-block {
-  display: block;
   color: #e06262;
-  margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .nick-error {

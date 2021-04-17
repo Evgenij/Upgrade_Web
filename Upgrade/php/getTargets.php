@@ -1,5 +1,5 @@
 <?php
-require_once "../vendor/connect.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/connect.php";
 
 $idProject = $_POST['project'];
 

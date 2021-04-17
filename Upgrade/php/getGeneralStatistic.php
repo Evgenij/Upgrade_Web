@@ -4,7 +4,11 @@ require_once "./vendor/connect.php";
 
 $data = [];
 
-$sql = "SELECT COUNT(*) FROM task INNER JOIN target ON target.id_target = task.id_target INNER JOIN project ON project.id_project = target.id_project INNER JOIN user ON user.id_user = project.id_user WHERE task.date = :dateTask AND user.id_user = :idUser";
+$sql = "SELECT COUNT(*) FROM task 
+        INNER JOIN target ON target.id_target = task.id_target 
+        INNER JOIN project ON project.id_project = target.id_project 
+        INNER JOIN user ON user.id_user = project.id_user 
+        WHERE task.date = :dateTask AND user.id_user = :idUser";
 $query = $db->prepare($sql);
 $params = [
     ':idUser' => $_SESSION['user']['id'],
@@ -13,7 +17,11 @@ $params = [
 $query->execute($params);
 $data['allTask'] = $query->fetch()[0];
 
-$sql = "SELECT COUNT(*) FROM task INNER JOIN target ON target.id_target = task.id_target INNER JOIN project ON project.id_project = target.id_project INNER JOIN user ON user.id_user = project.id_user WHERE task.date = :dateTask AND task.status = 1 AND user.id_user = :idUser";
+$sql = "SELECT COUNT(*) FROM task 
+        INNER JOIN target ON target.id_target = task.id_target 
+        INNER JOIN project ON project.id_project = target.id_project 
+        INNER JOIN user ON user.id_user = project.id_user 
+        WHERE task.date = :dateTask AND task.status = 1 AND user.id_user = :idUser";
 $query = $db->prepare($sql);
 $params = [
     ':idUser' => $_SESSION['user']['id'],
@@ -69,7 +77,9 @@ $data['countProject'] = $query->fetch()[0];
 
 
 
-$sql = "SELECT COUNT(project.id_project) FROM project INNER JOIN user ON user.id_user = project.id_user WHERE user.id_user = :idUser AND project.creator = 1";
+$sql = "SELECT COUNT(project.id_project) FROM project 
+        INNER JOIN user ON user.id_user = project.id_user 
+        WHERE user.id_user = :idUser AND project.creator = 1";
 $query = $db->prepare($sql);
 $params = [
     ':idUser' => $_SESSION['user']['id']

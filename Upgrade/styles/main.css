@@ -179,6 +179,7 @@
       flex-wrap: wrap;
   overflow-y: auto;
   max-height: 160px;
+  margin-top: 10px;
 }
 .attach-block .comment {
   max-width: -webkit-max-content;
@@ -292,6 +293,9 @@ body {
 }
 .tabs-triggers__item:hover {
   color: #8A66F0;
+}
+.tabs-triggers__item.disable {
+  color: #ccc;
 }
 
 .tabs-triggers__item--active {

@@ -93,7 +93,8 @@ if(isset($_COOKIE["password_cookie_token"]) && !empty($_COOKIE["password_cookie_
                         <a class="remember-pass text" href="recovery_pass.php">забыли пароль?</a>                                                                                                            
                     </div>
                 </div>
-                <div class="message-block hide"></div>
+                <div class="message-block error flex hide"></div>
+                <!-- <div class="modal-window__message error flex hide"></div> -->
                 <button class="button" id="btn-auth" type="button">Войти</button>
             </form>
             <div class="form-footer flex">

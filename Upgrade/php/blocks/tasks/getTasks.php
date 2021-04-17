@@ -1,18 +1,5 @@
 <?php
 
-// SELECT task.id_task, task.status, task.date, task.duration, task.text, task.descr,
-// project.name, project.mark, project.id_project,
-// target.name, target.mark, target.id_target
-// FROM task 
-// INNER JOIN target ON target.id_target = task.id_target
-// INNER JOIN project ON project.id_project = target.id_project
-// INNER JOIN user ON user.id_user = project.id_user
-// WHERE user.id_user = 29 
-// AND task.date = '2021-03-06' 
-// AND task.status = 0 
-// AND project.id_project = 8 
-// AND target.id_target = 24 
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/connect.php';
 
 $period = $_POST['period'];
@@ -44,10 +31,6 @@ if($period == -2){ // прошлая неделя
 } else if($period == 2) { // след. неделя
     $sql .= 'task.date BETWEEN \'' . date('Y-m-') . $currWeek[0] . '\' AND \'' . date('Y-m-') . $currWeek[6] . '\'';
 }
-
-// --------------------------
-
-//getCountSubtask(task.id_task), getDoneSubtask(task.id_task),
 
 // --------------------------
 
@@ -102,12 +85,6 @@ if($project != 0){ // если был выбран проект
                         ':idTarget' => $target,
                         ':taskStatus' => $status];
             $nestedSQL->execute($params);
-
-            // $response = [
-            //     "sql" => $sql,
-            //     "status" => true
-            // ];
-            //echo json_encode($response);
             
         }
         catch(PDOException $ex){
@@ -120,10 +97,7 @@ if($project != 0){ // если был выбран проект
             die();
         }
     }
-    SetBlocks($nestedSQL, $sql);
-    // $response['status'] = $sql;
-    // echo json_encode($response);
-    
+    SetBlocks($nestedSQL, $sql); 
 }
 else {
     try{
@@ -150,9 +124,6 @@ else {
         die();
     }
 }
-
-
-
 
 
 function SetBlocks($nestedSQL, $sql){
